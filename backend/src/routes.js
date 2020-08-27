@@ -5,8 +5,11 @@ const UsuarioController = require('./controllers/UsuarioController')
 
 const routes =  express.Router();
 
-routes.get('/usuario', UsuarioController.list);
+routes.get('/usuario/:id', UsuarioController.view);
 routes.post('/usuario', UsuarioController.create);
+routes.delete('/usuario/:id', UsuarioController.remove);
+
+routes.get('/login', UsuarioController.login);
 
 /*routes.get('/ongs', OngController.index);
 routes.post('/ongs', OngController.create);
