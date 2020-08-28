@@ -11,6 +11,10 @@ export default function Login() {
 
 	const [login, setLogin] = useState()
 
+	function handleLogin(){
+		Drawer.openDrawer();
+	}
+
 	return (
 		<View style={styles.container}>
 			<Image
@@ -31,7 +35,7 @@ export default function Login() {
 				</View>
 			</View>
 
-			<RectButton style={styles.button} /*onPress={handleNavigatoinToPoints}*/>
+			<RectButton style={styles.button} onPress={handleLogin}>
 				<Text style={styles.buttonText}>
 					ENTRAR
             </Text>
