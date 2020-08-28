@@ -4,8 +4,13 @@ const routes = require('./routes');
 
 const app = express();
 
-app.use(cors()); //endereço
+app.use(cors());
 app.use(express.json());
+
+app.use('/imagens',express.static('imagens'));
+
 app.use(routes);
+
+
 
 app.listen(3333);
