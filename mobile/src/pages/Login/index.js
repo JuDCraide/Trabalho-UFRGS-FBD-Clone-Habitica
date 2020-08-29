@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import { RectButton } from 'react-native-gesture-handler';
 
-import { MaterialIcons as Icon } from '@expo/vector-icons'
-import logoImg from '../../assets/logo.png'
+import { MaterialIcons as Icon } from '@expo/vector-icons';
+import logoImg from '../../assets/logo.png';
 
 import styles from './styles';
 
@@ -16,7 +17,7 @@ export default function Login() {
 	}
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<Image
 				style={styles.img}
 				source={logoImg}
@@ -41,6 +42,6 @@ export default function Login() {
             </Text>
 			</RectButton>
 
-		</View>
+		</SafeAreaView>
 	);
 }

@@ -16,7 +16,7 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Drawer.Navigator
-				initialRouteName="Atividades"
+				initialRouteName="Atividade"
 				overlayColor="#00000066"
 				drawerContentOptions={{
 					activeTintColor: '#432874',
@@ -36,7 +36,7 @@ export default function Routes() {
 				<Drawer.Screen name="Atividades" component={Atividades} />
 				<Drawer.Screen name="Conquistas" component={Conquistas} />
 				<Drawer.Screen name="Mercado" component={Mercado} />
-				<Drawer.Screen name="Itens"  component={Itens} />
+				<Drawer.Screen name="Inventário"  component={Itens} />
 				<Drawer.Screen name="Grupo" component={Grupo} />
 				<Drawer.Screen name="Login" component={Login} />
 			</Drawer.Navigator>
