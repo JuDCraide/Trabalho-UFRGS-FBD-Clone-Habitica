@@ -1,23 +1,10 @@
-const dbconnection = require('../connection')
-
-var connection = dbconnection.dbConnection();
+const connection = require('../connection')
 
 module.exports = {
 
-    
-
-    async login(req, res) {
-        const { login } = req.body;
-        let query = `SELECT id FROM usuario WHERE login = ${login};`;
-        connection.query(query, function (err, result, fields) {
-            if (err) return res.status(500).json(err)
-            return res.status(200).json(result)
-        })
-    },
-
     async create(req, res) {
-        const { nome, login, id_classe } = req.body;
-        let query = `INSERT INTO usuario(nome,login id_classe) VALUES (${nome},${login},${id_classe});`
+        const { nome, id_lider } = req.body;
+        let query = `INSERT INTO grupo(nome, id_lider) VALUES (${nome},${id_lider});`
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             return res.status(200).send('Cadastrado com sucesso')
@@ -27,7 +14,7 @@ module.exports = {
     async view(req, res) {
         const {id} = req.params;
         console.log(id)
-        let query = `SELECT * FROM usuario where id=${id};`;
+        let query = `SELECT * FROM grupo where id=${id};`;
         console.log(query);
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
@@ -38,7 +25,7 @@ module.exports = {
 
     async remove(req, res) {
         const { id } = req.body;
-        let query = `DELETE FROM usuario where id = (${id});`
+        let query = `DELETE FROM grupo where id = (${id});`
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             return res.status(200).send('Excluído com sucesso')
