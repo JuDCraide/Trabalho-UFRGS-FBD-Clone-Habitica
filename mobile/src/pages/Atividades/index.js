@@ -5,10 +5,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../../components/Header';
 import ItemHabito from '../../components/ItemHabito';
 import ItemRotina from '../../components/ItemRotina';
+import ItemTarefa from '../../components/ItemTarefa';
 
 import avatarImg from '../../assets/avatar.png';
 import styles from './styles';
-
 
 export default function Atividades(props) {
 
@@ -49,6 +49,7 @@ export default function Atividades(props) {
             <View style={styles.container}>
                 <ItemHabito nome='Arrumar a cama'/>
                 <ItemRotina nome='Banho'/>
+                <ItemTarefa nome='Trabalho FDB' data="29/08/2020"/>
             </View>
         </SafeAreaView>
     );
