@@ -3,9 +3,11 @@ import { View, Text, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Header from '../../components/Header';
+import ItemHabito from '../../components/ItemHabito';
 
 import avatarImg from '../../assets/avatar.png';
 import styles from './styles';
+
 
 export default function Atividades(props) {
 
@@ -20,7 +22,7 @@ export default function Atividades(props) {
                     <View style={styles.estatisticas}>
                         <View style={{ flex: 1 }}>
                             <View style={styles.porcentagem}>
-                                <View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${health}%` }}></View>
+                                <View style={{ ...styles.porcentagem, backgroundColor: "#f74e52", width: `${health}%` }}></View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.textos}>45/100</Text>
@@ -29,7 +31,7 @@ export default function Atividades(props) {
                         </View>
                         <View style={{ flex: 1 }}>
                             <View style={styles.porcentagem}>
-                                <View style={{ ...styles.porcentagem, backgroundColor: "#3bcad7", width: `${xp}%` }}></View>
+                                <View style={{ ...styles.porcentagem, backgroundColor: "#ffbe5d", width: `${xp}%` }}></View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.textos}>570/770</Text>
@@ -43,7 +45,9 @@ export default function Atividades(props) {
                     <Text style={styles.dinheiro}>25 Dinheiro</Text>
                 </View>
             </View>
-            <Text>Atividades</Text>
+            <View style={styles.container}>
+                <ItemHabito nome='Arrumar a cama'/>
+            </View>
         </SafeAreaView>
     );
 }

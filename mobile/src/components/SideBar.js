@@ -20,7 +20,7 @@ export default SideBar = props => {
     const newState2 = copy(state)
     const newState3 = copy(state)
     newState1.routes = newState1.routes.filter(item => ['Atividades', 'Conquistas'].includes(item.name));
-    newState2.routes = newState2.routes.filter(item => ['Mercado', 'Itens'].includes(item.name));
+    newState2.routes = newState2.routes.filter(item => ['Mercado', 'Inventário'].includes(item.name));
     newState3.routes = newState3.routes.filter(item => ['Grupo'].includes(item.name));
 
     return (

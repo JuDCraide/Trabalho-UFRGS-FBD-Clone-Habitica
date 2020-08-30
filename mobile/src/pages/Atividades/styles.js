@@ -38,7 +38,7 @@ export default StyleSheet.create({
     },
     porcentagem: {
         height: 8,
-        backgroundColor: "#1a181d88",
+        backgroundColor: "#271b3d",
         width: '100%',
         borderRadius: 100
     }

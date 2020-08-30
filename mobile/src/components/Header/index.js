@@ -6,7 +6,6 @@ import styles from './styles';
 
 export default function Header({ titulo, navigation }) {
 
-    console.log(navigation);
     function openMenu(){
         navigation.openDrawer()
     }

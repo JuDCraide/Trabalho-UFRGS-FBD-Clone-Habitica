@@ -8,7 +8,7 @@ import Grupo from './pages/Grupo';
 import Itens from './pages/Itens';
 import Mercado from './pages/Mercado';
 import Login from './pages/Login';
-import SideBar from './SideBar';
+import SideBar from './components/SideBar';
 
 const Drawer = createDrawerNavigator();
 
