@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Header from '../../components/Header';
 import ItemHabito from '../../components/ItemHabito';
+import ItemRotina from '../../components/ItemRotina';
 
 import avatarImg from '../../assets/avatar.png';
 import styles from './styles';
@@ -47,6 +48,7 @@ export default function Atividades(props) {
             </View>
             <View style={styles.container}>
                 <ItemHabito nome='Arrumar a cama'/>
+                <ItemRotina nome='Banho'/>
             </View>
         </SafeAreaView>
     );
