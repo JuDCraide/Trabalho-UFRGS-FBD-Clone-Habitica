@@ -9,6 +9,7 @@ import Itens from './pages/Itens';
 import Mercado from './pages/Mercado';
 import Login from './pages/Login';
 import SideBar from './components/SideBar';
+import CriarAtividades from './pages/CriarAtividade';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,7 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Drawer.Navigator
-				initialRouteName="Atividade"
+				initialRouteName="Criar Atividades"
 				overlayColor="#00000066"
 				drawerContentOptions={{
 					activeTintColor: '#432874',
@@ -39,6 +40,7 @@ export default function Routes() {
 				<Drawer.Screen name="Inventário"  component={Itens} />
 				<Drawer.Screen name="Grupo" component={Grupo} />
 				<Drawer.Screen name="Login" component={Login} />
+				<Drawer.Screen name="Criar Atividades" component={CriarAtividades} />
 			</Drawer.Navigator>
 		</NavigationContainer >
 	);

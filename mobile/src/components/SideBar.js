@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
 export default SideBar = props => {
-   
+
     function copy(o) {
         var out, v, key;
         out = Array.isArray(o) ? [] : {};
@@ -15,7 +15,7 @@ export default SideBar = props => {
     }
 
     const { state, ...rest } = props;
-    
+
     const newState1 = copy(state)
     const newState2 = copy(state)
     const newState3 = copy(state)
@@ -39,7 +39,9 @@ export default SideBar = props => {
                 <View style={{ backgroundColor: "#432879", height: 30 }}>
                     <Text style={{ color: "#FFF" }}>Social</Text>
                 </View>
-                <DrawerItemList state={newState3} {...rest} />
+                {//<DrawerItemList state={newState3} {...rest} />
+                }
+                <DrawerItemList state={state} {...rest} />
             </View>
         </DrawerContentScrollView>
     )

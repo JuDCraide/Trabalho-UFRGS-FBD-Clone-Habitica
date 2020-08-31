@@ -8,6 +8,11 @@ export default StyleSheet.create({
         marginRight: 15,
         borderRadius: 5,
     },
+    imagem: {
+        flex: 1,
+        //backgroundColor: '#fff',
+        borderRadius: 5,
+    },
     vazio: {
         flex: 1,
         marginHorizontal: 5,
@@ -16,12 +21,12 @@ export default StyleSheet.create({
         borderStyle: 'dashed',
         borderColor: '#4e4a57',
         borderRadius: 2,
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    text:{
-        color:'#878190',
+    text: {
+        color: '#878190',
         fontSize: 12,
-        textAlign:'center'
+        textAlign: 'center'
     }
 });

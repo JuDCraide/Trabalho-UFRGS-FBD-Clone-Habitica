@@ -14,10 +14,10 @@ export default function Itens(props) {
             <View  style={styles.containerConteudo}>
                 <Text>Equipados</Text>
                 <View style={styles.equipados}>
-                    <ItemEquipado imagem={true} />
-                    <ItemEquipado imagem={false} />
-                    <ItemEquipado imagem={false} />
-                    <ItemEquipado imagem={false} />
+                    <ItemEquipado imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemEquipado />
+                    <ItemEquipado />
+                    <ItemEquipado />
                 </View>
                 <Text>Arsenal completo</Text>
                 <View>
