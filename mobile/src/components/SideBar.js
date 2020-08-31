@@ -25,18 +25,18 @@ export default SideBar = props => {
 
     return (
         <DrawerContentScrollView style={{ flex: 1 }}>
-            <View style={{ backgroundColor: "#432879", height: 80 }}>
+            <View style={{ backgroundColor: "#432879", height: 80, paddingLeft:15, justifyContent:'center' }}>
                 <Text style={{ color: "#FFF" }}>Username</Text>
                 <Text style={{ color: "#FFF" }}>@Login</Text>
             </View>
 
             <View style={{ margin: 0, padding: 0 }}>
                 <DrawerItemList state={newState1} {...rest} />
-                <View style={{ backgroundColor: "#432879", height: 30 }}>
+                <View style={{ backgroundColor: "#432879", height: 25, paddingLeft:15, justifyContent:'center' }}>
                     <Text style={{ color: "#FFF" }}>Itens</Text>
                 </View>
                 <DrawerItemList state={newState2} {...rest} />
-                <View style={{ backgroundColor: "#432879", height: 30 }}>
+                <View style={{ backgroundColor: "#432879", height: 25, paddingLeft:15, justifyContent:'center' }}>
                     <Text style={{ color: "#FFF" }}>Social</Text>
                 </View>
                 {//<DrawerItemList state={newState3} {...rest} />

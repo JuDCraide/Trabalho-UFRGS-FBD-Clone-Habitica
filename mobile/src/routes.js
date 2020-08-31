@@ -30,6 +30,7 @@ export default function Routes() {
 						marginVertical: 0,
 						marginHorizontal: 0,
 						borderRadius:0,
+						paddingLeft:10
 					}
 				}}
 				drawerContent={(props) => <SideBar {...props} />}
