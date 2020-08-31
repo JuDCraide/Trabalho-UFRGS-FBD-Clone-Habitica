@@ -32,8 +32,8 @@ export default StyleSheet.create({
     input: {
         height: 60,
         backgroundColor: '#FFFFFF80',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
         marginBottom: 8,
         paddingHorizontal: 24,
         fontSize: 16,
@@ -42,8 +42,8 @@ export default StyleSheet.create({
     inputFocado: {
         height: 60,
         backgroundColor: '#FFFFFFBF',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
         marginBottom: 8,
         paddingHorizontal: 24,
         fontSize: 16,
@@ -55,34 +55,77 @@ export default StyleSheet.create({
         flex: 1,
         paddingHorizontal: 15,
     },
-    dificuldades: {
+    areaSelecao: {
         width: '100%',
-        height: 120,
+        height: 100,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent:'space-between',
-
+        justifyContent: 'space-between',
+        //borderColor:'green',
+        //borderWidth:2,
     },
-    dificuldade: {
+    itensSelecao: {
         height: '90%',
-        alignItems:'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        //borderColor: 'red',
+        //borderWidth: 2,
     },
     dificuldadeImg: {
-        width:55,
+        width: 55,
         height: 55,
         backgroundColor: '#e1e0e3',
         borderRadius: 5,
     },
-    dificuldadeImgAtivo:{
-        width:55,
+    dificuldadeImgAtivo: {
+        width: 55,
         height: 55,
         backgroundColor: '#6132b4',
         borderRadius: 5,
     },
-    dificuldadeTexto: {
-        color:"#686274"
+    textoOpcao: {
+        color: "#686274"
     },
-    dificuldadeTextoAtivo: {
-        color:"#6132b4"
+    textoOpcaoAtiva: {
+        color: "#6132b4"
     },
+
+    //habito e rotina
+    circuloPreenchido: {
+        backgroundColor: "#6132b4",
+        width: 30,
+        height: 30,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    circuloContornado: {
+        width: 30,
+        height: 30,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: "#E1E0E3",
+        borderWidth: 1,
+    },
+    itemAtivo: {
+        color: "#FFF",
+    },
+    itemInativo: {
+        color: "#E1E0E3",
+    },
+    //tarefa
+    inputData:{
+        height: 60,
+        backgroundColor: '#e1e0e3',
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        marginBottom: 8,
+        paddingHorizontal: 24,
+        fontSize: 16,
+        borderBottomColor: "#c3c0c7",
+        borderBottomWidth: 3,
+        width: '100%'
+        
+    }
 });
