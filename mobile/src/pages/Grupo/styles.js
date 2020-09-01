@@ -11,7 +11,7 @@ export default StyleSheet.create({
     },
     nomeGrupo: {
         fontSize: 20,
-        fontWeight:'bold',
+        fontWeight: 'bold',
         color: '#4e4a57',
         marginTop: 15,
         textAlign: 'center',
@@ -23,7 +23,7 @@ export default StyleSheet.create({
         backgroundColor: "#c3c0c7",
         marginVertical: 15
     },
-    subtitulo:{
+    subtitulo: {
         fontSize: 18,
         color: '#878190',
         marginBottom: 15
@@ -58,6 +58,11 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 15,
+    },
+    adicionarMembro: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
 
     //progressoMissao
@@ -129,5 +134,55 @@ export default StyleSheet.create({
         width: 8,
         borderWidth: 2,
         borderColor: '#e1e0e3',
+    },
+
+    //modal adicionar membro
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+        backgroundColor: '#00000044'
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    openButton: {
+        width: 200,
+        backgroundColor: "#F194FF",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        marginTop: 15,
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    input: {
+        //width: '85%',
+        height: 50,
+        backgroundColor: '#fff',
+        borderColor: '#c3c0c7',
+        borderWidth: 1,
+        borderRadius: 5,
+        color: '#1a181d',
+        fontSize: 16,
+        paddingVertical: 5,
+        paddingHorizontal: 12,
+        marginRight: 10,
     },
 });

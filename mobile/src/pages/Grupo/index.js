@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Modal, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Header from '../../components/Header';
@@ -13,9 +13,42 @@ export default function Grupo(props) {
 	const monsterHealth = 100;
 	const totalDamage = 45;
 	const temGrupo = true;
+	const ehLider = true;
+
+	const [adicionarMembro, setAdicionarMembro] = useState(false);
+	const [novoMembro, setNovoMembro] = useState(false);
 
 	return (
 		<SafeAreaView style={styles.container}>
+
+			<Modal
+				animationType="fade"
+				transparent={true}
+				visible={adicionarMembro}
+			>
+				<View style={styles.centeredView}>
+					<View style={styles.modalView}>
+						<Text style={styles.subtitulo}>Adicionar Membro</Text>
+
+						<TextInput
+							style={styles.input}
+							placeholder='Escreva o nome do usuario'
+							value={novoMembro}
+							onChangeText={setNovoMembro}
+						/>
+
+						<TouchableOpacity
+							style={{ ...styles.openButton }}
+							onPress={() => {
+								setAdicionarMembro(!adicionarMembro);
+							}}
+						>
+							<Text style={styles.textStyle}>Adicionar</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</Modal>
+
 			<Header titulo={props.route.name} {...props} />
 
 			<ScrollView style={{ flex: 1 }}>{
@@ -68,7 +101,20 @@ export default function Grupo(props) {
 						</View>
 
 						<View style={styles.divisor} />
-						<Text style={styles.subtitulo}>Membros</Text>
+						<View style={styles.adicionarMembro}>
+							<Text style={styles.subtitulo}>Membros</Text>
+							{
+								ehLider &&
+								<TouchableOpacity onPress={() => setAdicionarMembro(true)}>
+									<Icon
+										style={{ marginBottom: 15 }}
+										name="person-add"
+										size={24}
+										color="#878190"
+									/>
+								</TouchableOpacity>
+							}
+						</View>
 						<IntegranteGrupo lider={true} />
 						<IntegranteGrupo lider={false} />
 
