@@ -23,7 +23,7 @@ export default function Atividades(props) {
                     <View style={styles.estatisticas}>
                         <View style={{ flex: 1 }}>
                             <View style={styles.porcentagem}>
-                                <View style={{ ...styles.porcentagem, backgroundColor: "#f74e52", width: `${health}%` }}></View>
+                                <View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${health}%` }}></View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.textos}>45/100</Text>

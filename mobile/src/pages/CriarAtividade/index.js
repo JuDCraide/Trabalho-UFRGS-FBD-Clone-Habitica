@@ -75,7 +75,7 @@ export default function CriarAtividades() {
 				/>
 			</View>
 			<View style={styles.principal}>
-				<Text>Dificuldade</Text>
+				<Text style={styles.subtitulo}>Dificuldade</Text>
 				<View style={styles.areaSelecao}>
 					<TouchableOpacity style={styles.itensSelecao} onPress={() => setDificuldade(1)}>
 						<View style={dificuldade == 1 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}></View>
@@ -97,7 +97,7 @@ export default function CriarAtividades() {
 				{
 					atividade === 'Tarefa' ? (
 						<>
-							<Text>Conclusão</Text>
+							<Text style={styles.subtitulo}>Conclusão</Text>
 							<View style={{ ...styles.areaSelecao, justifyContent: 'space-evenly' }}>
 								<TextInput // date picker
 									//style={focus ? styles.inputFocado : styles.input}
@@ -114,7 +114,7 @@ export default function CriarAtividades() {
 						</>
 					) : atividade === 'Rotina' ? (
 						<>
-							<Text>Repetição</Text>
+							<Text style={styles.subtitulo}>Repetição</Text>
 							<View style={{ ...styles.areaSelecao, height: 50 }}>
 								<TouchableOpacity style={styles.itensSelecao}>
 									<View style={1 ? styles.circuloPreenchido : styles.circuloContornado}>
@@ -156,7 +156,7 @@ export default function CriarAtividades() {
 						</>
 					) : atividade === 'Hábito' && (
 						<>
-							<Text>Valor</Text>
+							<Text style={styles.subtitulo}>Valor</Text>
 							<View style={{ ...styles.areaSelecao, justifyContent: 'space-evenly' }}>
 								<TouchableOpacity style={styles.itensSelecao}>
 									<View style={1 ? styles.circuloPreenchido : styles.circuloContornado}>

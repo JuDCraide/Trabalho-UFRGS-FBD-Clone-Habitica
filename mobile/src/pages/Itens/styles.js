@@ -17,4 +17,16 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 15,
     },
+    subtitulo: {
+        fontSize: 18,
+        color: '#878190',
+        marginVertical: 15
+    },
+    divisor: {
+        width: '110%',
+        marginLeft: -20,
+        height: 1,
+        backgroundColor: "#c3c0c7",
+        marginVertical: 15
+    },
 });

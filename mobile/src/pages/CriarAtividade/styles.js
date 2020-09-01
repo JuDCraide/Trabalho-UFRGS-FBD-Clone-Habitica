@@ -35,7 +35,8 @@ export default StyleSheet.create({
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         marginBottom: 8,
-        paddingHorizontal: 24,
+        //paddingHorizontal: 24,
+        paddingLeft:10,
         fontSize: 16,
         width: '100%'
     },
@@ -54,6 +55,11 @@ export default StyleSheet.create({
     principal: {
         flex: 1,
         paddingHorizontal: 15,
+    },
+    subtitulo:{
+        fontSize: 18,
+        color: '#4e4a57',
+        marginTop: 15
     },
     areaSelecao: {
         width: '100%',

@@ -55,4 +55,8 @@ export default StyleSheet.create({
     itemInativo: {
         color: "#E1E0E3",
     },
+    titulo:{
+        fontSize: 16,
+        color: '#4e4a57',
+    },
 });

@@ -48,4 +48,8 @@ export default StyleSheet.create({
         paddingLeft: 15,
         justifyContent: 'center',
     },
+    titulo:{
+        fontSize: 16,
+        color: '#4e4a57',
+    },
 });
