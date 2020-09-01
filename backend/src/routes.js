@@ -1,25 +1,26 @@
 const express = require('express');
 
 const UsuarioController = require('./controllers/UsuarioController')
-
+const ClasseController =  require('./controllers/ClasseController');
+const ItemController = require('./controllers/ItemController');
+const HabitoController = require('./controllers/HabitoController');
 
 const routes =  express.Router();
  
 routes.get('/usuario/:id', UsuarioController.view);
-routes.get('/usuario/:id/classe', UsuarioController.view);
+routes.get('/usuario/:id/classe', ClasseController.view);
 routes.post('/usuario', UsuarioController.create);
 routes.delete('/usuario/:id', UsuarioController.remove);
 
 routes.get('/login', UsuarioController.login);
 
-routes.get('/classes', UsuarioController.view);
+routes.get('/classes', ClasseController.list);
 
-routes.get('/atividades', UsuarioController.view);
-
-routes.get('/habito/:id', UsuarioController.view);
-routes.patch('/habito/:id', UsuarioController.view);
-routes.post('/habito', UsuarioController.create);
-routes.delete('/habito/:id', UsuarioController.remove);
+routes.get('/habito', HabitoController.list);
+routes.get('/habito/:id', HabitoController.view);
+routes.patch('/habito/:id', HabitoController.view);
+routes.post('/habito', HabitoController.create);
+routes.delete('/habito/:id', HabitoController.remove);
 
 routes.get('/rotina/:id', UsuarioController.view);
 routes.patch('/rotina/:id', UsuarioController.view);
@@ -33,9 +34,9 @@ routes.delete('/tarefa/:id', UsuarioController.remove);
 
 routes.get('/conquistas', UsuarioController.view);
 
-routes.get('/itens', UsuarioController.view); //Filtrar por possuído ou equipado
-routes.post('/item/equipar-item', UsuarioController.view); //Alterar equipado
-routes.post('/item/comprar-item', UsuarioController.view); //Alterar equipado
+routes.get('/itens', ItemController.view); //Filtrar por possuído ou equipado
+routes.post('/item/equipar-item', ItemController.view); //Alterar equipado
+routes.post('/item/comprar-item', ItemController.view); 
 
 routes.get('/grupos', UsuarioController.view);
 routes.get('/grupo/:id', UsuarioController.view);
