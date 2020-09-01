@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     subtitulo: {
         fontSize: 18,
-        color: '#878190',
+        color: '#4e4a57',
         marginVertical: 15
     },
     divisor: {
