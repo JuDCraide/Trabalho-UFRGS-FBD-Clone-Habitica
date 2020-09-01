@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 import styles from './styles';
 
 
-export default function Item({ nome, poder, valorPoder, imagem }) {
+export default function Item({ nome, poder, valorPoder, imagem, equipar }) {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={equipar}>
 
             <Image style={styles.imagem} source={{ uri: imagem }} />
 
@@ -19,6 +19,6 @@ export default function Item({ nome, poder, valorPoder, imagem }) {
                     {poder === 3 && ' Inteligência'}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
