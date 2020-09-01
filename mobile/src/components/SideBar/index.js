@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
@@ -27,48 +27,22 @@ export default SideBar = props => {
     newState2.routes = newState2.routes.filter(item => ['Mercado', 'Inventário'].includes(item.name));
     newState3.routes = newState3.routes.filter(item => ['Grupo', 'Chat do Grupo'].includes(item.name));
 
-    const [popUpoExcluir, setPopUpoExcluir] = useState(false);
+    const [popUpExcluir, setPopUpExcluir] = useState(false);
 
     return (
-        <DrawerContentScrollView style={{ flex: 1 }}>
-
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={popUpoExcluir}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.subtitulo}>Excluir Conta</Text>
-
-                        <TouchableOpacity
-                            style={{ ...styles.openButton }}
-                            onPress={() => setPopUpoExcluir(!popUpoExcluir)}
-                        >
-                            <Text style={styles.textStyle}>Excluir</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{ ...styles.openButton }}
-                            onPress={() => setPopUpoExcluir(!popUpoExcluir)}
-                        >
-                            <Text style={styles.textStyle}>Sair</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
+        <DrawerContentScrollView style={{ flex: 1, /*borderWidth:5*/ }}>
 
             <View style={styles.header}>
                 <View style={styles.headerLinha}>
                     <View>
-                        <Text style={{ color: "#FFF" }}>Username</Text>
+                        <Text style={{ color: "#FFF", fontSize: 16 }}>Username</Text>
                         <Text style={{ color: "#FFF" }}>@Login</Text>
                     </View>
-                    <TouchableOpacity style={styles.botaoSair } >
-                        <Text style={{ color: "#FFF", fontSize: 18 }}>Sair  </Text>
+                    <TouchableOpacity style={styles.botaoSair} >
+                        <Text style={{ color: "#FFF", fontSize: 16 }}>Sair  </Text>
                         <Icon name="exit-to-app" color="#FFF" size={24} />
                     </TouchableOpacity>
                 </View>
-
             </View>
 
             <View style={{ margin: 0, padding: 0 }}>
@@ -80,15 +54,43 @@ export default SideBar = props => {
                 <View style={styles.categoria}>
                     <Text style={{ color: "#FFF" }}>Social</Text>
                 </View>
-                {//<DrawerItemList state={newState3} {...rest} />
+                {
+                    //<DrawerItemList state={newState3} {...rest} />
+                    <DrawerItemList state={state} {...rest} />
                 }
-                <DrawerItemList state={state} {...rest} />
             </View>
 
-            <TouchableOpacity style={styles.botaoExcluir} onPress={()=> setPopUpoExcluir(true)}>
+            <TouchableOpacity style={styles.botaoExcluir} onPress={() => setPopUpExcluir(true)}>
                 <Text style={{ color: '#fff', paddingRight: 10 }}>Excluir Conta</Text>
                 <Icon name="delete-forever" color="#FFF" size={20} />
             </TouchableOpacity>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={popUpExcluir}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <TouchableOpacity
+                            style={styles.botaoFecharModal}
+                            onPress={() => setPopUpExcluir(!popUpExcluir)}
+                        >
+                            <Icon name='close' size={20} style={styles.textStyle} />
+                        </TouchableOpacity>
+
+                        <Text style={styles.subtitulo}>Excluir Conta</Text>
+
+                        <TouchableOpacity
+                            style={styles.botaoModal}
+                            onPress={() => setPopUpExcluir(!popUpExcluir)}
+                        >
+                            <Text style={styles.textStyle}>Excluir</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
         </DrawerContentScrollView>
     )
 }; 

@@ -30,7 +30,8 @@ export default StyleSheet.create({
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row' 
+        flexDirection: 'row',
+        bottom:0,
     },
 
     //modal excluir
@@ -61,13 +62,25 @@ export default StyleSheet.create({
         color: '#878190',
         marginBottom: 10
     },
-    openButton: {
+    botaoModal: {
         width: 200,
-        backgroundColor: "#F194FF",
-        borderRadius: 20,
+        backgroundColor: '#4f2a93',
+        borderRadius: 5,
         padding: 10,
         elevation: 2,
         marginTop: 15,
+    },
+    botaoFecharModal:{
+        height:25,
+        width: 25,
+        backgroundColor: '#4f2a93',
+        borderRadius: 100,
+        elevation: 2,
+        position:'absolute',
+        top: 15,
+        right:15,
+        alignItems:'center',
+        justifyContent:'center'
     },
     textStyle: {
         color: "white",
