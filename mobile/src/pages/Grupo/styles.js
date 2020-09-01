@@ -63,6 +63,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        //borderWidth:2,
     },
 
     //progressoMissao
@@ -173,7 +174,7 @@ export default StyleSheet.create({
         textAlign: "center"
     },
     input: {
-        //width: '85%',
+        width:220,
         height: 50,
         backgroundColor: '#fff',
         borderColor: '#c3c0c7',
@@ -183,6 +184,25 @@ export default StyleSheet.create({
         fontSize: 16,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        marginRight: 10,
+    },
+    botaoModal: {
+        width: 220,
+        backgroundColor: '#4f2a93',
+        borderRadius: 5,
+        padding: 10,
+        elevation: 2,
+        marginTop: 15,
+    },
+    botaoFecharModal:{
+        height:25,
+        width: 25,
+        backgroundColor: '#4f2a93',
+        borderRadius: 100,
+        elevation: 2,
+        position:'absolute',
+        top: 15,
+        right:15,
+        alignItems:'center',
+        justifyContent:'center'
     },
 });
