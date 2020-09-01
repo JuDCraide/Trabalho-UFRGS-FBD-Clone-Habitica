@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Atividades from './pages/Atividades';
 import Conquistas from './pages/Conquistas';
 import Grupo from './pages/Grupo';
+import ChatDoGrupo from './pages/ChatDoGrupo';
 import Itens from './pages/Itens';
 import Mercado from './pages/Mercado';
 import Login from './pages/Login';
@@ -17,7 +18,7 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Drawer.Navigator
-				initialRouteName="Criar Atividades"
+				initialRouteName="Chat do Grupo"
 				overlayColor="#00000066"
 				drawerContentOptions={{
 					activeTintColor: '#432874',
@@ -40,6 +41,7 @@ export default function Routes() {
 				<Drawer.Screen name="Mercado" component={Mercado} />
 				<Drawer.Screen name="Inventário"  component={Itens} />
 				<Drawer.Screen name="Grupo" component={Grupo} />
+				<Drawer.Screen name="Chat do Grupo" component={ChatDoGrupo} />
 				<Drawer.Screen name="Login" component={Login} />
 				<Drawer.Screen name="Criar Atividades" component={CriarAtividades} />
 			</Drawer.Navigator>
