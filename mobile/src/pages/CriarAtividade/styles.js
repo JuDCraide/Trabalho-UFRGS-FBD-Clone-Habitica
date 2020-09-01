@@ -17,17 +17,19 @@ export default StyleSheet.create({
         height: 140,
         backgroundColor: "#6132b4",
         paddingHorizontal: 20,
+        marginBottom:15,
     },
     titulo: {
         color: "#FFF",
         fontSize: 20,
-        paddingLeft: 30,
+        paddingLeft: 20,
         flex: 1,
         fontWeight: 'bold',
     },
     textoCriar: {
         color: "#FFF",
         fontSize: 14,
+        paddingLeft:10,
     },
     input: {
         height: 60,
@@ -55,11 +57,6 @@ export default StyleSheet.create({
     principal: {
         flex: 1,
         paddingHorizontal: 15,
-    },
-    subtitulo:{
-        fontSize: 18,
-        color: '#4e4a57',
-        marginTop: 15
     },
     areaSelecao: {
         width: '100%',
@@ -133,5 +130,59 @@ export default StyleSheet.create({
         borderBottomWidth: 3,
         width: '100%'
         
-    }
+    },
+
+    //modal
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+        backgroundColor: '#00000044'
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    subtitulo: {
+        fontSize: 18,
+        color: '#878190',
+        marginBottom: 10
+    },
+    botaoModal: {
+        width: 200,
+        backgroundColor: '#4f2a93',
+        borderRadius: 5,
+        padding: 10,
+        elevation: 2,
+        marginTop: 15,
+    },
+    botaoFecharModal:{
+        height:25,
+        width: 25,
+        backgroundColor: '#4f2a93',
+        borderRadius: 100,
+        elevation: 2,
+        position:'absolute',
+        top: 15,
+        right:15,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
 });

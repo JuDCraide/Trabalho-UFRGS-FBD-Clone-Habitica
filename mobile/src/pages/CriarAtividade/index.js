@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Picker, TouchableOpacity } from 'react-native';
+import { View, Text, Picker, TouchableOpacity, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
@@ -7,11 +7,17 @@ import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default function CriarAtividades() {
+export default function CriarAtividades({ criacao = false }) {
 
 	function retornar() {
 	}
 	function criar() {
+
+	}
+	function editar() {
+
+	}
+	function excluir() {
 
 	}
 	const [focus, setFocus] = useState(false);
@@ -21,6 +27,7 @@ export default function CriarAtividades() {
 
 	const [atividade, setAtividade] = useState('Hábito');
 	const [nomeAtividade, setNomeAtividade] = useState('');
+	const [popUpDeletar, setPopUpDeletar] = useState(false);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -28,10 +35,23 @@ export default function CriarAtividades() {
 				<TouchableOpacity onPress={retornar}>
 					<Icon name="arrow-back" color="#FFF" size={24} />
 				</TouchableOpacity>
-				<Text style={styles.titulo}>Criar {atividade}</Text>
-				<TouchableOpacity onPress={criar}>
-					<Text style={styles.textoCriar}>CRIAR</Text>
-				</TouchableOpacity>
+				<Text style={styles.titulo}>
+					{ criacao ? 'Criar ': 'Editar '}
+					 {atividade
+				}</Text>
+				{criacao ?
+					<TouchableOpacity onPress={criar}>
+						<Text style={styles.textoCriar}>CRIAR</Text>
+					</TouchableOpacity>
+					: <>
+						<TouchableOpacity onPress={excluir} onPress={() => setPopUpDeletar(true)}>
+							<Text style={styles.textoCriar}>DELETAR</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={editar}>
+							<Text style={styles.textoCriar}>SALVAR</Text>
+						</TouchableOpacity>
+					</>
+				}
 			</View>
 			<View style={styles.cabecalho}>
 				{/*<TextInput
@@ -183,6 +203,33 @@ export default function CriarAtividades() {
 					)
 				}
 			</View>
+
+			<Modal
+                animationType="fade"
+                transparent={true}
+                visible={popUpDeletar}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <TouchableOpacity
+                            style={styles.botaoFecharModal}
+                            onPress={() => setPopUpDeletar(!popUpDeletar)}
+                        >
+                            <Icon name='close' size={20} style={styles.textStyle} />
+                        </TouchableOpacity>
+
+                        <Text style={styles.subtitulo}>Deletar Atividade</Text>
+
+                        <TouchableOpacity
+                            style={styles.botaoModal}
+                            onPress={() => setPopUpDeletar(!popUpDeletar)}
+                        >
+                            <Text style={styles.textStyle}>Deletar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
 		</SafeAreaView >
 	)
 }
