@@ -10,6 +10,8 @@ import styles from './styles';
 
 export default function ChatDoGrupo(props) {
 
+    const [mensagemAtual, setMensagemAtual] = useState(false);
+
     return (
         <SafeAreaView style={styles.container}>
             <Header titulo={props.route.name} {...props} />
@@ -34,13 +36,12 @@ export default function ChatDoGrupo(props) {
             <View style={styles.mensagem}>
                 <TextInput
                     style={styles.input}
-                    placeholder='Login'
-                    //value={login}
-                    //onChangeText={setLogin}
-                    //placeholderTextColor='#D5C8FF'
+                    placeholder='Escreva sua mensagem'
+                    value={mensagemAtual}
+                    onChangeText={setMensagemAtual}
                 />
                 <TouchableOpacity>
-                    <Icon name="send" color="#c3c0c7" size={28} />
+                    <Icon name="send" color={mensagemAtual ? "#6132b4" :"#c3c0c7"} size={28} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
