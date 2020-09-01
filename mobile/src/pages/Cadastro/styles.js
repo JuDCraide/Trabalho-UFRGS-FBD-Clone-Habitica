@@ -16,16 +16,12 @@ export default StyleSheet.create({
     },
     input: {
         height: 50,
-        //backgroundColor: '#FFF',
         paddingHorizontal: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderBottomColor: '#D5C8FF',
-        borderBottomWidth: 1
-    },
-    inputText: {
-        flex: 1,
+        borderBottomWidth: 1,
         fontSize: 18,
         color: '#fff',
     },

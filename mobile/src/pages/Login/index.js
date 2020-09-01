@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import { RectButton } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 
 import styles from './styles';
 
-export default function Login() {
+export default function Login({navigation}) {
 
 	const [login, setLogin] = useState()
 
-	function handleLogin(){
+	function handleLogin() {
 		Drawer.openDrawer();
+	}
+	function handleRegister(){
+		navigation.navigate('Cadastro');
 	}
 
 	return (
@@ -39,8 +42,13 @@ export default function Login() {
 			<RectButton style={styles.button} onPress={handleLogin}>
 				<Text style={styles.buttonText}>
 					ENTRAR
-            </Text>
+            	</Text>
 			</RectButton>
+			<TouchableOpacity onPress={handleRegister}>
+				<Text style={styles.buttonText}>
+					Criar conta
+            	</Text>
+			</TouchableOpacity>
 
 		</SafeAreaView>
 	);
