@@ -20,14 +20,14 @@ export default function Mercado(props) {
                 <View style={styles.divisor} />
                 
                 <View style={styles.itens}>
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemMercado preco={22} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={200} img={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemMercado preco={0} img={'https://scontent.fcxj11-1.fna.fbcdn.net/v/t1.0-9/31944315_2032828603413598_3681826792844296192_n.jpg?_nc_cat=110&_nc_sid=85a577&_nc_ohc=7p-oNH_rp7gAX_-fAd4&_nc_ht=scontent.fcxj11-1.fna&oh=8b9bf84af22d23a58ec3370198872ec4&oe=5F72E32F'} />
                 </View>
             </View>
         </SafeAreaView>

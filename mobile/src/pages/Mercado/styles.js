@@ -20,10 +20,9 @@ export default StyleSheet.create({
         width: '110%',
         marginLeft: -20,
         height: 1,
-        backgroundColor: "#a5a1ac",
+        backgroundColor: "#c3c0c7",
         marginVertical:15
     },
-
     itens: {
         //display grid?
         flex: 1,
