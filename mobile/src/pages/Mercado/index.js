@@ -14,7 +14,7 @@ export default function Mercado(props) {
 
     const [sairGrupo, setSairGrupo] = useState(false);
     const [comprar, setComprar] = useState(false);
-    const [semDinheiro, setSemDinheiro] = useState(true);
+    const [semDinheiro, setSemDinheiro] = useState(false);
 
     const saldo = 93;
 

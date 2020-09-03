@@ -11,9 +11,9 @@ import styles from './styles';
 
 export default function Itens(props) {
 
-    const [popUpSemEspaco, setPopUpSemEspaco] = useState(true);
-    const [popUpDesequipar, setPopUpDesequipar] = useState(true);
-    const [popUpEquipar, setPopUpEquipar] = useState(true);
+    const [popUpSemEspaco, setPopUpSemEspaco] = useState(false);
+    const [popUpDesequipar, setPopUpDesequipar] = useState(false);
+    const [popUpEquipar, setPopUpEquipar] = useState(false);
 
     function equipar(){
         setPopUpEquipar(!popUpEquipar)
@@ -27,10 +27,10 @@ export default function Itens(props) {
             <ScrollView style={styles.containerConteudo}>
                 <Text style={styles.subtitulo}>Equipados</Text>
                 <View style={styles.equipados}>
-                    <ItemEquipado desequipar={() =>setPopUpDesequipar(true)} imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemEquipado desequipar={() =>setPopUpDesequipar(true)} />
-                    <ItemEquipado desequipar={() =>setPopUpDesequipar(true)} />
-                    <ItemEquipado desequipar={() =>setPopUpDesequipar(true)} />
+                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} />
+                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} />
+                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} />
                 </View>
                 <View style={styles.divisor} />
                 <Text style={styles.subtitulo}>Arsenal completo</Text>
