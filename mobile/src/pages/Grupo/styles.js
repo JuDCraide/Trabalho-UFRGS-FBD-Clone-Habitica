@@ -8,6 +8,7 @@ export default StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 15,
+        backgroundColor:'#FFF',
     },
     nomeGrupo: {
         fontSize: 20,
@@ -137,6 +138,48 @@ export default StyleSheet.create({
         borderColor: '#e1e0e3',
     },
 
+    //sem grupo
+    principalSemGrupo: {
+        flex: 1,
+        width: '100%',
+        paddingHorizontal: 15,
+        backgroundColor:'#FFF',
+        alignItems:'center',
+        justifyContent:'space-evenly',
+        paddingBottom:30
+    },
+    semGrupoImg: {
+        width: '100%',
+        height: 170,
+        resizeMode: 'cover',
+    },
+    botaoCopiar:{
+        flex:1,
+        maxHeight: 40,
+        borderColor: '#c3c0c7',
+        borderWidth: 1,
+        borderRadius: 5,
+        color: '#1a181d',
+        fontSize: 16,
+        alignItems:'center',
+        flexDirection:'row'
+    },
+    botaoCopiarLabel:{
+        height:'100%',
+        maxWidth:'40%',
+        backgroundColor:'#e1e0e3',
+        borderColor: '#c3c0c7',
+        borderRightWidth: 1,
+        justifyContent:'center',
+        paddingHorizontal:10,
+    },
+    username:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        paddingHorizontal:10,
+    },
+
     //modal adicionar membro
     centeredView: {
         flex: 1,
@@ -159,14 +202,6 @@ export default StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5
-    },
-    openButton: {
-        width: 200,
-        backgroundColor: "#F194FF",
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-        marginTop: 15,
     },
     textStyle: {
         color: "white",

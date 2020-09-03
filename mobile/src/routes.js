@@ -20,7 +20,7 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Drawer.Navigator
-				initialRouteName="Cadastro"
+				initialRouteName="Grupo"
 				overlayColor="#00000066"
 				drawerContentOptions={{
 					activeTintColor: '#432874',
