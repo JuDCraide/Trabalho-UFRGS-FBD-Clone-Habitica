@@ -7,10 +7,11 @@ module.exports = {
 
 
     async list(req, res) {
-        const { id } = req.body;
+        const { id } = req.params;
         let query = `SELECT * FROM atividade JOIN tarefa ON(tarefa.id_atividade = atividade.id) WHERE atividade.id_usuario = ${id};`;
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
+            console.log(result)
             return res.status(200).json(result)
         })
     },
