@@ -4,6 +4,8 @@ const UsuarioController = require('./controllers/UsuarioController')
 const ClasseController =  require('./controllers/ClasseController');
 const ItemController = require('./controllers/ItemController');
 const HabitoController = require('./controllers/HabitoController');
+const RotinaController = require('./controllers/RotinaController');
+const TarefaController = require('./controllers/TarefaController');
 
 const routes =  express.Router();
  
@@ -12,21 +14,23 @@ routes.get('/usuario/:id/classe', ClasseController.view);
 routes.post('/usuario', UsuarioController.create);
 routes.delete('/usuario/:id', UsuarioController.remove);
 
-routes.get('/login', UsuarioController.login);
+routes.post('/login', UsuarioController.login);
 
 routes.get('/classes', ClasseController.list);
 
-routes.get('/habito', HabitoController.list);
+routes.get('/usuario/:id/habito', HabitoController.list);
 routes.get('/habito/:id', HabitoController.view);
 routes.patch('/habito/:id', HabitoController.view);
 routes.post('/habito', HabitoController.create);
 routes.delete('/habito/:id', HabitoController.remove);
 
+routes.get('/usuario/:id/rotina', RotinaController.list);
 routes.get('/rotina/:id', UsuarioController.view);
 routes.patch('/rotina/:id', UsuarioController.view);
 routes.post('/rotina', UsuarioController.create);
 routes.delete('/rotina/:id', UsuarioController.remove);
 
+routes.get('/usuario/:id/tarefa', TarefaController.list);
 routes.get('/tarefa/:id', UsuarioController.view);
 routes.patch('/tarefa/:id', UsuarioController.view);
 routes.post('/tarefa', UsuarioController.create);

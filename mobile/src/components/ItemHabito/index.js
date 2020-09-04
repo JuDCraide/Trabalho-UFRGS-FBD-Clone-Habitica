@@ -4,9 +4,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 
-export default function ItemHabito({ nome }) {
+export default function ItemHabito({ nome, positivo }) {
 
-    const positivo = true;
 
     return (
         <View style={styles.container}>
