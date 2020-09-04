@@ -8,7 +8,7 @@ export default StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 15,
-        backgroundColor:'#FFF',
+        backgroundColor: '#FFF',
     },
     nomeGrupo: {
         fontSize: 20,
@@ -29,18 +29,26 @@ export default StyleSheet.create({
         color: '#878190',
         marginBottom: 15
     },
-    nomeMissao: {
-        height: 50,
-        backgroundColor: '#eae9eb',
+    missao: {
+        height: 90,
+        backgroundColor: '#edecee',
         borderRadius: 5,
         paddingHorizontal: 15,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    nomeMissao: {
+        fontSize: 16,
+        color: '#4e4a57',
+    },
+    textoSimples: {
+        fontSize: 14,
+        color: "#868274",
+    },
     imgMissao: {
         height: 200,
-        backgroundColor: '#eae9eb',
+        backgroundColor: '#edecee',
         borderRadius: 5,
         marginVertical: 8,
         alignItems: 'center',
@@ -65,6 +73,18 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         //borderWidth:2,
+    },
+    comecarMissao: {
+        height: 40,
+        backgroundColor: '#eae9eb',
+        borderRadius: 5,
+        paddingHorizontal: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    comecarMissaoTitulo: {
+        color: '#6132b4',
     },
 
     //progressoMissao
@@ -143,41 +163,41 @@ export default StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 15,
-        backgroundColor:'#FFF',
-        alignItems:'center',
-        justifyContent:'space-evenly',
-        paddingBottom:30
+        backgroundColor: '#FFF',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        paddingBottom: 30
     },
     semGrupoImg: {
         width: '100%',
         height: 170,
         resizeMode: 'cover',
     },
-    botaoCopiar:{
-        flex:1,
+    botaoCopiar: {
+        flex: 1,
         maxHeight: 40,
         borderColor: '#c3c0c7',
         borderWidth: 1,
         borderRadius: 5,
         color: '#1a181d',
         fontSize: 16,
-        alignItems:'center',
-        flexDirection:'row'
+        alignItems: 'center',
+        flexDirection: 'row'
     },
-    botaoCopiarLabel:{
-        height:'100%',
-        maxWidth:'40%',
-        backgroundColor:'#e1e0e3',
+    botaoCopiarLabel: {
+        height: '100%',
+        maxWidth: '40%',
+        backgroundColor: '#e1e0e3',
         borderColor: '#c3c0c7',
         borderRightWidth: 1,
-        justifyContent:'center',
-        paddingHorizontal:10,
+        justifyContent: 'center',
+        paddingHorizontal: 10,
     },
-    username:{
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        paddingHorizontal:10,
+    username: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
     },
 
     //modal adicionar membro
@@ -209,7 +229,7 @@ export default StyleSheet.create({
         textAlign: "center"
     },
     input: {
-        width:220,
+        width: 220,
         height: 50,
         backgroundColor: '#fff',
         borderColor: '#c3c0c7',
@@ -228,16 +248,44 @@ export default StyleSheet.create({
         elevation: 2,
         marginTop: 15,
     },
-    botaoFecharModal:{
-        height:25,
+    botaoFecharModal: {
+        height: 25,
         width: 25,
         backgroundColor: '#4f2a93',
         borderRadius: 100,
         elevation: 2,
-        position:'absolute',
+        position: 'absolute',
         top: 15,
-        right:15,
+        right: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    //modal missao
+    containerSaude: {
+        backgroundColor: "#ff6165",
+        borderRadius: 5,
+        height: 40,
+        width: 250,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 15,
+        paddingHorizontal: 15,
+    },
+    containerRecompensa: {
+        height: 60,
+        width: 250,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#eae9eb',
+        borderRadius: 5,
+        marginVertical:2,
+        flexDirection:'row',
         alignItems:'center',
-        justifyContent:'center'
+    },
+    recompensaImg:{
+        height:40,
+        width:40,
+        marginRight:15,
     },
 });
