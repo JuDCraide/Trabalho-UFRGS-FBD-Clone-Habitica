@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 import styles from './styles';
+import api from '../../utils/api'
+import { logout } from '../../utils/authentication'
 
 export default SideBar = props => {
+
+    const [login, setLogin] = useState();
+    const [nome, setNome] = useState();
+
+    useEffect(() => {
+        async function handlePesquisa() {
+            try {
+                const response = await api.get("/usuario/1");
+                let dados = response.data;
+                setLogin(dados.login);
+                setNome(dados.nome)
+            } catch (err) {
+
+                console.log(err);
+
+            }
+        }
+        handlePesquisa()
+    }, []);
 
     function copy(o) {
         var out, v, key;
@@ -35,10 +56,13 @@ export default SideBar = props => {
             <View style={styles.header}>
                 <View style={styles.headerLinha}>
                     <View>
-                        <Text style={{ color: "#FFF", fontSize: 16 }}>Username</Text>
-                        <Text style={{ color: "#FFF" }}>@Login</Text>
+                        <Text style={{ color: "#FFF", fontSize: 16 }}>{nome}</Text>
+                        <Text style={{ color: "#FFF" }}>@{login}</Text>
                     </View>
-                    <TouchableOpacity style={styles.botaoSair} >
+                    <TouchableOpacity style={styles.botaoSair} onPress={() => {
+                        props.navigation.navigate("Login");
+                        logout()
+                    }}>
                         <Text style={{ color: "#FFF", fontSize: 16 }}>Sair  </Text>
                         <Icon name="exit-to-app" color="#FFF" size={24} />
                     </TouchableOpacity>

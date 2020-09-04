@@ -8,18 +8,41 @@ import logoImg from '../../assets/logo.png';
 
 import styles from './styles';
 
+import api from '../../utils/api'
+import { salvarId } from '../../utils/authentication';
+
 export default function Login({ navigation }) {
 
-    const [login, setLogin] = useState();
-    const [nome, setNome] = useState();
+    const [login, setLogin] = useState('');
+    const [nome, setNome] = useState('');
     const [classe, setClasse] = useState();
+
+    async function handleCadastro() {
+        try {
+            const response = await api.post("/usuario",
+                {
+                    "login": login,
+                    "nome": nome,
+                    "id_classe": classe
+                });
+                console.log(response.data)
+            salvarId(response.data.id.toString());
+
+            navigation.navigate('Home');
+
+        } catch (err) {
+
+            console.log(err);
+        }
+
+    }
 
     function handleLogin() {
         Drawer.openDrawer();
     }
 
     function handleRegister() {
-        navigation.navigate('Cadastro');
+        handleCadastro()
     }
 
     return (
@@ -45,7 +68,7 @@ export default function Login({ navigation }) {
                 placeholderTextColor='#D5C8FF'
             />
             {/* ?????? */}
-             <TextInput
+            <TextInput
                 style={styles.input}
                 placeholder='Classe'
                 value={classe}
@@ -54,7 +77,7 @@ export default function Login({ navigation }) {
                 placeholderTextColor='#D5C8FF'
             />
 
-            <RectButton style={styles.button} onPress={handleLogin}>
+            <RectButton style={styles.button} onPress={handleCadastro}>
                 <Text style={styles.buttonText}>
                     CADASTRAR
             	</Text>

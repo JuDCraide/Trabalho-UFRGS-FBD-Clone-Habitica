@@ -6,16 +6,40 @@ import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import logoImg from '../../assets/logo.png';
 
+import api from '../../utils/api'
+import { salvarId, getId } from '../../utils/authentication'
 import styles from './styles';
 
-export default function Login({navigation}) {
 
-	const [login, setLogin] = useState()
+export default function Login({ navigation }) {
 
-	function handleLogin() {
-		Drawer.openDrawer();
+	const [login, setLogin] = useState('')
+
+	useEffect(() => {
+
+		if (getId() !== null) {
+			navigation.navigate('Home');
+		}
+	}, []);
+
+
+	async function handleLogin() {
+		try {
+			const response = await api.post("/login",
+				{
+					"login": login
+				});
+			salvarId(response.data.id.toString());
+			navigation.navigate('Home');
+
+		} catch (err) {
+
+			console.log(err);
+		}
+
 	}
-	function handleRegister(){
+	
+	function handleRegister() {
 		navigation.navigate('Cadastro');
 	}
 
@@ -30,7 +54,7 @@ export default function Login({navigation}) {
 					style={styles.inputText}
 					placeholder='Login'
 					value={login}
-					onChangeText={setLogin}
+					onChangeText={text => setLogin(text)}
 					autoCorrect={false}
 					placeholderTextColor='#D5C8FF'
 				/>
