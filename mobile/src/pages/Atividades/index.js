@@ -30,8 +30,9 @@ export default function Atividades(props) {
     useEffect(() => {
 
         async function loadDados() {
+            let id = await getId();
             try {
-                const response = await api.get("/usuario/1");
+                const response = await api.get(`/usuario/${id}`);
                 let dados = response.data;
                 setHealth(dados.saude);
                 setXp(dados.experiencia)
@@ -43,8 +44,9 @@ export default function Atividades(props) {
         }
 
         async function loadClasse() {
+            let id = await getId();
             try {
-                const response = await api.get("/usuario/1/classe");
+                const response = await api.get(`/usuario/${id}/classe`);
                 let dados = response.data;
                 setClasse(response.data.classe)
             } catch (err) {
@@ -64,6 +66,7 @@ export default function Atividades(props) {
                 console.log(err);
             }
         }
+        
         async function loadRotinas() {
 
             let id = await getId();

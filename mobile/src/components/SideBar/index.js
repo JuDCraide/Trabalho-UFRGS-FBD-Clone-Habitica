@@ -6,7 +6,8 @@ import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 import styles from './styles';
 import api from '../../utils/api'
-import { logout } from '../../utils/authentication'
+import { logout } from '../../utils/authentication';
+import { getId } from '../../utils/authentication';
 
 export default SideBar = props => {
 
@@ -15,8 +16,9 @@ export default SideBar = props => {
 
     useEffect(() => {
         async function handlePesquisa() {
+            let id = await getId();
             try {
-                const response = await api.get("/usuario/1");
+                const response = await api.get(`/usuario/${id}`);
                 let dados = response.data;
                 setLogin(dados.login);
                 setNome(dados.nome)
