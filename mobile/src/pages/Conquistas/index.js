@@ -49,14 +49,14 @@ export default function Conquistas(props) {
                 <Text style={styles.subtitulo}>Conquistadas</Text>
                 {
                     consquistas.map(conquista => (
-                        <Conquista nome={conquista.nome} descricao={conquista.descricao} conquistada />
+                        <Conquista key={conquista.id} nome={conquista.nome} descricao={conquista.objetivo} conquistada />
                     ))
                 }
                 <View style={styles.divisor} />
                 <Text style={styles.subtitulo}>Não obtidas</Text>
                 {
                     consquistasRestantes.map(conquista => (
-                        <Conquista nome={conquista.nome} descricao={conquista.descricao} />
+                        <Conquista key={conquista.id} nome={conquista.nome} descricao={conquista.objetivo} />
                     ))
                 }
             </ScrollView>
