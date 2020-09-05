@@ -44,6 +44,8 @@ routes.get('/itens', ItemController.view); //Filtrar por possuído ou equipado
 routes.post('/item/equipar-item', ItemController.view); //Alterar equipado
 routes.post('/item/comprar-item', ItemController.view); 
 routes.get('/itens/mercado', ItemController.list8);
+routes.get('/usuario/:id/itens', ItemController.listUsuario);
+routes.get('/usuario/:id/itens-equipados', ItemController.listEquipados);
 
 routes.get('/grupos', UsuarioController.view);
 routes.get('/grupo/:id', UsuarioController.view);
