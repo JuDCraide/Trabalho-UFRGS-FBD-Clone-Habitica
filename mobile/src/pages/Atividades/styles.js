@@ -27,11 +27,11 @@ export default StyleSheet.create({
         color: "#D5C8FF",
     },
     estatisticas: {
-        height:'100%',
-        flex:1,
+        height: '100%',
+        flex: 1,
         paddingLeft: 20,
         justifyContent: 'space-around',
-        
+
     },
     dinheiro: {
         color: "#ffbe5d",
@@ -41,5 +41,17 @@ export default StyleSheet.create({
         backgroundColor: "#271b3d",
         width: '100%',
         borderRadius: 100
-    }
+    },
+    adicionarAtividade: {
+        position: 'absolute',
+        bottom: 40,
+        right: 30,
+        backgroundColor: '#925cf2',
+        height: 50,
+        width: 50,
+        borderRadius: 5,
+        transform: [{ rotate: "45deg" }],
+        alignItems:'center',
+        justifyContent:'center',
+    },
 });

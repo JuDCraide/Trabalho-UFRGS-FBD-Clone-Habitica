@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Header from '../../components/Header';
@@ -12,6 +12,8 @@ import styles from './styles';
 
 import api from '../../utils/api'
 import { getId } from '../../utils/authentication';
+
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 export default function Atividades(props) {
 
@@ -90,8 +92,8 @@ export default function Atividades(props) {
         loadHabitos()
         loadRotinas()
         loadTarefas()
+        console.log(habitos,rotinas,tarefas);
     }, []);
-
 
 
     const xpbar = (xp) / 770 * 100;
@@ -139,6 +141,13 @@ export default function Atividades(props) {
                     return (<ItemTarefa key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} />)
                 })}
             </View>
+            <TouchableOpacity style={styles.adicionarAtividade}>
+                <Icon
+                    name="close"
+                    size={36}
+                    color='#FFF'
+                />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 }

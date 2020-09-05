@@ -18,18 +18,19 @@ import CriarAtividades from './pages/CriarAtividade';
 const Drawer = createDrawerNavigator();
 
 const StackApp = createStackNavigator();
+const Stack = createStackNavigator();
 
 const navOptionHandler = () => ({
 	headerShown: false
 })
 
 
-export default function App() {
+export default function Routes() {
 
 	return (
 		<NavigationContainer>
 			<StackApp.Navigator initialRouteName="Login">
-				<StackApp.Screen name="Home" component={Routes} options={navOptionHandler} />
+				<StackApp.Screen name="Home" component={Menu} options={navOptionHandler} />
 				<StackApp.Screen name="Login" component={Login} options={navOptionHandler} />
 				<StackApp.Screen name="Cadastro" component={Cadastro} options={navOptionHandler} />
 			</StackApp.Navigator>
@@ -37,10 +38,10 @@ export default function App() {
 	);
 }
 
-export function Routes() {
+export function Menu() {
 	return (
 		<Drawer.Navigator
-			initialRouteName="Atividades"
+			initialRouteName="Grupo"
 			overlayColor="#00000066"
 			drawerContentOptions={{
 				activeTintColor: '#432874',
@@ -58,13 +59,22 @@ export function Routes() {
 			}}
 			drawerContent={(props) => <SideBar {...props} />}
 		>
-			<Drawer.Screen name="Atividades" component={Atividades} />
+			<Drawer.Screen name="Atividades" component={StackAtividades} />
 			<Drawer.Screen name="Conquistas" component={Conquistas} />
 			<Drawer.Screen name="Mercado" component={Mercado} />
 			<Drawer.Screen name="Inventário" component={Itens} />
 			<Drawer.Screen name="Grupo" component={Grupo} />
 			<Drawer.Screen name="Chat do Grupo" component={ChatDoGrupo} />
-			<Drawer.Screen name="Criar Atividades" component={CriarAtividades} />
 		</Drawer.Navigator>
 	);
-} 
+}
+
+function StackAtividades() {
+
+	return (
+		<Stack.Navigator initialRouteName="Atividades">
+			<Stack.Screen name="Atividades" component={Atividades} options={navOptionHandler} />
+			<Stack.Screen name="Criar Atividades" component={CriarAtividades} options={navOptionHandler} />
+		</Stack.Navigator>
+	);
+}
