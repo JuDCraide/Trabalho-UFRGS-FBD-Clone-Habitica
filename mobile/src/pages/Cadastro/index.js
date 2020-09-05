@@ -25,7 +25,7 @@ export default function Login({ navigation }) {
                     "nome": nome,
                     "id_classe": classe
                 });
-                console.log(response.data)
+                //console.log(response.data)
             salvarId(response.data.id.toString());
 
             navigation.navigate('Home');

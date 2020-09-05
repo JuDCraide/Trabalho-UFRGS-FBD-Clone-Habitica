@@ -30,10 +30,10 @@ export default function Mercado(props) {
             }
         }
         loadItens();
-    },[])
+    },[]);
 
     function comprarItem(preco) {
-        console.log(saldo, ' ', preco);
+        //console.log(saldo, ' ', preco);
         if (saldo >= preco) {
             setComprar(true);
         } else {

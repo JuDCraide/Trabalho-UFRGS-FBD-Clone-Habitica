@@ -8,10 +8,10 @@ module.exports = {
 
     async list(req, res) {
         const { id } = req.params;
-        console.log(id)
+        //console.log(id)
         let query = `SELECT * FROM atividade JOIN rotina ON(rotina.id_atividade = atividade.id) WHERE atividade.id_usuario = ${id};`;
         connection.query(query, function (err, result, fields) {
-            console.log(result)
+            //console.log(result)
             if (err) return res.status(500).json(err)
             return res.status(200).json(result)
         })
@@ -54,7 +54,7 @@ module.exports = {
         let query = `DELETE FROM rotina where id = ${id};`
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
-            console.log(res);
+            //console.log(res);
             return res.status(200).send('Excluído com sucesso')
         })
     },

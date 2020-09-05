@@ -21,7 +21,7 @@ export default function Conquistas(props) {
             try {
                 const response = await api.get(`/usuario/${id}/conquistas-restantes`);
                 setConsquistasRestantes(response.data);
-                console.log(response.data);
+
             } catch (err) {
                 console.log(err);
             }
@@ -33,7 +33,7 @@ export default function Conquistas(props) {
             try {
                 const response = await api.get(`/usuario/${id}/conquistas`);
                 setConsquistas(response.data);
-                console.log(response.data);
+
             } catch (err) {
                 console.log(err);
             }
@@ -49,14 +49,14 @@ export default function Conquistas(props) {
                 <Text style={styles.subtitulo}>Conquistadas</Text>
                 {
                     consquistas.map(conquista => (
-                        <Conquista nome={conquista.nome} descricao={conquista.descricao} conquistada />    
+                        <Conquista nome={conquista.nome} descricao={conquista.descricao} conquistada />
                     ))
                 }
                 <View style={styles.divisor} />
                 <Text style={styles.subtitulo}>Não obtidas</Text>
                 {
                     consquistasRestantes.map(conquista => (
-                        <Conquista nome={conquista.nome} descricao={conquista.descricao} />    
+                        <Conquista nome={conquista.nome} descricao={conquista.descricao} />
                     ))
                 }
             </ScrollView>

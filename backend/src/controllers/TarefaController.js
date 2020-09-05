@@ -11,7 +11,7 @@ module.exports = {
         let query = `SELECT * FROM atividade JOIN tarefa ON(tarefa.id_atividade = atividade.id) WHERE atividade.id_usuario = ${id};`;
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
-            console.log(result)
+            //console.log(result)
             return res.status(200).json(result)
         })
     },
@@ -53,7 +53,7 @@ module.exports = {
         let query = `DELETE FROM tarefa where id = ${id};`
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
-            console.log(res);
+            //console.log(res);
             return res.status(200).send('Excluído com sucesso')
         })
     },

@@ -19,7 +19,7 @@ module.exports = {
         
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
-            console.log(result)
+            //console.log(result)
             return res.status(200).json(JSON.parse(JSON.stringify(result))[0])
         })
     },

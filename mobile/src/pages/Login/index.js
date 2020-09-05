@@ -30,6 +30,7 @@ export default function Login({ navigation }) {
 					"login": login
 				});
 			salvarId(response.data.id.toString());
+			console.log(response.data);
 			navigation.navigate('Home');
 
 		} catch (err) {
