@@ -10,6 +10,7 @@ export default StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 15,
+        //borderWidth:2
     },
     mercadorImg: {
         width: '100%',
@@ -24,12 +25,10 @@ export default StyleSheet.create({
         marginVertical:15
     },
     itens: {
-        //display grid?
         flex: 1,
-        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
         //borderColor: 'red',
         //borderWidth: 1,
     },
