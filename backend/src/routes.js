@@ -6,6 +6,7 @@ const ItemController = require('./controllers/ItemController');
 const HabitoController = require('./controllers/HabitoController');
 const RotinaController = require('./controllers/RotinaController');
 const TarefaController = require('./controllers/TarefaController');
+const ConquistasController = require('./controllers/ConquistasController');
 
 const routes =  express.Router();
  
@@ -36,7 +37,8 @@ routes.patch('/tarefa/:id', UsuarioController.view);
 routes.post('/tarefa', UsuarioController.create);
 routes.delete('/tarefa/:id', UsuarioController.remove);
 
-routes.get('/conquistas', UsuarioController.view);
+routes.get('/usuario/:id/conquistas', ConquistasController.listObtidas);
+routes.get('/usuario/:id/conquistas-restantes', ConquistasController.listNaoObtidas);
 
 routes.get('/itens', ItemController.view); //Filtrar por possuído ou equipado
 routes.post('/item/equipar-item', ItemController.view); //Alterar equipado
