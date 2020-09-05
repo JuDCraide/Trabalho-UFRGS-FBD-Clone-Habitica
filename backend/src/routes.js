@@ -7,11 +7,16 @@ const HabitoController = require('./controllers/HabitoController');
 const RotinaController = require('./controllers/RotinaController');
 const TarefaController = require('./controllers/TarefaController');
 const ConquistasController = require('./controllers/ConquistasController');
+const MensagemController = require('./controllers/MensagemController');
+const GrupoController = require('./controllers/GrupoController');
 
 const routes =  express.Router();
  
 routes.get('/usuario/:id', UsuarioController.view);
 routes.get('/usuario/:id/classe', ClasseController.view);
+routes.get('/usuario/:id/grupo', GrupoController.getGrupoByUserId);
+
+
 routes.post('/usuario', UsuarioController.create);
 routes.delete('/usuario/:id', UsuarioController.remove);
 
@@ -50,8 +55,8 @@ routes.get('/usuario/:id/itens-equipados', ItemController.listEquipados);
 routes.get('/grupos', UsuarioController.view);
 routes.get('/grupo/:id', UsuarioController.view);
 routes.get('/grupo/:id/membros', UsuarioController.view);
-routes.get('/grupo/:id/mensagens', UsuarioController.view);
-routes.post('/grupo/:id/mensagem', UsuarioController.view);
+routes.get('/grupo/:id/mensagens', MensagemController.view);
+routes.post('/grupo/:id/mensagem', MensagemController.create);
 
 routes.get('/missoes', UsuarioController.view);
 
