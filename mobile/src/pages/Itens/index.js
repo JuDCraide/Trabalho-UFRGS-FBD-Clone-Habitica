@@ -9,13 +9,46 @@ import Item from '../../components/Item';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 
+import api from '../../utils/api'
+import { getId } from '../../utils/authentication';
+
 export default function Itens(props) {
 
     const [popUpSemEspaco, setPopUpSemEspaco] = useState(false);
     const [popUpDesequipar, setPopUpDesequipar] = useState(false);
     const [popUpEquipar, setPopUpEquipar] = useState(false);
 
-    function equipar(){
+    const [itens, setItens] = useState([]);
+    const [itensEquipados, setItensEquipados] = useState([]);
+    const [itensFake, setItensFake] = useState([]);
+
+    useEffect(() => {
+        async function loadItens() {
+            let id = await getId();
+            try {
+                const response = await api.get(`/usuario/${id}/itens`);
+                setItens(response.data);
+
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        async function loadItensEquipados() {
+            let id = await getId();
+            try {
+                const response = await api.get(`/usuario/${id}/itens-equipados`);
+                setItensEquipados(response.data);
+                setItensFake(Array(4 - response.data.length).fill(''));
+
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        loadItens();
+        loadItensEquipados();
+    }, []);
+
+    function equipar() {
         setPopUpEquipar(!popUpEquipar)
         setPopUpSemEspaco(true)
     }
@@ -27,17 +60,39 @@ export default function Itens(props) {
             <ScrollView style={styles.containerConteudo}>
                 <Text style={styles.subtitulo}>Equipados</Text>
                 <View style={styles.equipados}>
-                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} />
-                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} />
-                    <ItemEquipado desequipar={() => setPopUpDesequipar(true)} />
+                    {
+                        itensEquipados.map(item => (
+                            <ItemEquipado
+                                key={item.id}
+                                desequipar={() => setPopUpDesequipar(true)}
+                                imagem={item.imagem}
+                            />
+                        ))
+                    }{
+                        itensFake.map((item, index) => (
+                            <ItemEquipado
+                                key={index}
+                                desequipar={() => setPopUpDesequipar(true)}
+                            />
+                        ))
+                    }
                 </View>
                 <View style={styles.divisor} />
                 <Text style={styles.subtitulo}>Arsenal completo</Text>
                 <View>
-                    <Item equipar={()=> setPopUpEquipar(true)} nome='Super Mega Item' poder={1} valorPoder={47} imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <Item equipar={()=> setPopUpEquipar(true)} nome='Super Mega Item' poder={1} valorPoder={47} imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
-                    <Item equipar={()=> setPopUpEquipar(true)} nome='Super Mega Item' poder={1} valorPoder={47} imagem={'https://avatars3.githubusercontent.com/u/47929434?s=460&u=1a37672c81408f7857c45a36cdcc3c57c00a827c&v=4'} />
+                    {
+                        itens.map(item => (
+                            <Item
+                                key={item.id}
+                                equipar={() => setPopUpEquipar(true)}
+                                nome={item.nome}
+                                poder={item.tipo_poder}
+                                valorPoder={item.valor_poder}
+                                imagem={item.iamgem}
+                            />
+                        ))
+                    }
+
                 </View>
             </ScrollView>
 
