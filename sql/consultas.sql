@@ -163,3 +163,12 @@ WHERE (habito.eh_positivo!= false or habito.eh_positivo is NULL) and DAY(ativida
 GROUP BY atividades_realizadas.id_usuario
 HAVING id_usuario=${id_usuario};
 
+--SUBCONSULTA
+SELECT *
+FROM conquista 
+WHERE id NOT IN (
+    SELECT conquista.id as id
+    FROM usuario JOIN usuario_conquista ON(usuario_conquista.id_usuario = usuario.id)
+        JOIN conquista ON(conquista.id = usuario_conquista.id_conquista)
+    WHERE usuario.id = ${user_id}
+);
