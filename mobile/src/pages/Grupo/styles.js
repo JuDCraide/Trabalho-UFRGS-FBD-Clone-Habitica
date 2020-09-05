@@ -288,4 +288,15 @@ export default StyleSheet.create({
         width:40,
         marginRight:15,
     },
+    containerDescricao: {
+        flex:1,
+        width: 250,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#eae9eb',
+        borderRadius: 5,
+        marginVertical:2,
+        flexDirection:'row',
+        alignItems:'center',
+    },
 });

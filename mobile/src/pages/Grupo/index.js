@@ -223,26 +223,37 @@ export default function Grupo(props) {
 							</TouchableOpacity>
 
 							<Text style={styles.subtitulo}>Nome da Missão</Text>
-							<View style={styles.containerSaude}>
-								<Text style={{ color: '#fff' }}>Health</Text>
-								<Text style={{ color: '#fff', marginLeft: 20 }}>100</Text>
+							<View style={{ height: 400,}}>
+								<ScrollView>
+									<View style={styles.containerSaude}>
+										<Text style={{ color: '#fff' }}>Health</Text>
+										<Text style={{ color: '#fff', marginLeft: 20 }}>100</Text>
+									</View>
+									<View style={{ alignItems: 'center'}}>
+										<Text style={styles.textoSimples}>Descrição</Text>
+										<View style={styles.containerDescricao}>
+											<Text style={{...styles.textoSimples, textAlign:'justify'}}>
+											Depois de muito esforço, seu grupo descobriu o covil de Vício. O monstro gigantesco olha para o seu grupo com desgosto. Enquanto sombras giram em torno de você, uma voz sussurra em sua cabeça "Mais cidadãos idiotas de Habitica vêm me parar? Fofo. Você teria sido mais sábio em não vir." O assustador titã ergue a cabeça e se prepara para atacar. Essa é sua chance! Dê tudo de si e derrote o Vício de uma vez por todas!
+											</Text>
+										</View>
+									</View>
+									<View style={{ alignItems: 'center', marginTop:10 }}>
+										<Text style={styles.textoSimples}>Recompensa</Text>
+										<View style={styles.containerRecompensa}>
+											{/*<Image source={} style={styles.recompensaImg}/>*/}
+											<Text style={styles.textoSimples}>Item</Text>
+										</View>
+										<View style={styles.containerRecompensa}>
+											<Image source={xpImg} style={styles.recompensaImg} />
+											<Text style={styles.textoSimples}>59 XP</Text>
+										</View>
+										<View style={styles.containerRecompensa}>
+											<Image source={moedaImg} style={styles.recompensaImg} />
+											<Text style={styles.textoSimples}>12 Gold</Text>
+										</View>
+									</View>
+								</ScrollView>
 							</View>
-							<View style={{ alignItems: 'center' }}>
-								<Text style={styles.textoSimples}>Recompensa</Text>
-								<View style={styles.containerRecompensa}>
-									{/*<Image source={} style={styles.recompensaImg}/>*/}
-									<Text style={styles.textoSimples}>Item</Text>
-								</View>
-								<View style={styles.containerRecompensa}>
-									<Image source={xpImg} style={styles.recompensaImg}/>
-									<Text style={styles.textoSimples}>59 XP</Text>
-								</View>
-								<View style={styles.containerRecompensa}>
-									<Image source={moedaImg} style={styles.recompensaImg}/>
-									<Text style={styles.textoSimples}>12 Gold</Text>
-								</View>
-							</View>
-
 							<TouchableOpacity
 								style={{ ...styles.botaoModal }}
 								onPress={() => setSairGrupo(!escolherMissao)}
