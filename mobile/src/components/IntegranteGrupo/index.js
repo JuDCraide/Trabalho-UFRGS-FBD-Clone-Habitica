@@ -3,16 +3,16 @@ import { View, Text } from 'react-native';
 
 import styles from './styles';
 
-export default function Grupo({ lider = false }) {
+export default function Grupo({ lider = false, nome, classe,health = 10 }) {
 
-    const health = 45;
-    const xp = (570 * 100) / 770;
+    
+    const xp = (20 * 100) / 770;
 
     return (
         <View style={styles.container}>
             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={styles.textos}>Nome {lider && "- Líder"}</Text>
-                <Text style={styles.textos}>Lvl 100 Guerreiro</Text>
+                <Text style={styles.textos}>{nome} {lider && "- Líder"}</Text>
+                <Text style={styles.textos}>Lvl 100 {classe}</Text>
             </View>
             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={styles.porcentagem}>

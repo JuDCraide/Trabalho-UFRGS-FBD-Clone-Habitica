@@ -16,16 +16,10 @@ import espadaImg from '../../assets/sword.png';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 
+import api from '../../utils/api'
+import { getId } from '../../utils/authentication';
 
 export default function Grupo(props) {
-
-	const monsterHealth = 100;
-	const totalDamage = 45;
-	const temGrupo = true;
-	const ehLider = true;
-	const username = '@Julinha';
-	const temMissao = true;
-	const pendingDamage = 2.5
 
 	const [adicionarMembro, setAdicionarMembro] = useState(false);
 	const [sairGrupo, setSairGrupo] = useState(false);
@@ -34,10 +28,129 @@ export default function Grupo(props) {
 	const [escolherMissao, setEscolherMissao] = useState(false);
 	const [novoMembro, setNovoMembro] = useState('');
 	const [novoGrupo, setNovoGrupo] = useState('');
+	const [monsterHealth, setMonsterHealth] = useState(100);
+	const [totalDamage, setTotalDamage] = useState(100);
+	const [temGrupo, setTemGrupo] = useState(0);
+	const [grupo, setGrupo] = useState({});
+	const [ehLider, setEhLider] = useState(true);
+	const [temMissao, setTemMissao] = useState(false);
+	const [username, setUsername] = useState('@Julinha');
+	const [pendingDamage, setPendingDamage] = useState(100);
+	const [membros, setMembros] = useState([]);
 
 	const copiarUsername = () => {
 		Clipboard.setString(username);
 	}
+
+
+	useEffect(() => {
+		async function loadDados() {
+			let id = await getId();
+			try {
+				const response = await api.get(`/usuario/${id}`);
+				let dados = response.data;
+				setUsername("@" + dados.login);
+			} catch (err) {
+
+				console.log(err);
+
+			}
+		}
+		async function loadIdGrupo() {
+			let id = await getId();
+			try {
+				const response = await api.get(`/usuario/${id}/grupo`);
+				let dados = response.data;
+				if (dados.id_grupo) {
+					setTemGrupo(dados.id_grupo);
+					loadMembros(dados.id_grupo);
+				}
+
+			} catch (err) {
+
+				console.log(err);
+
+			}
+		}
+		async function loadMembros(id) {
+			try {
+				const response = await api.get(`/grupo/${id}/membros`);
+				let dados = response.data;
+				console.log(dados)
+				setMembros(dados);
+
+
+			} catch (err) {
+
+				console.log(err);
+
+			}
+		}
+
+
+		loadDados()
+		loadIdGrupo()
+
+	}, [temGrupo]);
+
+
+	async function grupoMissao() {
+
+	}
+
+	async function iniciarMissao() {
+
+	}
+
+	async function adicionarParticipante() {
+		try {
+			const response = await api.post(`/grupo/${temGrupo}/membro`,
+				{
+					"id_grupo": temGrupo,
+					"id_usuario": novoMembro
+				});
+
+		} catch (err) {
+
+			console.log(err);
+		}
+	}
+
+	async function sairDoGrupo() {
+		let id = await getId();
+
+		try {
+			const response = await api.delete(`/grupo/${temGrupo}/membro`,
+				{
+					"id_grupo": temGrupo,
+					"id_usuario": id
+				});
+			setTemGrupo(0)
+
+		} catch (err) {
+
+			console.log(err);
+		}
+	}
+
+	async function salvarGrupo() {
+		let id = await getId();
+		try {
+			const response = await api.post("/grupo",
+				{
+					"nome": novoGrupo,
+					"id_lider": id
+				});
+
+			setTemGrupo(1)
+
+		} catch (err) {
+
+			console.log(err);
+		}
+	}
+
+
 
 	if (temGrupo) {
 		return (
@@ -84,13 +197,13 @@ export default function Grupo(props) {
 												<View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${totalDamage}%` }}></View>
 											</View>
 											<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-												<Text style={{ color: "#ff6165", fontSize:13 }}>
+												<Text style={{ color: "#ff6165", fontSize: 13 }}>
 													<Image style={styles.iconeImagem} source={saudeImg} />
 													{'  '}{totalDamage}/{monsterHealth}
 												</Text>
-												<Text style={{ color: "#ffa324", fontSize:13 }}>
-													<Image style={styles.iconeImagem} source={espadaImg} /> 
-													 {'  '}{pendingDamage} dano pendente
+												<Text style={{ color: "#ffa324", fontSize: 13 }}>
+													<Image style={styles.iconeImagem} source={espadaImg} />
+													{'  '}{pendingDamage} dano pendente
 												</Text>
 											</View>
 										</View>
@@ -124,8 +237,10 @@ export default function Grupo(props) {
 								</TouchableOpacity>
 							}
 						</View>
-						<IntegranteGrupo lider={true} />
-						<IntegranteGrupo lider={false} />
+						{membros.map((membro) => {
+							return (<IntegranteGrupo key={membro.id} nome={membro.nome} classe={membro.classe} lider={membro.id == getId()} health={membro.saude} />)
+						})}
+
 
 						<View style={styles.divisor} />
 						<TouchableOpacity style={styles.botaoSair} onPress={() => setSairGrupo(true)}>
@@ -160,7 +275,10 @@ export default function Grupo(props) {
 
 							<TouchableOpacity
 								style={{ ...styles.botaoModal }}
-								onPress={() => setAdicionarMembro(!adicionarMembro)}
+								onPress={() => {
+									adicionarParticipante()
+									setAdicionarMembro(!adicionarMembro);
+								}}
 							>
 								<Text style={styles.textStyle}>Adicionar</Text>
 							</TouchableOpacity>
@@ -187,7 +305,11 @@ export default function Grupo(props) {
 
 							<TouchableOpacity
 								style={{ ...styles.botaoModal }}
-								onPress={() => setSairGrupo(!sairGrupo)}
+								onPress={() => {
+									setSairGrupo(!sairGrupo);
+									sairDoGrupo()
+								}
+								}
 							>
 								<Text style={styles.textStyle}>Sair</Text>
 							</TouchableOpacity>
@@ -333,12 +455,15 @@ export default function Grupo(props) {
 							style={styles.input}
 							placeholder='Escreva o nome do grupo'
 							value={novoGrupo}
-							onChangeText={setNovoGrupo}
+							onChangeText={text => setNovoGrupo(text)}
 						/>
 
 						<TouchableOpacity
 							style={{ ...styles.botaoModal }}
-							onPress={() => setCriarGrupo(!criarGrupo)}
+							onPress={() => {
+								salvarGrupo()
+								setCriarGrupo(!criarGrupo);
+							}}
 						>
 							<Text style={styles.textStyle}>Criar</Text>
 						</TouchableOpacity>

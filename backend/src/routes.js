@@ -53,9 +53,11 @@ routes.get('/itens/mercado', ItemController.list8);
 routes.get('/usuario/:id/itens', ItemController.listUsuario);
 routes.get('/usuario/:id/itens-equipados', ItemController.listEquipados);
 
-routes.get('/grupos', UsuarioController.view);
-routes.get('/grupo/:id', UsuarioController.view);
-routes.get('/grupo/:id/membros', UsuarioController.view);
+routes.post('/grupo', GrupoController.create);
+routes.get('/grupo/:id', GrupoController.view);
+routes.get('/grupo/:id/membros', GrupoController.viewMembros);
+routes.post('/grupo/:id/membro', GrupoController.addUser);
+routes.delete('/grupo/:id/membro', GrupoController.removeUser);
 routes.get('/grupo/:id/mensagens', MensagemController.view);
 routes.post('/grupo/:id/mensagem', MensagemController.create);
 
