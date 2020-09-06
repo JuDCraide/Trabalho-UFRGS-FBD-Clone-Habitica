@@ -21,18 +21,18 @@ import { getId } from '../../utils/authentication';
 export default function EditarAtividades(props) {
 
 
-function getValueBinary(pos){
-	try{
-		if(item.dias_da_semana !== null){
-			return Number(Number(item.dias_da_semana.data).toString(2).split('')[pos])
-		}else{
+	function getValueBinary(pos) {
+		try {
+			if (item.dias_da_semana !== null) {
+				return Number(Number(item.dias_da_semana.data).toString(2).split('')[pos])
+			} else {
+				return 1
+			}
+		}
+		catch{
 			return 1
 		}
 	}
-	catch{
-		return 1
-	}
-}
 
 	const { id, tipo, item } = props.route.params;
 
@@ -57,18 +57,18 @@ function getValueBinary(pos){
 	function retornar() {
 		props.navigation.navigate("Atividades")
 	}
-	async function salvar() {
-		let id = await getId();
+	async function editar() {
 		switch (atividade) {
 			case "Habito":
+
 				try {
 					const response = await api.patch("/habito",
 						{
 							nome: nomeAtividade,
 							dificuldade: dificuldade,
-							id_recompensa: null,
-							id_usuario: id,
 							eh_positivo: positivo,
+							id_habito: item.id,
+							id_atividade: item.atividade
 						});
 
 				} catch (err) {
@@ -83,8 +83,8 @@ function getValueBinary(pos){
 						{
 							nome: nomeAtividade,
 							dificuldade: dificuldade,
-							id_recompensa: null,
-							id_usuario: id,
+							id_rotina: item.id,
+							id_atividade: item.atividade,
 							dias_da_semana: dias,
 						});
 
@@ -99,8 +99,8 @@ function getValueBinary(pos){
 						{
 							nome: nomeAtividade,
 							dificuldade: dificuldade,
-							id_recompensa: null,
-							id_usuario: id,
+							id_tarefa: item.id,
+							id_atividade: item.atividade,
 							data_entrega: data,
 						});
 
@@ -111,9 +111,6 @@ function getValueBinary(pos){
 				break;
 		}
 	}
-	function editar() {
-
-	}
 	function excluir() {
 
 	}
@@ -123,7 +120,7 @@ function getValueBinary(pos){
 
 
 
-	
+
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -143,7 +140,7 @@ function getValueBinary(pos){
 						<TouchableOpacity onPress={excluir} onPress={() => setPopUpDeletar(true)}>
 							<Text style={styles.textoCriar}>DELETAR</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={salvar}>
+						<TouchableOpacity onPress={editar}>
 							<Text style={styles.textoCriar}>SALVAR</Text>
 						</TouchableOpacity>
 					</>
@@ -160,6 +157,7 @@ function getValueBinary(pos){
                     placeholderTextColor="#4e4a57"
                 />*/}
 				<Picker
+					disabled
 					selectedValue={atividade}
 					//placeholder='Atividade'
 					//placeholderTextColor="#4e4a57"
@@ -173,11 +171,12 @@ function getValueBinary(pos){
 						fontSize: 16,
 						width: '100%'
 					}}
-					onValueChange={(itemValue, itemIndex) => setAtividade(itemValue)}
+					//onValueChange={(itemValue, itemIndex) => setAtividade(itemValue)}
 				>
 					<Picker.Item label="Hábito" value="Habito" />
 					<Picker.Item label="Rotina" value="Rotina" />
 					<Picker.Item label="Tarefa" value="Tarefa" />
+
 				</Picker>
 
 				<TextInput

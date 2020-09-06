@@ -59,4 +59,20 @@ module.exports = {
         })
     },
 
+    async update(req, res) {
+        const { nome, dificuldade, dias_da_semana, id_rotina, id_atividade } = req.body;
+
+        let query = `UPDATE atividade SET nome = "${nome}", dificuldade = ${dificuldade} WHERE atividade.id = ${id_atividade};`
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            query = `UPDATE rotina SET dias_da_semana = b'${dias_da_semana}' WHERE rotina.id = ${id_rotina};`;
+            
+            connection.query(query, function (err, result, fields) {
+                if (err) return res.status(500).json(err)
+                return res.status(200).send('Editado com sucesso')
+            })
+
+        })
+    },
+
 }

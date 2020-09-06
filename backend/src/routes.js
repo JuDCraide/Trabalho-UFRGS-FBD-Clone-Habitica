@@ -28,21 +28,21 @@ routes.get('/classes', ClasseController.list);
 
 routes.get('/usuario/:id/habito', HabitoController.list);
 routes.get('/habito/:id', HabitoController.view);
-routes.patch('/habito/:id', HabitoController.view);
+routes.patch('/habito', HabitoController.update);
 routes.post('/habito', HabitoController.create);
 routes.delete('/habito/:id', HabitoController.remove);
 
 routes.get('/usuario/:id/rotina', RotinaController.list);
 routes.get('/rotina/:id', UsuarioController.view);
-routes.patch('/rotina/:id', UsuarioController.view);
+routes.patch('/rotina', RotinaController.update);
 routes.post('/rotina', RotinaController.create);
 routes.delete('/rotina/:id', UsuarioController.remove);
 
 routes.get('/usuario/:id/tarefa', TarefaController.list);
-routes.get('/tarefa/:id', UsuarioController.view);
-routes.patch('/tarefa/:id', UsuarioController.view);
+routes.get('/tarefa/:id', TarefaController.view);
+routes.patch('/tarefa', TarefaController.update);
 routes.post('/tarefa', TarefaController.create);
-routes.delete('/tarefa/:id', UsuarioController.remove);
+routes.delete('/tarefa/:id', TarefaController.remove);
 
 routes.post('/atividade', AtividadeController.do);
 
