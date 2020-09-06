@@ -7,7 +7,7 @@ import styles from './styles';
 import { getId } from '../../utils/authentication';
 import api from '../../utils/api'
 
-export default function ItemRotina({id, nome, realizado = false, ativoHoje = true ,atualiza}) {
+export default function ItemRotina({id, nome, realizado = false, ativoHoje = true ,atualiza, item, editar}) {
 
     async function realizarAcao() {
         let id_user = await getId()
@@ -36,9 +36,9 @@ export default function ItemRotina({id, nome, realizado = false, ativoHoje = tru
                     />
                 </View>
             </TouchableOpacity>
-            <View style={styles.atividade}>
+            <TouchableOpacity style={styles.atividade}  onPress={()=> editar(id,"Rotina",item)}>
                 <Text style={styles.titulo}>{nome}</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

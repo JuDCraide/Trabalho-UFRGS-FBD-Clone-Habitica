@@ -14,6 +14,7 @@ import Mercado from './pages/Mercado';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import CriarAtividades from './pages/CriarAtividade';
+import EditarAtividades from './pages/EditarAtividade';
 
 const Drawer = createDrawerNavigator();
 
@@ -75,6 +76,8 @@ function StackAtividades() {
 		<Stack.Navigator initialRouteName="Atividades">
 			<Stack.Screen name="Atividades" component={Atividades} options={navOptionHandler} />
 			<Stack.Screen name="Criar Atividades" component={CriarAtividades} options={navOptionHandler} />
+			<Stack.Screen name="Editar Atividades" component={EditarAtividades} options={navOptionHandler} />
+
 		</Stack.Navigator>
 	);
 }

@@ -8,7 +8,7 @@ import api from '../../utils/api'
 
 import styles from './styles';
 
-export default function ItemTarefa({ id, nome, data = false, completo = false, atualiza }) {
+export default function ItemTarefa({ id, nome, data = false, completo = false, atualiza, item, editar }) {
 
     const prazoVencido = false; //data < hoje
 
@@ -40,10 +40,10 @@ export default function ItemTarefa({ id, nome, data = false, completo = false, a
                     />
                 </View>
             </TouchableOpacity>
-            <View style={styles.atividade}>
+            <TouchableOpacity style={styles.atividade} onPress={()=> editar(id,"Tarefa",item)}>
                 <Text style={styles.titulo}>{nome}</Text>
                 <Text style={data ? styles.data : { display: 'none' }}>{data}</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

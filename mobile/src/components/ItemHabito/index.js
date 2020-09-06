@@ -7,7 +7,7 @@ import styles from './styles';
 import { getId } from '../../utils/authentication';
 import api from '../../utils/api'
 
-export default function ItemHabito({ id, nome, positivo, atualiza }) {
+export default function ItemHabito({ id, nome, positivo, atualiza, editar,item }) {
 
     async function realizarAcao() {
         let id_user = await getId()
@@ -35,9 +35,9 @@ export default function ItemHabito({ id, nome, positivo, atualiza }) {
                     />
                 </View>
             </TouchableOpacity>
-            <View style={styles.atividade}>
+            <TouchableOpacity style={styles.atividade} onPress={()=> editar(id,"Habito",item)}>
                 <Text style={styles.titulo}>{nome}</Text>
-            </View>
+            </TouchableOpacity>
 
             <TouchableOpacity style={!positivo ? styles.ativado : styles.desativado} onPress={() => !positivo && realizarAcao()}>
                 <View style={!positivo ? styles.circuloPreenchido : styles.circuloContornado}>

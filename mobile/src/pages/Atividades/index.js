@@ -107,6 +107,14 @@ export default function Atividades(props) {
         loadTarefas()
     }, [atualiza]);
 
+function editar(id, tipo, item){
+    props.navigation.navigate("Editar Atividades", {
+        editar: true,
+        id: id,
+        tipo: tipo,
+        item: item
+    })
+}
 
     const xpbar = (xp) / calcularXpProximoNivel(xp) * 100;
     return (
@@ -151,17 +159,17 @@ export default function Atividades(props) {
             </View>
             <View style={styles.container}>
                 {habitos.map((habito) => {
-                    return (<ItemHabito id={habito.atividade} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} atualiza={dataChanged} />)
+                    return (<ItemHabito item={habito} id={habito.atividade} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} atualiza={dataChanged} editar={editar}/>)
 
                 })}
                 {rotinas.map((rotina) => {
-                    return (<ItemRotina id={rotina.atividade} key={rotina.id} nome={rotina.nome} realizado={rotina.feita} atualiza={dataChanged}/>)
+                    return (<ItemRotina item={rotina} id={rotina.atividade} key={rotina.id} nome={rotina.nome} realizado={rotina.feita} atualiza={dataChanged} editar={editar}/>)
                 })}
                 {tarefas.map((tarefa) => {
-                    return (<ItemTarefa id={tarefa.atividade} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} completo={tarefa.feita} atualiza={dataChanged} />)
+                    return (<ItemTarefa item={tarefa} id={tarefa.atividade} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} completo={tarefa.feita} atualiza={dataChanged} editar={editar}/>)
                 })}
             </View>
-            <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades")}>
+            <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades",{editar: false})}>
                 <Icon
                     name="close"
                     size={36}

@@ -18,23 +18,38 @@ import { TextInput } from 'react-native-gesture-handler';
 import api from '../../utils/api'
 import { getId } from '../../utils/authentication';
 
-export default function CriarAtividades(props) {
+export default function EditarAtividades(props) {
 
 
-	const [dificuldade, setDificuldade] = useState(4)
+function getValueBinary(pos){
+	try{
+		if(item.dias_da_semana !== null){
+			return Number(Number(item.dias_da_semana.data).toString(2).split('')[pos])
+		}else{
+			return 1
+		}
+	}
+	catch{
+		return 1
+	}
+}
 
-	const [atividade, setAtividade] = useState('Habito');
-	const [nomeAtividade, setNomeAtividade] = useState('');
+	const { id, tipo, item } = props.route.params;
+
+	const [dificuldade, setDificuldade] = useState(item.dificuldade)
+
+	const [atividade, setAtividade] = useState(tipo);
+	const [nomeAtividade, setNomeAtividade] = useState(item.nome);
 	const [popUpDeletar, setPopUpDeletar] = useState(false);
-	const [dia1, setDia1] = useState(true);
-	const [dia2, setDia2] = useState(true);
-	const [dia3, setDia3] = useState(true);
-	const [dia4, setDia4] = useState(true);
-	const [dia5, setDia5] = useState(true);
-	const [dia6, setDia6] = useState(true);
-	const [dia7, setDia7] = useState(true);
-	const [positivo, setPositivo] = useState(true);
-
+	const [dia1, setDia1] = useState(getValueBinary(0));
+	const [dia2, setDia2] = useState(getValueBinary(1));
+	const [dia3, setDia3] = useState(getValueBinary(2));
+	const [dia4, setDia4] = useState(getValueBinary(3));
+	const [dia5, setDia5] = useState(getValueBinary(4));
+	const [dia6, setDia6] = useState(getValueBinary(5));
+	const [dia7, setDia7] = useState(getValueBinary(6));
+	const [positivo, setPositivo] = useState(item.eh_positivo ?? true);
+	const [data, setData] = useState(item.data_entrega);
 
 
 	let criacao = !props.route.params.editar;
@@ -42,12 +57,12 @@ export default function CriarAtividades(props) {
 	function retornar() {
 		props.navigation.navigate("Atividades")
 	}
-	async function criar() {
+	async function salvar() {
 		let id = await getId();
 		switch (atividade) {
 			case "Habito":
 				try {
-					const response = await api.post("/habito",
+					const response = await api.patch("/habito",
 						{
 							nome: nomeAtividade,
 							dificuldade: dificuldade,
@@ -64,7 +79,7 @@ export default function CriarAtividades(props) {
 			case "Rotina":
 				let dias = (Number(dia1) + "" + Number(dia2) + "" + Number(dia3) + "" + Number(dia4) + "" + Number(dia5) + "" + Number(dia6) + "" + Number(dia7))
 				try {
-					const response = await api.post("/rotina",
+					const response = await api.patch("/rotina",
 						{
 							nome: nomeAtividade,
 							dificuldade: dificuldade,
@@ -80,7 +95,7 @@ export default function CriarAtividades(props) {
 				break;
 			case "Tarefa":
 				try {
-					const response = await api.post("/tarefa",
+					const response = await api.patch("/tarefa",
 						{
 							nome: nomeAtividade,
 							dificuldade: dificuldade,
@@ -108,7 +123,7 @@ export default function CriarAtividades(props) {
 
 
 
-	const [data, setData] = useState('');
+	
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -128,7 +143,7 @@ export default function CriarAtividades(props) {
 						<TouchableOpacity onPress={excluir} onPress={() => setPopUpDeletar(true)}>
 							<Text style={styles.textoCriar}>DELETAR</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={editar}>
+						<TouchableOpacity onPress={salvar}>
 							<Text style={styles.textoCriar}>SALVAR</Text>
 						</TouchableOpacity>
 					</>
@@ -212,7 +227,7 @@ export default function CriarAtividades(props) {
 									//style={focus ? styles.inputFocado : styles.input}
 									//onFocus={() => setFocus(true)}
 									//onEndEditing={() => setFocus(false)}
-									//value={nomeAtividade}
+									value={data}
 									//onChangeText={setNomeAtividade}
 									placeholder='Data de conclusão'
 									onChangeText={text => setData(text)}
