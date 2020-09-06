@@ -67,7 +67,7 @@ export default function Grupo(props) {
 				if (dados.id_grupo) {
 					setTemGrupo(dados.id_grupo);
 					loadMembros(dados.id_grupo);
-					loadMissoes()
+					loadMissoes(dados.id_grupo)
 				}
 
 			} catch (err) {
@@ -90,9 +90,9 @@ export default function Grupo(props) {
 
 			}
 		}
-		async function loadMissoes() {
+		async function loadMissoes(id = temGrupo) {
 			try {
-				const response = await api.get('/missoes');
+				const response = await api.get(`/grupo/${id}/missoes`);
 				let dados = response.data;
 				setMissoes(dados);
 
@@ -349,7 +349,7 @@ export default function Grupo(props) {
 							</TouchableOpacity>
 							{missoes.map((missao) => {
 								return (
-									<ItemMissao key={missao.id} nome={missao.nome} saude={missao.saude} abrirMissao={() => {
+									<ItemMissao key={missao.id} nome={missao.nome} saude={missao.saude} finalizada = {missao.feita} abrirMissao={() => {
 										setMissaoDetalhes(missao)
 										setEscolherMissao(true);
 									}} />

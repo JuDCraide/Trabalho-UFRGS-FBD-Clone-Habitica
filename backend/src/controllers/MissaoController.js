@@ -5,7 +5,8 @@ var connection = dbconnection.dbConnection();
 module.exports = {
 
     async list(req, res) {
-        let query = `SELECT missao.id as id, missao.nome as nome, missao.saude as saude, missao.descricao as descricao, recompensa.valor as moedas, recompensa.xp as xp, item.nome as item FROM missao LEFT JOIN recompensa ON(recompensa.id = missao.id_recompensa) LEFT JOIN item ON(item.id = recompensa.id_item);`;
+        const {id} = req.params;
+        let query = `SELECT missao.id as id, missao.nome as nome, missao.saude as saude, missao.imagem as imagem, missao.descricao as descricao, missao.id_recompensa as id_recompensa,missaoFeita(id, ${id})as feita FROM missao;`;
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             return res.status(200).json(JSON.parse(JSON.stringify(result)))
