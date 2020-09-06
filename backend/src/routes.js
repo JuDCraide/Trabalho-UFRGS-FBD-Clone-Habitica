@@ -28,21 +28,21 @@ routes.get('/classes', ClasseController.list);
 
 routes.get('/usuario/:id/habito', HabitoController.list);
 routes.get('/habito/:id', HabitoController.view);
-routes.patch('/habito/:id', HabitoController.view);
+routes.patch('/habito', HabitoController.update);
 routes.post('/habito', HabitoController.create);
 routes.delete('/habito/:id', HabitoController.remove);
 
 routes.get('/usuario/:id/rotina', RotinaController.list);
-routes.get('/rotina/:id', UsuarioController.view);
-routes.patch('/rotina/:id', UsuarioController.view);
+routes.get('/rotina/:id', RotinaController.view);
+routes.patch('/rotina', RotinaController.update);
 routes.post('/rotina', RotinaController.create);
-routes.delete('/rotina/:id', UsuarioController.remove);
+routes.delete('/rotina/:id', RotinaController.remove);
 
 routes.get('/usuario/:id/tarefa', TarefaController.list);
-routes.get('/tarefa/:id', UsuarioController.view);
-routes.patch('/tarefa/:id', UsuarioController.view);
+routes.get('/tarefa/:id', TarefaController.view);
+routes.patch('/tarefa', TarefaController.update);
 routes.post('/tarefa', TarefaController.create);
-routes.delete('/tarefa/:id', UsuarioController.remove);
+routes.delete('/tarefa/:id', TarefaController.remove);
 
 routes.post('/atividade', AtividadeController.do);
 
@@ -67,8 +67,9 @@ routes.post('/grupo/:id/mensagem', MensagemController.create);
 
 routes.get('/missoes', MissaoController.list);
 
-routes.get('/grupo/:id/missao-atual', MissaoController.view);
+routes.get('/grupo/:id/missao-atual', MissaoController.viewAtual);
 routes.get('/grupo/:id/missoes', MissaoController.list);
-routes.post('/grupo/:id/missao', MissaoController.view);
+routes.post('/grupo/:id/missao', MissaoController.comecar);
+routes.patch('/grupo/:id/missao', MissaoController.dano);
 
 module.exports = routes;

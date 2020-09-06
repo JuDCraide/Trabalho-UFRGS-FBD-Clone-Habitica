@@ -45,6 +45,23 @@ module.exports = {
         })
     },
 
+    async update(req, res) {
+        const { nome, dificuldade, eh_positivo, id_habito, id_atividade } = req.body;
+
+        let query = `UPDATE atividade SET nome = "${nome}", dificuldade = ${dificuldade} WHERE atividade.id = ${id_atividade};`
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            query = `UPDATE habito SET eh_positivo = ${eh_positivo} WHERE habito.id = ${id_habito};`;
+            
+            connection.query(query, function (err, result, fields) {
+                console.log(err)
+                if (err) return res.status(500).json(err)
+                return res.status(200).send('Editado com sucesso')
+            })
+
+        })
+    },
+
 
     async remove(req, res) {
         const { id } = req.params;

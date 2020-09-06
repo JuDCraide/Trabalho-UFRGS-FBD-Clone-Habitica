@@ -30,7 +30,7 @@ export default function Grupo(props) {
 	const [novoGrupo, setNovoGrupo] = useState('');
 	const [monsterHealth, setMonsterHealth] = useState(100);
 	const [totalDamage, setTotalDamage] = useState(100);
-	const [temGrupo, setTemGrupo] = useState(0);
+	const [idGrupo, setIdGrupo] = useState(0);
 	const [grupo, setGrupo] = useState({});
 	const [ehLider, setEhLider] = useState(true);
 	const [temMissao, setTemMissao] = useState(false);
@@ -39,6 +39,8 @@ export default function Grupo(props) {
 	const [membros, setMembros] = useState([]);
 
 	const [missoes, setMissoes] = useState([])
+	const [missaoAtual, setMissaoAtual] = useState([])
+
 	const [missaoDetalhes, setMissaoDetalhes] = useState({})
 
 	const copiarUsername = () => {
@@ -65,9 +67,11 @@ export default function Grupo(props) {
 				const response = await api.get(`/usuario/${id}/grupo`);
 				let dados = response.data;
 				if (dados.id_grupo) {
-					setTemGrupo(dados.id_grupo);
+					setIdGrupo(dados.id_grupo);
+					loadDadosGrupo(dados.id_grupo);
 					loadMembros(dados.id_grupo);
-					loadMissoes(dados.id_grupo)
+					loadMissoes(dados.id_grupo);
+					loadMissaoAtual(dados.id_grupo);
 				}
 
 			} catch (err) {
@@ -80,7 +84,7 @@ export default function Grupo(props) {
 			try {
 				const response = await api.get(`/grupo/${id}/membros`);
 				let dados = response.data;
-
+				console.log(response.data)
 				setMembros(dados);
 
 
@@ -90,7 +94,21 @@ export default function Grupo(props) {
 
 			}
 		}
-		async function loadMissoes(id = temGrupo) {
+		async function loadDadosGrupo(id) {
+			try {
+				const response = await api.get(`/grupo/${id}`);
+				let dados = response.data;
+				console.log(response.data)
+				setGrupo(dados);
+
+
+			} catch (err) {
+
+				console.log(err);
+
+			}
+		}
+		async function loadMissoes(id = idGrupo) {
 			try {
 				const response = await api.get(`/grupo/${id}/missoes`);
 				let dados = response.data;
@@ -104,26 +122,53 @@ export default function Grupo(props) {
 			}
 		}
 
+		async function loadMissaoAtual(id = idGrupo) {
+			try {
+				const response = await api.get(`/grupo/${id}/missao-atual`);
+				let dados = response.data;
+				setMissaoAtual(dados);
+				setTemMissao(true);
+				console.log(dados)
+
+			} catch (err) {
+				setTemMissao(false)
+				console.log(err);
+
+			}
+		}
+
+		async function missaoAtual() {
+
+		}
 
 		loadDados()
 		loadIdGrupo()
 
-	}, [temGrupo]);
+	}, [idGrupo,temMissao]);
 
 
-	async function grupoMissao() {
 
-	}
 
 	async function iniciarMissao() {
+		
+		try {
+			const response = await api.post(`/grupo/${idGrupo}/missao`,
+				{
+					"id_missao": missaoDetalhes.id
+				});
+				setTemMissao(true)
 
+		} catch (err) {
+
+			console.log(err);
+		}
 	}
 
 	async function adicionarParticipante() {
 		try {
-			const response = await api.post(`/grupo/${temGrupo}/membro`,
+			const response = await api.post(`/grupo/${idGrupo}/membro`,
 				{
-					"id_grupo": temGrupo,
+					"id_grupo": idGrupo,
 					"id_usuario": novoMembro
 				});
 
@@ -137,12 +182,12 @@ export default function Grupo(props) {
 		let id = await getId();
 
 		try {
-			const response = await api.delete(`/grupo/${temGrupo}/membro`,
+			const response = await api.delete(`/grupo/${idGrupo}/membro`,
 				{
-					"id_grupo": temGrupo,
+					"id_grupo": idGrupo,
 					"id_usuario": id
 				});
-			setTemGrupo(0)
+			setIdGrupo(0)
 
 		} catch (err) {
 
@@ -159,7 +204,7 @@ export default function Grupo(props) {
 					"id_lider": id
 				});
 
-			setTemGrupo(1)
+			setIdGrupo(1)
 
 		} catch (err) {
 
@@ -169,7 +214,7 @@ export default function Grupo(props) {
 
 
 
-	if (temGrupo) {
+	if (idGrupo) {
 		return (
 			<SafeAreaView style={styles.container}>
 
@@ -177,7 +222,7 @@ export default function Grupo(props) {
 
 				<ScrollView style={{ flex: 1 }}>
 					<View style={styles.principal}>
-						<Text style={styles.nomeGrupo}>Nome do Grupo</Text>
+						<Text style={styles.nomeGrupo}>{grupo.nome}</Text>
 
 						<View style={styles.divisor} />
 						<Text style={styles.subtitulo}>Missão</Text>
@@ -185,7 +230,7 @@ export default function Grupo(props) {
 							<>
 								<TouchableOpacity style={styles.missao}>
 									<View>
-										<Text style={styles.nomeMissao}>Nome da missão</Text>
+										<Text style={styles.nomeMissao}>{missaoAtual.nome}</Text>
 										<Text style={styles.textoSimples}>Detalhes</Text>
 									</View>
 									<Icon
@@ -209,14 +254,14 @@ export default function Grupo(props) {
 										<View style={styles.progressoMissãoCentroEsquerdo} />
 
 										<View style={styles.progressoMissãoCentroMeio}>
-											<Text style={styles.nomeMissao} >Nome do Monstro</Text>
+											<Text style={styles.nomeMissao} >Monstro</Text>
 											<View style={styles.porcentagem}>
-												<View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${totalDamage}%` }}></View>
+												<View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${missaoAtual.dano_recebido/ missaoAtual.saude *100}%` }}></View>
 											</View>
 											<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 												<Text style={{ color: "#ff6165", fontSize: 13 }}>
 													<Image style={styles.iconeImagem} source={saudeImg} />
-													{'  '}{totalDamage}/{monsterHealth}
+													{'  '}{missaoAtual.dano_recebido}/{missaoAtual.saude}
 												</Text>
 												<Text style={{ color: "#ffa324", fontSize: 13 }}>
 													<Image style={styles.iconeImagem} source={espadaImg} />
@@ -349,7 +394,7 @@ export default function Grupo(props) {
 							</TouchableOpacity>
 							{missoes.map((missao) => {
 								return (
-									<ItemMissao key={missao.id} nome={missao.nome} saude={missao.saude} finalizada = {missao.feita} abrirMissao={() => {
+									<ItemMissao key={missao.id} nome={missao.nome} saude={missao.saude} finalizada={missao.feita} abrirMissao={() => {
 										setMissaoDetalhes(missao)
 										setEscolherMissao(true);
 									}} />
@@ -414,7 +459,9 @@ export default function Grupo(props) {
 							</View>
 							<TouchableOpacity
 								style={{ ...styles.botaoModal }}
-								onPress={() => setSairGrupo(!escolherMissao)}
+								onPress={() => {
+									iniciarMissao();
+								}}
 							>
 								<Text style={styles.textStyle}>Iniciar Missão</Text>
 							</TouchableOpacity>
