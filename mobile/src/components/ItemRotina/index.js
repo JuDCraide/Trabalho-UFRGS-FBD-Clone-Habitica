@@ -7,7 +7,7 @@ import styles from './styles';
 import { getId } from '../../utils/authentication';
 import api from '../../utils/api'
 
-export default function ItemRotina({id, nome, realizado = false, ativoHoje = true }) {
+export default function ItemRotina({id, nome, realizado = false, ativoHoje = true ,atualiza}) {
 
     async function realizarAcao() {
         let id_user = await getId()
@@ -17,6 +17,7 @@ export default function ItemRotina({id, nome, realizado = false, ativoHoje = tru
                     "id_atividade": id,
                     "id_usuario": id_user
                 });
+                atualiza()
         } catch (err) {
 
             console.log(err);

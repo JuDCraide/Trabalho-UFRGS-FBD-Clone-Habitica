@@ -5,30 +5,32 @@ Júlia e Leonardo
 */
 --VIEW
 --Atividade / Hábito / Recompensa
-CREATE VIEW atividade_habito(id, nome, dificuldade, id_usuario, eh_positivo, valor, xp, id_item) AS (
-    SELECT habito.id, atividade.nome, atividade.dificuldade, atividade.id_usuario, habito.eh_positivo, recompensa.valor, recompensa.xp, recompensa.id_item
+
+DROP VIEW  atividade_habito;
+CREATE VIEW atividade_habito(id, nome, dificuldade, id_usuario, eh_positivo, valor, xp, id_item, feita, atividade) AS (
+    SELECT habito.id, atividade.nome, atividade.dificuldade, atividade.id_usuario, habito.eh_positivo, recompensa.valor, recompensa.xp, recompensa.id_item, feitaHoje(atividade.id), atividade.id
     FROM atividade 
     JOIN habito ON (habito.id_atividade = atividade.id)
     LEFT JOIN recompensa ON (atividade.id_recompensa = recompensa.id)
 );
 
 --Atividade / Rotina / Recompensa
-CREATE VIEW atividade_rotina(id, dias_da_semana, nome, dificuldade, id_usuario, valor, xp, id_item) AS (
-    SELECT rotina.id, rotina.dias_da_semana, atividade.nome, atividade.dificuldade, atividade.id_usuario, recompensa.valor, recompensa.xp, recompensa.id_item
+DROP VIEW atividade_rotina;
+CREATE VIEW atividade_rotina(id, dias_da_semana, nome, dificuldade, id_usuario, valor, xp, id_item, feita, atividade) AS (
+    SELECT rotina.id, rotina.dias_da_semana, atividade.nome, atividade.dificuldade, atividade.id_usuario, recompensa.valor, recompensa.xp, recompensa.id_item, feitaHoje(atividade.id), atividade.id
     FROM atividade 
     JOIN rotina ON (rotina.id_atividade = atividade.id)
     LEFT JOIN recompensa ON (atividade.id_recompensa = recompensa.id)
 );
 
 --Atividade / Tarefa / Recompensa
-CREATE VIEW atividade_tarefa(id, nome, dificuldade, id_usuario, valor, xp, id_item) AS (
-    SELECT tarefa.id, tarefa.data_entrega, atividade.nome, atividade.dificuldade, atividade.id_usuario, recompensa.valor, recompensa.xp, recompensa.id_item
+DROP VIEW atividade_tarefa;
+CREATE VIEW atividade_tarefa(id, nome, dificuldade, id_usuario, valor, xp, id_item, data_entrega, feita, atividade) AS (
+    SELECT tarefa.id,  atividade.nome, atividade.dificuldade, atividade.id_usuario, recompensa.valor, recompensa.xp, recompensa.id_item, tarefa.data_entrega, feitaHoje(atividade.id), atividade.id
     FROM atividade 
     JOIN tarefa ON (tarefa.id_atividade = atividade.id)
     LEFT JOIN recompensa ON (atividade.id_recompensa = recompensa.id)
 );
-
-
 
 --Nas consultas abaixo os termos iniciados pelo sinal ${} representam variáveis que serão definidas em tempo de execução do programa. Nos comentários individuais é possível ver uma explicação sobre quais tipos de valores determinadas variáveis podem obter. Foi usada essa notação pois é a mesma utilizada pela linguagem javascript, com a qual o software em questão está sendo desenvolvido.
 
@@ -133,7 +135,8 @@ DELETE FROM membro_grupo
 WHERE id_usuario=${id_usuario};
 
 --Listar todas as missões do jogo
-SELECT * FROM missao;
+SELECT missao.id as id, missao.nome as nome, missao.saude as saude, missao.imagem as imagem, missao.descricao as descricao, missao.id_recompensa as id_recompensa,missaoFeita(id, ${id_grupo})as feita FROM missao;
+
 
 --Listar todas as missões concluídas pelo grupo
 SELECT * FROM missao JOIN missoes_vencidas_grupo

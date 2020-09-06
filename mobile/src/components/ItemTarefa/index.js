@@ -8,10 +8,9 @@ import api from '../../utils/api'
 
 import styles from './styles';
 
-export default function ItemTarefa({ id,nome, data = false }) {
+export default function ItemTarefa({ id, nome, data = false, completo = false, atualiza }) {
 
     const prazoVencido = false; //data < hoje
-    const completo = false;
 
     async function realizarAcao() {
         let id_user = await getId()
@@ -21,7 +20,7 @@ export default function ItemTarefa({ id,nome, data = false }) {
                     "id_atividade": id,
                     "id_usuario": id_user
                 });
-            console.log(response.data)
+            atualiza()
 
         } catch (err) {
 
@@ -34,7 +33,7 @@ export default function ItemTarefa({ id,nome, data = false }) {
             <TouchableOpacity style={completo ? styles.completo : data && prazoVencido ? styles.vencido : styles.ativo} onPress={() => !completo && realizarAcao()}>
                 <View style={completo ? styles.checkCompleto : data && prazoVencido ? styles.checkVencido : styles.checkAtivo}>
                     <Icon
-                        style={!completo && {display:'none'}}
+                        style={!completo && { display: 'none' }}
                         name="done"
                         size={24}
                         color="#878190"
@@ -43,7 +42,7 @@ export default function ItemTarefa({ id,nome, data = false }) {
             </TouchableOpacity>
             <View style={styles.atividade}>
                 <Text style={styles.titulo}>{nome}</Text>
-                <Text style={data ? styles.data : {display:'none'} }>{data}</Text>
+                <Text style={data ? styles.data : { display: 'none' }}>{data}</Text>
             </View>
         </View>
     );

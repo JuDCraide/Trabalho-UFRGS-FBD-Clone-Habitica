@@ -31,6 +31,12 @@ export default function Atividades(props) {
     const [rotinas, setRotinas] = useState([]);
     const [tarefas, setTarefas] = useState([]);
 
+    const[atualiza,setAtualiza] = useState(false)
+
+    function dataChanged(){
+        setAtualiza(!atualiza);
+    }
+
     useEffect(() => {
 
         async function loadDados() {
@@ -99,7 +105,7 @@ export default function Atividades(props) {
         loadHabitos()
         loadRotinas()
         loadTarefas()
-    }, []);
+    }, [atualiza]);
 
 
     const xpbar = (xp) / calcularXpProximoNivel(xp) * 100;
@@ -145,14 +151,14 @@ export default function Atividades(props) {
             </View>
             <View style={styles.container}>
                 {habitos.map((habito) => {
-                    return (<ItemHabito id={habito.id} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} />)
+                    return (<ItemHabito id={habito.atividade} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} atualiza={dataChanged} />)
 
                 })}
                 {rotinas.map((rotina) => {
-                    return (<ItemRotina id={rotina.id} key={rotina.id} nome={rotina.nome} />)
+                    return (<ItemRotina id={rotina.atividade} key={rotina.id} nome={rotina.nome} realizado={rotina.feita} atualiza={dataChanged}/>)
                 })}
                 {tarefas.map((tarefa) => {
-                    return (<ItemTarefa id={tarefa.id} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} />)
+                    return (<ItemTarefa id={tarefa.atividade} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} completo={tarefa.feita} atualiza={dataChanged} />)
                 })}
             </View>
             <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades")}>

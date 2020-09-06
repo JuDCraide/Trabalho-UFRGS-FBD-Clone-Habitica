@@ -1,3 +1,11 @@
+CREATE FUNCTION feitaHoje(id_atividade INT)
+RETURNS INT
+RETURN (SELECT COUNT(*) FROM atividades_realizadas WHERE atividades_realizadas.id_atividade = id_atividade AND DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE()));
+
+CREATE FUNCTION missaoFeita(id_missao INT, id_grupo INT)
+RETURNS INT
+RETURN (SELECT COUNT(*) FROM missoes_vencidas_grupo WHERE missoes_vencidas_grupo.id_grupo = id_grupo AND missoes_vencidas_grupo.id_missao = id_missao);
+
 CREATE FUNCTION isLider(idUser INT)
 RETURNS BOOLEAN
 RETURN (SELECT COUNT(*) > 0 FROM grupo WHERE grupo.id_lider = idUser);
