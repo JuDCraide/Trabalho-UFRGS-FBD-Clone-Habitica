@@ -8,7 +8,7 @@ import api from '../../utils/api'
 
 import styles from './styles';
 
-export default function ItemTarefa({ nome, data = false }) {
+export default function ItemTarefa({ id,nome, data = false }) {
 
     const prazoVencido = false; //data < hoje
     const completo = false;

@@ -260,7 +260,7 @@ export default function CriarAtividades(props) {
 
 							</View>
 						</>
-					) : atividade === 'Hábito' && (
+					) : atividade === 'Habito' && (
 						<>
 							<Text style={styles.subtitulo}>Valor</Text>
 							<View style={{ ...styles.areaSelecao, justifyContent: 'space-evenly' }}>
