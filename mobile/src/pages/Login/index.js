@@ -29,9 +29,16 @@ export default function Login({ navigation }) {
 				{
 					"login": login
 				});
-			salvarId(response.data.id.toString());
-			console.log(response.data);
-			navigation.navigate('Home');
+			console.log(response.status, response.data)
+			if (response.status != 200) {
+				console.log(response.data);
+			}
+			else {
+				salvarId(response.data.id.toString());
+
+				navigation.navigate('Home');
+			}
+
 
 		} catch (err) {
 
@@ -39,7 +46,7 @@ export default function Login({ navigation }) {
 		}
 
 	}
-	
+
 	function handleRegister() {
 		navigation.navigate('Cadastro');
 	}
