@@ -166,6 +166,17 @@ WHERE (habito.eh_positivo!= false or habito.eh_positivo is NULL) and DAY(ativida
 GROUP BY atividades_realizadas.id_usuario
 HAVING id_usuario=${id_usuario};
 
+--Contagem hábitos
+SELECT *
+FROM atividades_realizadas JOIN atividade_habito ON(atividades_realizadas.id_atividade = atividade_habito.id)
+WHERE DAY(atividades_realizadas.data_hora)=DAY(CURRENT_DATE());
+
+SELECT atividade_habito.id, COUNT(*)
+FROM atividades_realizadas JOIN atividade_habito ON(atividades_realizadas.id_atividade = atividade_habito.id)
+WHERE DAY(atividades_realizadas.data_hora)=DAY(CURRENT_DATE())
+GROUP BY atividade_habito.id
+HAVING COUNT(*)>0;
+
 --SUBCONSULTA
 SELECT *
 FROM conquista 
