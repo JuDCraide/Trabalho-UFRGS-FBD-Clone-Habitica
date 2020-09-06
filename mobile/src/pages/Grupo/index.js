@@ -238,7 +238,7 @@ export default function Grupo(props) {
 							}
 						</View>
 						{membros.map((membro) => {
-							return (<IntegranteGrupo key={membro.id} nome={membro.nome} classe={membro.classe} lider={membro.id == getId()} health={membro.saude} />)
+							return (<IntegranteGrupo key={membro.id} nome={membro.nome} classe={membro.classe} lider={membro.id == getId()} health={membro.saude} exp={membro.xp} />)
 						})}
 
 

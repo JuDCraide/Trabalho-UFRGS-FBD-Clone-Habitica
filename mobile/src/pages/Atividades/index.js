@@ -15,6 +15,7 @@ import styles from './styles';
 
 import api from '../../utils/api'
 import { getId } from '../../utils/authentication';
+import {calcularNivel,calcularXpProximoNivel} from '../../utils/utils'
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
@@ -39,7 +40,7 @@ export default function Atividades(props) {
                 let dados = response.data;
                 setHealth(dados.saude);
                 setXp(dados.experiencia)
-                setNivel(dados.experiencia / 100)
+                setNivel(calcularNivel(dados.experiencia))
                 setMoedas(dados.moedas)
             } catch (err) {
                 console.log(err);
@@ -101,7 +102,7 @@ export default function Atividades(props) {
     }, []);
 
 
-    const xpbar = (xp) / 770 * 100;
+    const xpbar = (xp) / calcularXpProximoNivel(xp) * 100;
     return (
         <SafeAreaView style={styles.container}>
             <Header titulo={props.route.name} {...props} />
@@ -128,7 +129,7 @@ export default function Atividades(props) {
                                     <View style={{ ...styles.porcentagem, backgroundColor: "#ffbe5d", width: `${xpbar}%` }}></View>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={styles.textos}>{xp}/770</Text>
+                                    <Text style={styles.textos}>{xp}/{calcularXpProximoNivel(xp)}</Text>
                                     <Text style={styles.textos}>Experiência</Text>
                                 </View>
                             </View>
