@@ -9,6 +9,8 @@ const TarefaController = require('./controllers/TarefaController');
 const ConquistasController = require('./controllers/ConquistasController');
 const MensagemController = require('./controllers/MensagemController');
 const GrupoController = require('./controllers/GrupoController');
+const MissaoController = require('./controllers/MissaoController');
+const AtividadeController = require('./controllers/AtividadeController');
 
 const routes =  express.Router();
  
@@ -42,6 +44,8 @@ routes.patch('/tarefa/:id', UsuarioController.view);
 routes.post('/tarefa', TarefaController.create);
 routes.delete('/tarefa/:id', UsuarioController.remove);
 
+routes.post('/atividade', AtividadeController.do);
+
 routes.get('/usuario/:id/conquistas', ConquistasController.listObtidas);
 routes.get('/usuario/:id/conquistas-restantes', ConquistasController.listNaoObtidas);
 
@@ -61,10 +65,10 @@ routes.delete('/grupo/:id/membro', GrupoController.removeUser);
 routes.get('/grupo/:id/mensagens', MensagemController.view);
 routes.post('/grupo/:id/mensagem', MensagemController.create);
 
-routes.get('/missoes', UsuarioController.view);
+routes.get('/missoes', MissaoController.list);
 
-routes.get('/grupo/:id/missao-atual', UsuarioController.view);
-routes.get('/grupo/:id/missoes', UsuarioController.view);
-routes.post('/grupo/:id/missao', UsuarioController.view);
+routes.get('/grupo/:id/missao-atual', MissaoController.view);
+routes.get('/grupo/:id/missoes', MissaoController.view);
+routes.post('/grupo/:id/missao', MissaoController.view);
 
 module.exports = routes;

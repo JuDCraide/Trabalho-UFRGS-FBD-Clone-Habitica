@@ -1,13 +1,14 @@
-const connection = require('../connection')
+const dbconnection = require('../connection')
+
+var connection = dbconnection.dbConnection();
 
 module.exports = {
 
-    async create(req, res) {
-        const { nome, login, id_classe } = req.body;
-        let query = `INSERT INTO missao(nome,login id_classe) VALUES (${nome},${login},${id_classe});`
+    async list(req, res) {
+        let query = `SELECT missao.id as id, missao.nome as nome, missao.saude as saude, missao.descricao as descricao, recompensa.valor as moedas, recompensa.xp as xp, item.nome as item FROM missao LEFT JOIN recompensa ON(recompensa.id = missao.id_recompensa) LEFT JOIN item ON(item.id = recompensa.id_item);`;
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
-            return res.status(200).send('Cadastrado com sucesso')
+            return res.status(200).json(JSON.parse(JSON.stringify(result)))
         })
     },
 

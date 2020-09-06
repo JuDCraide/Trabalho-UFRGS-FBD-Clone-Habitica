@@ -38,6 +38,9 @@ export default function Grupo(props) {
 	const [pendingDamage, setPendingDamage] = useState(100);
 	const [membros, setMembros] = useState([]);
 
+	const [missoes, setMissoes] = useState([])
+	const [missaoDetalhes, setMissaoDetalhes] = useState({})
+
 	const copiarUsername = () => {
 		Clipboard.setString(username);
 	}
@@ -64,6 +67,7 @@ export default function Grupo(props) {
 				if (dados.id_grupo) {
 					setTemGrupo(dados.id_grupo);
 					loadMembros(dados.id_grupo);
+					loadMissoes()
 				}
 
 			} catch (err) {
@@ -76,8 +80,21 @@ export default function Grupo(props) {
 			try {
 				const response = await api.get(`/grupo/${id}/membros`);
 				let dados = response.data;
-				console.log(dados)
+
 				setMembros(dados);
+
+
+			} catch (err) {
+
+				console.log(err);
+
+			}
+		}
+		async function loadMissoes() {
+			try {
+				const response = await api.get('/missoes');
+				let dados = response.data;
+				setMissoes(dados);
 
 
 			} catch (err) {
@@ -330,10 +347,16 @@ export default function Grupo(props) {
 							>
 								<Icon name='close' size={20} style={styles.textStyle} />
 							</TouchableOpacity>
+							{missoes.map((missao) => {
+								return (
+									<ItemMissao key={missao.id} nome={missao.nome} saude={missao.saude} abrirMissao={() => {
+										setMissaoDetalhes(missao)
+										setEscolherMissao(true);
+									}} />
+								)
+							})}
 
-							<ItemMissao nome='Vice Awakens' saude={1000} abrirMissao={() => setEscolherMissao(true)} />
-							<ItemMissao nome='Enxame Caveiras da Terra ' saude={300} abrirMissao={() => setEscolherMissao(true)} />
-							<ItemMissao finalizada nome='Coelhos de Poeira' saude={100} abrirMissao={() => setEscolherMissao(true)} />
+
 
 						</View>
 					</View>
@@ -353,35 +376,39 @@ export default function Grupo(props) {
 								<Icon name='close' size={20} style={styles.textStyle} />
 							</TouchableOpacity>
 
-							<Text style={styles.subtitulo}>Nome da Missão</Text>
+							<Text style={styles.subtitulo}>{missaoDetalhes.nome}</Text>
 							<View style={{ height: 400, }}>
 								<ScrollView>
 									<View style={styles.containerSaude}>
 										<Text style={{ color: '#fff' }}>Health</Text>
-										<Text style={{ color: '#fff', marginLeft: 20 }}>100</Text>
+										<Text style={{ color: '#fff', marginLeft: 20 }}>{missaoDetalhes.saude}</Text>
 									</View>
 									<View style={{ alignItems: 'center' }}>
 										<Text style={styles.textoSimples}>Descrição</Text>
 										<View style={styles.containerDescricao}>
 											<Text style={{ ...styles.textoSimples, textAlign: 'justify' }}>
-												Depois de muito esforço, seu grupo descobriu o covil de Vício. O monstro gigantesco olha para o seu grupo com desgosto. Enquanto sombras giram em torno de você, uma voz sussurra em sua cabeça "Mais cidadãos idiotas de Habitica vêm me parar? Fofo. Você teria sido mais sábio em não vir." O assustador titã ergue a cabeça e se prepara para atacar. Essa é sua chance! Dê tudo de si e derrote o Vício de uma vez por todas!
+												{missaoDetalhes.descricao}
 											</Text>
 										</View>
 									</View>
 									<View style={{ alignItems: 'center', marginTop: 10 }}>
 										<Text style={styles.textoSimples}>Recompensa</Text>
-										<View style={styles.containerRecompensa}>
+										{missaoDetalhes.item ? <View style={styles.containerRecompensa}>
 											{/*<Image source={ItemMissao.imagem} style={styles.recompensaImg}/>*/}
-											<Text style={styles.textoSimples}>Item</Text>
-										</View>
-										<View style={styles.containerRecompensa}>
-											<Image source={xpImg} style={styles.recompensaImg} />
-											<Text style={styles.textoSimples}>59 XP</Text>
-										</View>
-										<View style={styles.containerRecompensa}>
+											<Text style={styles.textoSimples}>{missaoDetalhes.item}</Text>
+										</View> : null}
+
+										{missaoDetalhes.xp ?
+											<View style={styles.containerRecompensa}>
+												<Image source={xpImg} style={styles.recompensaImg} />
+												<Text style={styles.textoSimples}>{missaoDetalhes.xp} XP</Text>
+											</View> :
+											null}
+										{missaoDetalhes.moedas ? <View style={styles.containerRecompensa}>
 											<Image source={moedaImg} style={styles.recompensaImg} />
-											<Text style={styles.textoSimples}>12 Gold</Text>
-										</View>
+											<Text style={styles.textoSimples}>{missaoDetalhes.moedas} Gold</Text>
+										</View> : null}
+
 									</View>
 								</ScrollView>
 							</View>
