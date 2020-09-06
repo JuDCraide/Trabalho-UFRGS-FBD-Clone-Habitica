@@ -111,9 +111,41 @@ export default function EditarAtividades(props) {
 				break;
 		}
 	}
-	function excluir() {
+	
+	async function excluir() {
+		switch (atividade) {
+			case "Habito":
 
+				try {
+					const response = await api.delete(`/habito/${item.id}`);
+
+				} catch (err) {
+
+					console.log(err);
+				}
+				break;
+			case "Rotina":
+				let dias = (Number(dia1) + "" + Number(dia2) + "" + Number(dia3) + "" + Number(dia4) + "" + Number(dia5) + "" + Number(dia6) + "" + Number(dia7))
+				try {
+					const response = await api.delete(`/rotina/${item.id}`);
+
+				} catch (err) {
+
+					console.log(err);
+				}
+				break;
+			case "Tarefa":
+				try {
+					const response = await api.delete(`/tarefa/${item.id}`);
+
+				} catch (err) {
+
+					console.log(err);
+				}
+				break;
+		}
 	}
+
 	const [focus, setFocus] = useState(false);
 	//const [focus2, setFocus2] = useState(false);
 
@@ -326,7 +358,10 @@ export default function EditarAtividades(props) {
 
 						<TouchableOpacity
 							style={styles.botaoModal}
-							onPress={() => setPopUpDeletar(!popUpDeletar)}
+							onPress={() => {
+								excluir()
+								setPopUpDeletar(!popUpDeletar);
+							}}
 						>
 							<Text style={styles.textStyle}>Deletar</Text>
 						</TouchableOpacity>
