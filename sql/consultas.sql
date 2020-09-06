@@ -175,3 +175,14 @@ WHERE id NOT IN (
         JOIN conquista ON(conquista.id = usuario_conquista.id_conquista)
     WHERE usuario.id = ${user_id}
 );
+
+--NOT Exists
+--Serve para ver quais usuários possuem as mesmas conquistas que você
+SELECT id
+FROM usuario USR
+where id != ${id} AND NOT EXISTS (SELECT id_conquista
+FROM usuario_conquista
+WHERE usuario_conquista.id_usuario = ${id} 
+AND id_conquista NOT IN (SELECT DISTINCT id_conquista
+FROM usuario_conquista
+WHERE usuario_conquista.id_usuario =USR.id));
