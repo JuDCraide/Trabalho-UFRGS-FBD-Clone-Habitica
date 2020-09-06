@@ -145,14 +145,14 @@ export default function Atividades(props) {
             </View>
             <View style={styles.container}>
                 {habitos.map((habito) => {
-                    return (<ItemHabito key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} />)
+                    return (<ItemHabito id={habito.id} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} />)
 
                 })}
                 {rotinas.map((rotina) => {
-                    return (<ItemRotina key={rotina.id} nome={rotina.nome} />)
+                    return (<ItemRotina id={rotina.id} key={rotina.id} nome={rotina.nome} />)
                 })}
                 {tarefas.map((tarefa) => {
-                    return (<ItemTarefa key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} />)
+                    return (<ItemTarefa id={tarefa.id} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} />)
                 })}
             </View>
             <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades")}>

@@ -8,7 +8,7 @@ module.exports = {
 
     async list(req, res) {
         const { id } = req.params;
-        let query = `SELECT * FROM atividade JOIN tarefa ON(tarefa.id_atividade = atividade.id) WHERE atividade.id_usuario = ${id};`;
+        let query = `SELECT * FROM atividade_tarefa WHERE id_usuario = ${id};`;
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             //console.log(result)
@@ -20,7 +20,7 @@ module.exports = {
         const { id } = req.params;
 
         let query = `SELECT * FROM atividade JOIN tarefa ON(tarefa.id_atividade = atividade.id) WHERE  tarefa.id = ${id};`;
-        
+
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             return res.status(200).json(result[0])
@@ -29,7 +29,7 @@ module.exports = {
 
     async create(req, res) {
         const { nome, dificuldade, id_recompensa, id_usuario, data_entrega } = req.body;
-        
+
         let query = `INSERT INTO atividade(nome,dificuldade, id_recompensa, id_usuario) VALUES ("${nome}",${dificuldade},${id_recompensa},${id_usuario});`
         console.log(query)
         connection.query(query, function (err, result, fields) {

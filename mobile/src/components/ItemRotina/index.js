@@ -4,11 +4,28 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 
-export default function ItemRotina({ nome, realizado = false, ativoHoje = true }) {
+import { getId } from '../../utils/authentication';
+import api from '../../utils/api'
+
+export default function ItemRotina({id, nome, realizado = false, ativoHoje = true }) {
+
+    async function realizarAcao() {
+        let id_user = await getId()
+        try {
+            const response = await api.post("/atividade",
+                {
+                    "id_atividade": id,
+                    "id_usuario": id_user
+                });
+        } catch (err) {
+
+            console.log(err);
+        }
+    }
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={ativoHoje && !realizado ? styles.ativado : styles.desativado}>
+            <TouchableOpacity style={ativoHoje && !realizado ? styles.ativado : styles.desativado} onPress={() => ativoHoje && !realizado && realizarAcao()} >
                 <View style={ativoHoje && !realizado ? styles.checkAtivo : styles.checkInativo}>
                     <Icon
                         style={!realizado && { display: 'none' }}
