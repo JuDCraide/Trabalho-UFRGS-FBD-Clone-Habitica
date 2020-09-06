@@ -11,18 +11,40 @@ import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 import api from '../../utils/api'
 
+import { getId } from '../../utils/authentication';
+
 export default function Mercado(props) {
+
+    useEffect(() => {
+        async function handlePesquisa() {
+            let id = await getId();
+            try {
+                const response = await api.get(`/usuario/${id}`);
+                let dados = response.data;
+                setSaldo(dados.moedas);
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+        }
+        handlePesquisa()
+    }, []);
 
     const [comprar, setComprar] = useState(false);
     const [semDinheiro, setSemDinheiro] = useState(false);
     const [itens, setItens] = useState([]);
-    const saldo = 93;
+    const [saldo, setSaldo] = useState(0);
 
-    useEffect(()=>{ 
+    const [itemAtual, setItemAtual] = useState(0);
+    const [valorItemAtual, setValorItemAtual] = useState(0);
+
+    useEffect(() => {
         async function loadItens() {
 
             try {
-                const response = await api.get(`/itens/mercado`); 
+                const response = await api.get(`/itens/mercado`);
                 setItens(response.data);
 
             } catch (err) {
@@ -30,14 +52,45 @@ export default function Mercado(props) {
             }
         }
         loadItens();
-    },[]);
+    }, []);
 
-    function comprarItem(preco) {
-        //console.log(saldo, ' ', preco);
+    async function loadItens() {
+
+        try {
+            const response = await api.get(`/itens/mercado`);
+            setItens(response.data);
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
+    function comprarItem(preco, id) {
+
         if (saldo >= preco) {
+            setItemAtual(id);
+            setValorItemAtual(preco);
             setComprar(true);
         } else {
             setSemDinheiro(true)
+        }
+    }
+
+    async function efetuarCompra() {
+        let id = await getId();
+        try {
+            const response = await api.post("/item/comprar-item",
+                {
+                    "id_usuario": id,
+                    "id_item": itemAtual,
+                    "novaMoeda": saldo - valorItemAtual
+                });
+            setComprar(false)
+            loadItens();
+        } catch (err) {
+
+            console.log(err);
         }
     }
 
@@ -54,7 +107,7 @@ export default function Mercado(props) {
                     <View style={styles.itens}>
                         {
                             itens.map(item => (
-                                <ItemMercado key={item.id} preco={item.preco} comprar={comprarItem} img={item.imagem} />
+                                <ItemMercado key={item.id} id={item.id} preco={item.preco} comprar={comprarItem} img={item.imagem} />
                             ))
                         }
                     </View>
@@ -80,7 +133,7 @@ export default function Mercado(props) {
 
                         <TouchableOpacity
                             style={{ ...styles.botaoModal }}
-                            onPress={() => setComprar(!comprar)}
+                            onPress={() => efetuarCompra()}
                         >
                             <Text style={styles.textStyle}>Comprar</Text>
                         </TouchableOpacity>

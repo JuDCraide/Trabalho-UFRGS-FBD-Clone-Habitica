@@ -46,8 +46,9 @@ routes.get('/usuario/:id/conquistas', ConquistasController.listObtidas);
 routes.get('/usuario/:id/conquistas-restantes', ConquistasController.listNaoObtidas);
 
 routes.get('/itens', ItemController.view); //Filtrar por possuído ou equipado
-routes.post('/item/equipar-item', ItemController.view); //Alterar equipado
-routes.post('/item/comprar-item', ItemController.view); 
+routes.post('/item/equipar-item', ItemController.equipar);
+routes.post('/item/desequipar-item', ItemController.desequipar);
+routes.post('/item/comprar-item', ItemController.comprar); 
 routes.get('/itens/mercado', ItemController.list8);
 routes.get('/usuario/:id/itens', ItemController.listUsuario);
 routes.get('/usuario/:id/itens-equipados', ItemController.listEquipados);

@@ -61,4 +61,40 @@ module.exports = {
         })
     },
 
+
+    async equipar(req, res) {
+        const { id_item, id_usuario } = req.body;
+        let query = `UPDATE usuario_possui_itens SET equipado = '1' WHERE id_usuario = ${id_usuario} AND id_item = ${id_item};`;
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).send('Excluído com sucesso')
+        })
+    },
+
+    async desequipar(req, res) {
+        const { id_item, id_usuario } = req.body;
+        let query = `UPDATE usuario_possui_itens SET equipado = '0' WHERE id_usuario = ${id_usuario} AND id_item = ${id_item};`;
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).send('Excluído com sucesso')
+        })
+    },
+
+    async comprar(req, res) {
+        const { id_item, id_usuario, novaMoeda } = req.body;
+
+        let query = `INSERT INTO usuario_possui_itens(id_usuario,id_item,equipado) VALUES(${id_usuario},${id_item},'0');`;
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            let query1 = `UPDATE usuario SET moedas = ${novaMoeda} WHERE id = ${id_usuario};`;
+
+            connection.query(query1, function (err, result, fields) {
+                if (err) return res.status(500).json(err)
+
+            })
+            return res.status(200).send('Excluído com sucesso')
+        })
+    },
+
+
 }

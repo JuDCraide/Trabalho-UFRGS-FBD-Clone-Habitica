@@ -22,6 +22,30 @@ export default function Itens(props) {
     const [itensEquipados, setItensEquipados] = useState([]);
     const [itensFake, setItensFake] = useState([]);
 
+    const [itemPopUp, setItemPopUp] = useState(0);
+
+    async function loadItens() {
+        let id = await getId();
+        try {
+            const response = await api.get(`/usuario/${id}/itens`);
+            setItens(response.data);
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    async function loadItensEquipados() {
+        let id = await getId();
+        try {
+            const response = await api.get(`/usuario/${id}/itens-equipados`);
+            setItensEquipados(response.data);
+            setItensFake(Array(4 - response.data.length).fill(''));
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         async function loadItens() {
             let id = await getId();
@@ -48,10 +72,56 @@ export default function Itens(props) {
         loadItensEquipados();
     }, []);
 
-    function equipar() {
-        setPopUpEquipar(!popUpEquipar)
-        setPopUpSemEspaco(true)
+    async function equipar() {
+        if (itensEquipados.length < 4) {
+            let id = await getId();
+            try {
+                const response = await api.post("/item/equipar-item",
+                    {
+                        "id_usuario": id,
+                        "id_item": itemPopUp
+                    });
+                await loadItens()
+                await loadItensEquipados()
+                setPopUpEquipar(false)
+            } catch (err) {
+
+                console.log(err);
+            }
+        }
+        else {
+            setPopUpSemEspaco(true)
+        }
+
+
     }
+    async function desequipar() {
+        let id = await getId();
+        try {
+            const response = await api.post("/item/desequipar-item",
+                {
+                    "id_usuario": id,
+                    "id_item": itemPopUp
+                });
+            await loadItens()
+            await loadItensEquipados()
+            setPopUpDesequipar(false)
+        } catch (err) {
+
+            console.log(err);
+        }
+    }
+
+    function openEquipPopUp(id) {
+        setItemPopUp(id);
+        setPopUpEquipar(true)
+    }
+
+    function openDesEquipPopUp(id) {
+        setItemPopUp(id);
+        setPopUpDesequipar(true)
+    }
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -64,15 +134,15 @@ export default function Itens(props) {
                         itensEquipados.map(item => (
                             <ItemEquipado
                                 key={item.id}
-                                desequipar={() => setPopUpDesequipar(true)}
-                                imagem={item.imagem}
+                                desequipar={() => openDesEquipPopUp(item.id)}
+                                imagem={"http://192.168.0.2:3333/" + item.imagem}
                             />
                         ))
                     }{
                         itensFake.map((item, index) => (
                             <ItemEquipado
                                 key={index}
-                                desequipar={() => setPopUpDesequipar(true)}
+                                desequipar={() => openDesEquipPopUp(item.id)}
                             />
                         ))
                     }
@@ -84,11 +154,11 @@ export default function Itens(props) {
                         itens.map(item => (
                             <Item
                                 key={item.id}
-                                equipar={() => setPopUpEquipar(true)}
+                                equipar={() => openEquipPopUp(item.id)}
                                 nome={item.nome}
                                 poder={item.tipo_poder}
                                 valorPoder={item.valor_poder}
-                                imagem={item.iamgem}
+                                imagem={"http://192.168.0.2:3333/" + item.imagem}
                             />
                         ))
                     }
@@ -140,7 +210,7 @@ export default function Itens(props) {
 
                         <TouchableOpacity
                             style={styles.botaoModal}
-                            onPress={() => setPopUpDesequipar(!popUpDesequipar)}
+                            onPress={() => desequipar()}
                         >
                             <Text style={styles.textStyle}>Desequipar</Text>
                         </TouchableOpacity>
