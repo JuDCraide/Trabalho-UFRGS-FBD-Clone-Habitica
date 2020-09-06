@@ -29,15 +29,14 @@ module.exports = {
 
     async create(req, res) {
         const { nome, dificuldade, id_recompensa, id_usuario, data_entrega } = req.body;
-        if (!id_recompensa) {
-            id_recompensa = NULL;
-        }
+        
         let query = `INSERT INTO atividade(nome,dificuldade, id_recompensa, id_usuario) VALUES ("${nome}",${dificuldade},${id_recompensa},${id_usuario});`
+        console.log(query)
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
 
             let id_atividade = result.insertId;
-            query = `INSERT INTO habito(id_atividade, data_entrega) VALUES (${id_atividade},"${data_entrega}");`;
+            query = `INSERT INTO tarefa(id_atividade, data_entrega) VALUES (${id_atividade},"${data_entrega}");`;
             connection.query(query, function (err, result, fields) {
                 if (err) return res.status(500).json(err)
                 return res.status(200).send('Cadastrado com sucesso')

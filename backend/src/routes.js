@@ -33,13 +33,13 @@ routes.delete('/habito/:id', HabitoController.remove);
 routes.get('/usuario/:id/rotina', RotinaController.list);
 routes.get('/rotina/:id', UsuarioController.view);
 routes.patch('/rotina/:id', UsuarioController.view);
-routes.post('/rotina', UsuarioController.create);
+routes.post('/rotina', RotinaController.create);
 routes.delete('/rotina/:id', UsuarioController.remove);
 
 routes.get('/usuario/:id/tarefa', TarefaController.list);
 routes.get('/tarefa/:id', UsuarioController.view);
 routes.patch('/tarefa/:id', UsuarioController.view);
-routes.post('/tarefa', UsuarioController.create);
+routes.post('/tarefa', TarefaController.create);
 routes.delete('/tarefa/:id', UsuarioController.remove);
 
 routes.get('/usuario/:id/conquistas', ConquistasController.listObtidas);

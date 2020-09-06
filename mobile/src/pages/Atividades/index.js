@@ -98,7 +98,6 @@ export default function Atividades(props) {
         loadHabitos()
         loadRotinas()
         loadTarefas()
-        console.log(habitos, rotinas, tarefas);
     }, []);
 
 
@@ -155,7 +154,7 @@ export default function Atividades(props) {
                     return (<ItemTarefa key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} />)
                 })}
             </View>
-            <TouchableOpacity style={styles.adicionarAtividade}>
+            <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades")}>
                 <Icon
                     name="close"
                     size={36}

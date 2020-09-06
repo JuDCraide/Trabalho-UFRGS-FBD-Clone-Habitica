@@ -20,7 +20,7 @@ module.exports = {
         const { id } = req.params;
 
         let query = `SELECT * FROM atividade JOIN habito ON(habito.id_atividade = atividade.id) WHERE  habito.id = ${id};`;
-        
+
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             return res.status(200).json(result[0])
@@ -29,10 +29,9 @@ module.exports = {
 
     async create(req, res) {
         const { nome, dificuldade, id_recompensa, id_usuario, eh_positivo } = req.body;
-        if (!id_recompensa) {
-            id_recompensa = NULL;
-        }
+
         let query = `INSERT INTO atividade(nome,dificuldade, id_recompensa, id_usuario) VALUES ("${nome}",${dificuldade},${id_recompensa},${id_usuario});`
+
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
 

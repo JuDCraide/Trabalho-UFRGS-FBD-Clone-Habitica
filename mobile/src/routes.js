@@ -41,7 +41,7 @@ export default function Routes() {
 export function Menu() {
 	return (
 		<Drawer.Navigator
-			initialRouteName="Grupo"
+			initialRouteName="Atividades"
 			overlayColor="#00000066"
 			drawerContentOptions={{
 				activeTintColor: '#432874',
