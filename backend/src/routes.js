@@ -67,8 +67,9 @@ routes.post('/grupo/:id/mensagem', MensagemController.create);
 
 routes.get('/missoes', MissaoController.list);
 
-routes.get('/grupo/:id/missao-atual', MissaoController.view);
+routes.get('/grupo/:id/missao-atual', MissaoController.viewAtual);
 routes.get('/grupo/:id/missoes', MissaoController.list);
-routes.post('/grupo/:id/missao', MissaoController.view);
+routes.post('/grupo/:id/missao', MissaoController.comecar);
+routes.patch('/grupo/:id/missao', MissaoController.dano);
 
 module.exports = routes;
