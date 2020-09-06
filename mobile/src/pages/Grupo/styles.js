@@ -127,6 +127,11 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'space-evenly',
     },
+    iconeImagem: {
+        height: 18,
+        width: 18,
+        marginRight: 10,
+    },
     progressoMissãoCentroDireito: {
         flex: 1,
         maxWidth: 10,

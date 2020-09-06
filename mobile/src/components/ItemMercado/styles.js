@@ -6,11 +6,11 @@ export default StyleSheet.create({
         minWidth: '22%',
         backgroundColor: '#eae9eb',
         borderRadius: 5,
-        marginBottom:10,
+        marginBottom: 10,
     },
     imagem: {
-        height:'80%',
-        width:'80%',
+        height: '80%',
+        width: '80%',
         //backgroundColor: '#fff',
         borderRadius: 5,
     },
@@ -18,8 +18,8 @@ export default StyleSheet.create({
         height: 30,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#e5e4e7'
     },
     text: {
@@ -27,5 +27,9 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center'
-    }
+    },
+    iconeImagem: {
+        height: 16,
+        width: 16,
+    },
 });

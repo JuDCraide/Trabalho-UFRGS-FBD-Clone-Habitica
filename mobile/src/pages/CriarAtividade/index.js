@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Picker, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, Picker, TouchableOpacity, Image, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
+import triviaImgWhite from '../../assets/difficulty-trivial-white.png';
+import normalImgWhite from '../../assets/difficulty-normal-white.png';
+import mediumImgWhite from '../../assets/difficulty-medium-white.png';
+import hardImgWhite from '../../assets/difficulty-hard-white.png';
+import triviaImgGrey from '../../assets/difficulty-trivial-grey.png';
+import normalImgGrey from '../../assets/difficulty-normal-grey.png';
+import mediumImgGrey from '../../assets/difficulty-medium-grey.png';
+import hardImgGrey from '../../assets/difficulty-hard-grey.png';
 import styles from './styles';
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -98,19 +106,27 @@ export default function CriarAtividades({ criacao = false }) {
 				<Text style={styles.subtitulo}>Dificuldade</Text>
 				<View style={styles.areaSelecao}>
 					<TouchableOpacity style={styles.itensSelecao} onPress={() => setDificuldade(1)}>
-						<View style={dificuldade == 1 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}></View>
+						<View style={dificuldade == 1 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}>
+							<Image source={dificuldade == 1 ? triviaImgWhite : triviaImgGrey} />
+						</View>
 						<Text style={dificuldade == 1 ? styles.textoOpcaoAtiva : styles.textoOpcao}>Trivial</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.itensSelecao} onPress={() => setDificuldade(2)}>
-						<View style={dificuldade == 2 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}></View>
+						<View style={dificuldade == 2 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}>
+							<Image source={dificuldade == 2 ? normalImgWhite : normalImgGrey} />
+						</View>
 						<Text style={dificuldade == 2 ? styles.textoOpcaoAtiva : styles.textoOpcao}>Fácil</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.itensSelecao} onPress={() => setDificuldade(3)}>
-						<View style={dificuldade == 3 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}></View>
+						<View style={dificuldade == 3 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}>
+							<Image source={dificuldade == 3 ? mediumImgWhite : mediumImgGrey} />
+						</View>
 						<Text style={dificuldade == 3 ? styles.textoOpcaoAtiva : styles.textoOpcao}>Médio</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.itensSelecao} onPress={() => setDificuldade(4)}>
-						<View style={dificuldade == 4 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}></View>
+						<View style={dificuldade == 4 ? styles.dificuldadeImgAtivo : styles.dificuldadeImg}>
+							<Image source={dificuldade == 4 ? hardImgWhite : hardImgGrey} />
+						</View>
 						<Text style={dificuldade == 4 ? styles.textoOpcaoAtiva : styles.textoOpcao}>Difícil</Text>
 					</TouchableOpacity>
 				</View>

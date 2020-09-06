@@ -8,6 +8,9 @@ import ItemRotina from '../../components/ItemRotina';
 import ItemTarefa from '../../components/ItemTarefa';
 
 import avatarImg from '../../assets/avatar.png';
+import moedaImg from '../../assets/gold.png';
+import saudeImg from '../../assets/health.png';
+import xpImg from '../../assets/experience.png';
 import styles from './styles';
 
 import api from '../../utils/api'
@@ -66,7 +69,7 @@ export default function Atividades(props) {
                 console.log(err);
             }
         }
-        
+
         async function loadRotinas() {
 
             let id = await getId();
@@ -95,7 +98,7 @@ export default function Atividades(props) {
         loadHabitos()
         loadRotinas()
         loadTarefas()
-        console.log(habitos,rotinas,tarefas);
+        console.log(habitos, rotinas, tarefas);
     }, []);
 
 
@@ -107,29 +110,37 @@ export default function Atividades(props) {
                 <View style={{ ...styles.linha, height: 100 }}>
                     <Image source={avatarImg} style={styles.img} />
                     <View style={styles.estatisticas}>
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.porcentagem}>
-                                <View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${health}%` }}></View>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.textos}>{health}/100</Text>
-                                <Text style={styles.textos}>Saúde</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Image style={styles.iconeImagem} source={saudeImg} />
+                            <View style={{ flex: 1 }}>
+                                <View style={styles.porcentagem}>
+                                    <View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${health}%` }}></View>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={styles.textos}>{health}/100</Text>
+                                    <Text style={styles.textos}>Saúde</Text>
+                                </View>
                             </View>
                         </View>
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.porcentagem}>
-                                <View style={{ ...styles.porcentagem, backgroundColor: "#ffbe5d", width: `${xpbar}%` }}></View>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.textos}>{xp}/770</Text>
-                                <Text style={styles.textos}>Experiência</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Image style={styles.iconeImagem} source={xpImg} />
+                            <View style={{ flex: 1 }}>
+                                <View style={styles.porcentagem}>
+                                    <View style={{ ...styles.porcentagem, backgroundColor: "#ffbe5d", width: `${xpbar}%` }}></View>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={styles.textos}>{xp}/770</Text>
+                                    <Text style={styles.textos}>Experiência</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
                 </View>
                 <View style={styles.linha}>
                     <Text style={styles.textos}>Lvl {nivel} {classe}</Text>
-                    <Text style={styles.dinheiro}>{moedas} Dinheiro</Text>
+                    <Text style={styles.dinheiro}>
+                        <Image style={styles.iconeImagem} source={moedaImg} />  {moedas}
+                    </Text>
                 </View>
             </View>
             <View style={styles.container}>

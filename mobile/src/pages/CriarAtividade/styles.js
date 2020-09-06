@@ -17,7 +17,7 @@ export default StyleSheet.create({
         height: 140,
         backgroundColor: "#6132b4",
         paddingHorizontal: 20,
-        marginBottom:15,
+        marginBottom: 15,
     },
     titulo: {
         color: "#FFF",
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     textoCriar: {
         color: "#FFF",
         fontSize: 14,
-        paddingLeft:10,
+        paddingLeft: 10,
     },
     input: {
         height: 60,
@@ -38,7 +38,7 @@ export default StyleSheet.create({
         borderTopRightRadius: 5,
         marginBottom: 8,
         //paddingHorizontal: 24,
-        paddingLeft:10,
+        paddingLeft: 10,
         fontSize: 16,
         width: '100%'
     },
@@ -79,12 +79,16 @@ export default StyleSheet.create({
         height: 55,
         backgroundColor: '#e1e0e3',
         borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     dificuldadeImgAtivo: {
         width: 55,
         height: 55,
         backgroundColor: '#6132b4',
         borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     textoOpcao: {
         color: "#686274"
@@ -118,7 +122,7 @@ export default StyleSheet.create({
         color: "#E1E0E3",
     },
     //tarefa
-    inputData:{
+    inputData: {
         height: 60,
         backgroundColor: '#e1e0e3',
         borderTopLeftRadius: 5,
@@ -129,7 +133,7 @@ export default StyleSheet.create({
         borderBottomColor: "#c3c0c7",
         borderBottomWidth: 3,
         width: '100%'
-        
+
     },
 
     //modal
@@ -168,17 +172,17 @@ export default StyleSheet.create({
         elevation: 2,
         marginTop: 15,
     },
-    botaoFecharModal:{
-        height:25,
+    botaoFecharModal: {
+        height: 25,
         width: 25,
         backgroundColor: '#4f2a93',
         borderRadius: 100,
         elevation: 2,
-        position:'absolute',
+        position: 'absolute',
         top: 15,
-        right:15,
-        alignItems:'center',
-        justifyContent:'center'
+        right: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     textStyle: {
         color: "white",

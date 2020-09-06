@@ -36,6 +36,11 @@ export default StyleSheet.create({
     dinheiro: {
         color: "#ffbe5d",
     },
+    iconeImagem: {
+        height: 18,
+        width: 18,
+        marginRight: 10,
+    },
     porcentagem: {
         height: 8,
         backgroundColor: "#271b3d",
@@ -51,7 +56,7 @@ export default StyleSheet.create({
         width: 50,
         borderRadius: 5,
         transform: [{ rotate: "45deg" }],
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });

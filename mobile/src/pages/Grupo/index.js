@@ -10,6 +10,8 @@ import ItemMissao from '../../components/ItemMissao'
 import semGrupoImg from '../../assets/semGrupo.png';
 import xpImg from '../../assets/experience.png';
 import moedaImg from '../../assets/gold.png';
+import saudeImg from '../../assets/health.png';
+import espadaImg from '../../assets/sword.png';
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
@@ -22,7 +24,8 @@ export default function Grupo(props) {
 	const temGrupo = true;
 	const ehLider = true;
 	const username = '@Julinha';
-	const temMissao = false;
+	const temMissao = true;
+	const pendingDamage = 2.5
 
 	const [adicionarMembro, setAdicionarMembro] = useState(false);
 	const [sairGrupo, setSairGrupo] = useState(false);
@@ -80,9 +83,15 @@ export default function Grupo(props) {
 											<View style={styles.porcentagem}>
 												<View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${totalDamage}%` }}></View>
 											</View>
-											<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-												<Text>{totalDamage}/{monsterHealth}</Text>
-												<Text>Dano</Text>
+											<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+												<Text style={{ color: "#ff6165", fontSize:13 }}>
+													<Image style={styles.iconeImagem} source={saudeImg} />
+													{'  '}{totalDamage}/{monsterHealth}
+												</Text>
+												<Text style={{ color: "#ffa324", fontSize:13 }}>
+													<Image style={styles.iconeImagem} source={espadaImg} /> 
+													 {'  '}{pendingDamage} dano pendente
+												</Text>
 											</View>
 										</View>
 
@@ -223,24 +232,24 @@ export default function Grupo(props) {
 							</TouchableOpacity>
 
 							<Text style={styles.subtitulo}>Nome da Missão</Text>
-							<View style={{ height: 400,}}>
+							<View style={{ height: 400, }}>
 								<ScrollView>
 									<View style={styles.containerSaude}>
 										<Text style={{ color: '#fff' }}>Health</Text>
 										<Text style={{ color: '#fff', marginLeft: 20 }}>100</Text>
 									</View>
-									<View style={{ alignItems: 'center'}}>
+									<View style={{ alignItems: 'center' }}>
 										<Text style={styles.textoSimples}>Descrição</Text>
 										<View style={styles.containerDescricao}>
-											<Text style={{...styles.textoSimples, textAlign:'justify'}}>
-											Depois de muito esforço, seu grupo descobriu o covil de Vício. O monstro gigantesco olha para o seu grupo com desgosto. Enquanto sombras giram em torno de você, uma voz sussurra em sua cabeça "Mais cidadãos idiotas de Habitica vêm me parar? Fofo. Você teria sido mais sábio em não vir." O assustador titã ergue a cabeça e se prepara para atacar. Essa é sua chance! Dê tudo de si e derrote o Vício de uma vez por todas!
+											<Text style={{ ...styles.textoSimples, textAlign: 'justify' }}>
+												Depois de muito esforço, seu grupo descobriu o covil de Vício. O monstro gigantesco olha para o seu grupo com desgosto. Enquanto sombras giram em torno de você, uma voz sussurra em sua cabeça "Mais cidadãos idiotas de Habitica vêm me parar? Fofo. Você teria sido mais sábio em não vir." O assustador titã ergue a cabeça e se prepara para atacar. Essa é sua chance! Dê tudo de si e derrote o Vício de uma vez por todas!
 											</Text>
 										</View>
 									</View>
-									<View style={{ alignItems: 'center', marginTop:10 }}>
+									<View style={{ alignItems: 'center', marginTop: 10 }}>
 										<Text style={styles.textoSimples}>Recompensa</Text>
 										<View style={styles.containerRecompensa}>
-											{/*<Image source={} style={styles.recompensaImg}/>*/}
+											{/*<Image source={ItemMissao.imagem} style={styles.recompensaImg}/>*/}
 											<Text style={styles.textoSimples}>Item</Text>
 										</View>
 										<View style={styles.containerRecompensa}>
