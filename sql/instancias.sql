@@ -87,7 +87,7 @@ INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (2,4);
 INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (3,5);
 INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,8);
 INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,9);
-INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,10);
+INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,7);
 
 INSERT INTO missoes_vencidas_grupo(id_grupo, id_missao) VALUES (4,2);
 INSERT INTO missoes_vencidas_grupo(id_grupo, id_missao) VALUES (1,1);
