@@ -8,7 +8,10 @@ INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('Sid
 INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('BodyBuildNelson','VemMonstro',100,100,200,1);
 INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('BobOConstruNelson','Bob',10,100,0,1);
 INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('ZenNelson','zen',300,100,0,1);
-INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('StudyNelson','engenheiroNaoFormado',10,100,500,1);
+INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('StudyNelson','engenheiroNaoFormado',1,100,500,1);
+INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('DontStudyNelson','engenheiroNaoEstudante',15,100,500,3);
+INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('WorkNelson','engenheiroFormado',1,100,500,4);
+INSERT INTO usuario(nome,login,moedas,saude,experiencia, id_classe) VALUES ('PlayNelson','engenheiroDeFolfa',10,100,500,3);
 
 INSERT INTO item(nome, tipo_poder, valor_poder, preco) VALUES ('espada',1,0.5,90);
 INSERT INTO item(nome, tipo_poder, valor_poder, preco) VALUES ('escudo',2,1,195);
@@ -43,6 +46,7 @@ INSERT INTO tarefa(id_atividade, data_entrega) VALUES (9,null);
 INSERT INTO grupo(nome, id_lider) VALUES ('saudaveis',1);
 INSERT INTO grupo(nome, id_lider) VALUES ('atarefados',2);
 INSERT INTO grupo(nome, id_lider) VALUES ('eu, euzinho e eu mesmo',5);
+INSERT INTO grupo(nome, id_lider) VALUES ('Triggered',8);
 
 INSERT INTO missao(nome, saude, imagem, descricao, id_recompensa) VALUES ('The Lista de Atividades Gigante',100,'https://nossafuturaapi.com/lista','Há uma agitação no mercado - do tipo que deve fazer você fugir. Sendo um aventureiro corajoso, em vez disso você corre em direção a ela e descobre uma Lista de Atividades Gigante, formada por um amontoado de coisas a fazer incompletas! Habiticanos próximos estão paralisados ​​de medo com a extensão da lista Basi, incapazes de começar a trabalhar. De algum lugar nas proximidades, você ouve Arcosine gritar: "Rápido! Conclua suas tarefas e rotinas para desfigurar o monstro, antes que alguém corte o papel!" Ataque rápido, aventureiro, e verifique algo - mas cuidado! Se você deixar alguma rotina desfeita, a lista Basi irá atacar você e seu grupo!',2);
 INSERT INTO missao(nome, saude, imagem, descricao, id_recompensa) VALUES ('Terríveis coelhos de poeira',175,'https://nossafuturaapi.com/coelhos','Já faz um tempo que você não limpa o pó aqui, mas não está muito preocupado - um pouco de poeira nunca faz mal a ninguém, certo? Não é até que você coloque a mão em um dos cantos mais empoeirados e sinta algo mordendo que você se lembra do aviso do Inspetor Caracal: "Deixar a poeira inofensiva permanecer por muito tempo faz com que ela se transforme em terríveis coelhos de poeira!". É melhor derrotá-los antes que cobrem toda a Habitica com finas partículas de sujeira!',2);
@@ -62,6 +66,7 @@ INSERT INTO conquista(nome, objetivo) VALUES ('Compras','Comprou seu primeiro it
 
 INSERT INTO usuario_conquista(id_usuario, id_conquista) VALUES (1,2);
 INSERT INTO usuario_conquista(id_usuario, id_conquista) VALUES (2,2);
+INSERT INTO usuario_conquista(id_usuario, id_conquista) VALUES (6,2);
 INSERT INTO usuario_conquista(id_usuario, id_conquista) VALUES (5,2);
 INSERT INTO usuario_conquista(id_usuario, id_conquista) VALUES (1,1);
 INSERT INTO usuario_conquista(id_usuario, id_conquista) VALUES (5,1);
@@ -80,7 +85,11 @@ INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (2,2);
 INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (2,6);
 INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (2,4);
 INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (3,5);
+INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,8);
+INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,9);
+INSERT INTO membro_grupo(id_grupo, id_usuario) VALUES (4,10);
 
+INSERT INTO missoes_vencidas_grupo(id_grupo, id_missao) VALUES (4,2);
 INSERT INTO missoes_vencidas_grupo(id_grupo, id_missao) VALUES (1,1);
 INSERT INTO missoes_vencidas_grupo(id_grupo, id_missao) VALUES (1,2);
 INSERT INTO missoes_vencidas_grupo(id_grupo, id_missao) VALUES (3,2);
