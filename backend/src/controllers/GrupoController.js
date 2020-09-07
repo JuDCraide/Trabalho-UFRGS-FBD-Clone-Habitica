@@ -37,8 +37,7 @@ module.exports = {
         const { id } = req.params;
         const { id_usuario } = req.body;
 
-
-        query = `DELETE FROM membro_grupo WHERE id_usuario =${id_usuario} AND id_grupo = ${id});`
+        query = `DELETE FROM membro_grupo WHERE id_usuario =${id_usuario};`
 
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)

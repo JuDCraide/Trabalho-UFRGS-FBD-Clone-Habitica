@@ -52,16 +52,6 @@ module.exports = {
         })
     },
 
-    async remove(req, res) {
-        const { id } = req.body;
-        let query = `DELETE FROM item where id = (${id});`
-        connection.query(query, function (err, result, fields) {
-            if (err) return res.status(500).json(err)
-            return res.status(200).send('Excluído com sucesso')
-        })
-    },
-
-
     async equipar(req, res) {
         const { id_item, id_usuario } = req.body;
         let query = `UPDATE usuario_possui_itens SET equipado = '1' WHERE id_usuario = ${id_usuario} AND id_item = ${id_item};`;
