@@ -52,7 +52,7 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             query = `UPDATE habito SET eh_positivo = ${eh_positivo} WHERE habito.id = ${id_habito};`;
-            
+
             connection.query(query, function (err, result, fields) {
                 console.log(err)
                 if (err) return res.status(500).json(err)
@@ -71,6 +71,23 @@ module.exports = {
             if (err) return res.status(500).json(err)
             //console.log(res);
             return res.status(200).send('Excluído com sucesso')
+        })
+    },
+
+    async count(req, res) {
+        const { id } = req.params;
+
+        let query = `
+            SELECT atividade_habito.id, COUNT(*) as repeticoes
+            FROM atividades_realizadas
+                JOIN atividade_habito ON(atividades_realizadas.id_atividade = atividade_habito.id)
+            WHERE DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE()) AND atividades_realizadas.id_usuario=${id}
+            GROUP BY atividade_habito.id
+            HAVING COUNT(*) > 0;
+        `;
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).json(result)
         })
     },
 

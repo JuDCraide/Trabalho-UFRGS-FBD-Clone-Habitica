@@ -39,4 +39,28 @@ module.exports = {
         })
     },
 
+    async conquistasEmComum(req, res) {
+        const { id } = req.params;
+        let query = `
+            SELECT id
+            FROM usuario USR
+            WHERE id != ${id}
+                AND NOT EXISTS (
+                    SELECT id_conquista
+                    FROM usuario_conquista
+                    WHERE usuario_conquista.id_usuario = ${id}
+                        AND id_conquista NOT IN (
+                            SELECT DISTINCT id_conquista
+                            FROM usuario_conquista
+                            WHERE usuario_conquista.id_usuario = USR.id
+                        )
+                )
+        `;
+        //console.log(query);
+        connection.query(query, function (err, result, fields) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).json(JSON.parse(JSON.stringify(result)))
+        })
+    },
+
 }

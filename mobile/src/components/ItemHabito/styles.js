@@ -59,4 +59,8 @@ export default StyleSheet.create({
         fontSize: 16,
         color: '#4e4a57',
     },
+    repeticoes:{
+        fontSize: 14,
+        color: '#c3c0c7',
+    }
 });

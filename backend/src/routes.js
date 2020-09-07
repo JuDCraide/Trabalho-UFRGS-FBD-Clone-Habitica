@@ -31,6 +31,7 @@ routes.get('/habito/:id', HabitoController.view);
 routes.patch('/habito', HabitoController.update);
 routes.post('/habito', HabitoController.create);
 routes.delete('/habito/:id', HabitoController.remove);
+routes.get('/usuario/:id/habito/count', HabitoController.count);
 
 routes.get('/usuario/:id/rotina', RotinaController.list);
 routes.get('/rotina/:id', RotinaController.view);
@@ -48,6 +49,7 @@ routes.post('/atividade', AtividadeController.do);
 
 routes.get('/usuario/:id/conquistas', ConquistasController.listObtidas);
 routes.get('/usuario/:id/conquistas-restantes', ConquistasController.listNaoObtidas);
+routes.get('/usuario/:id/conquistas-em-comum', ConquistasController.conquistasEmComum);
 
 routes.get('/itens', ItemController.view); //Filtrar por possuído ou equipado
 routes.post('/item/equipar-item', ItemController.equipar);

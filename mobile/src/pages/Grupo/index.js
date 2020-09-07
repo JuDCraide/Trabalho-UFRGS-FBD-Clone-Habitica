@@ -83,11 +83,20 @@ export default function Grupo(props) {
 		async function loadMembros(id) {
 			try {
 				const response = await api.get(`/grupo/${id}/membros`);
-				let dados = response.data;
-				console.log(response.data)
-				setMembros(dados);
+				let membros = response.data;
+				const res = await api.get(`/usuario/${id}/conquistas-em-comum`);
+				console.log(response.data, res.data);
 
-
+				membros.forEach(membro => {
+                    membro.conquistaIgual=false;
+                    res.data.forEach(id => {
+                        if(membro.id===id){
+                            membro.conquistaIgual=true;
+                        }
+                    });
+				});
+				
+				setMembros(membros);
 			} catch (err) {
 
 				console.log(err);
@@ -300,7 +309,7 @@ export default function Grupo(props) {
 							}
 						</View>
 						{membros.map((membro) => {
-							return (<IntegranteGrupo key={membro.id} nome={membro.nome} classe={membro.classe} lider={membro.id == getId()} health={membro.saude} exp={membro.xp} />)
+							return (<IntegranteGrupo key={membro.id} conquistaIgual={membro.conquistaIgual} nome={membro.nome} classe={membro.classe} lider={membro.id == getId()} health={membro.saude} exp={membro.xp} />)
 						})}
 
 
