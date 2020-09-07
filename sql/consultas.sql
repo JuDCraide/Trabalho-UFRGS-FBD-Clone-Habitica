@@ -425,7 +425,7 @@ WHERE id NOT IN (
 --Serve para ver quais usuários possuem as mesmas conquistas que você
 SELECT id
 FROM usuario USR
-where id != ${id }
+WHERE id != ${id }
     AND NOT EXISTS (
         SELECT id_conquista
         FROM usuario_conquista

@@ -49,6 +49,7 @@ routes.post('/atividade', AtividadeController.do);
 
 routes.get('/usuario/:id/conquistas', ConquistasController.listObtidas);
 routes.get('/usuario/:id/conquistas-restantes', ConquistasController.listNaoObtidas);
+routes.get('/usuario/:id/conquistas-em-comum', ConquistasController.conquistasEmComum);
 
 routes.get('/itens', ItemController.view); //Filtrar por possuído ou equipado
 routes.post('/item/equipar-item', ItemController.equipar);
