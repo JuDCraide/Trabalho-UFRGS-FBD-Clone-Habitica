@@ -70,7 +70,20 @@ export default function Atividades(props) {
 
             try {
                 const response = await api.get(`/usuario/${id}/habito`);
-                setHabitos(response.data);
+
+                const res = await api.get(`/usuario/${id}/habito/count`)
+                //console.log(response.data, res.data);
+                let habitosResponse = response.data;
+                habitosResponse.forEach(habito => {
+                    habito.repeticao=0;
+                    res.data.forEach(repeticao => {
+                        if(habito.id===repeticao.id){
+                            habito.repeticao=repeticao.repeticoes;
+                        }
+                    });
+                });
+                //console.log(habitosResponse);
+                setHabitos(habitosResponse);
 
             } catch (err) {
                 console.log(err);

@@ -31,6 +31,7 @@ routes.get('/habito/:id', HabitoController.view);
 routes.patch('/habito', HabitoController.update);
 routes.post('/habito', HabitoController.create);
 routes.delete('/habito/:id', HabitoController.remove);
+routes.get('/usuario/:id/habito/count', HabitoController.count);
 
 routes.get('/usuario/:id/rotina', RotinaController.list);
 routes.get('/rotina/:id', RotinaController.view);

@@ -37,6 +37,9 @@ export default function ItemHabito({ id, nome, positivo, atualiza, editar,item }
             </TouchableOpacity>
             <TouchableOpacity style={styles.atividade} onPress={()=> editar(id,"Habito",item)}>
                 <Text style={styles.titulo}>{nome}</Text>
+                { item.repeticao!=0 &&
+                    <Text style={styles.repeticoes}>Repetições hoje: {item.repeticao}</Text>
+                }
             </TouchableOpacity>
 
             <TouchableOpacity style={!positivo ? styles.ativado : styles.desativado} onPress={() => !positivo && realizarAcao()}>

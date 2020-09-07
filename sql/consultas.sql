@@ -96,7 +96,9 @@ CREATE VIEW atividade_tarefa(
 
 
 ----------Consultas----------
---Nas consultas abaixo os termos iniciados pelo sinal ${} representam variáveis que serão definidas em tempo de execução do programa. Nos comentários individuais é possível ver uma explicação sobre quais tipos de valores determinadas variáveis podem obter. Foi usada essa notação pois é a mesma utilizada pela linguagem javascript, com a qual o software em questão está sendo desenvolvido.
+--Nas consultas abaixo os termos iniciados pelo sinal ${} representam variáveis que serão definidas em tempo de execução do programa.
+--Nos comentários individuais é possível ver uma explicação sobre quais tipos de valores determinadas variáveis podem obter.
+--Foi usada essa notação pois é a mesma utilizada pela linguagem javascript, com a qual o software em questão está sendo desenvolvido.
 
 
 -----Atividade Controller-----
@@ -387,46 +389,35 @@ WHERE usuario.id = ${id};
 --Dano Pendente
 SELECT SUM(dificuldade) as dano_pendente
 FROM atividades_realizadas
-    JOIN atividade ON (
-        atividade.id = atividades_realizadas.id_atividade
-    )
+    JOIN atividade ON (atividade.id = atividades_realizadas.id_atividade)
     LEFT JOIN habito ON (habito.id_atividade = atividade.id)
 WHERE (
         habito.eh_positivo != false
         or habito.eh_positivo is NULL
     )
     and DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE())
-GROUP BY atividades_realizadas.id_usuario
-HAVING id_usuario = ${id_usuario};
+    and id_usuario = ${id_usuario}
+GROUP BY atividades_realizadas.id_usuario;
 
 --Contagem hábitos
-SELECT *
+SELECT atividade_habito.id, COUNT(*)
 FROM atividades_realizadas
-    JOIN atividade_habito ON(
-        atividades_realizadas.id_atividade = atividade_habito.id
-    )
-WHERE DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE());
-SELECT atividade_habito.id,
-    COUNT(*)
-FROM atividades_realizadas
-    JOIN atividade_habito ON(
-        atividades_realizadas.id_atividade = atividade_habito.id
-    )
-WHERE DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE())
+    JOIN atividade_habito ON(atividades_realizadas.id_atividade = atividade_habito.id)
+WHERE DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE()) AND atividades_realizadas.id_usuario=${id_usuario}
 GROUP BY atividade_habito.id
 HAVING COUNT(*) > 0;
 
-
 ----------SUBCONSULTA----------
+--ver conquistas ainda nao obtidas
 SELECT *
 FROM conquista
 WHERE id NOT IN (
-        SELECT conquista.id as id
-        FROM usuario
-            JOIN usuario_conquista ON(usuario_conquista.id_usuario = usuario.id)
-            JOIN conquista ON(conquista.id = usuario_conquista.id_conquista)
-        WHERE usuario.id = ${user_id}
-    );
+    SELECT conquista.id as id
+    FROM usuario
+        JOIN usuario_conquista ON(usuario_conquista.id_usuario = usuario.id)
+        JOIN conquista ON(conquista.id = usuario_conquista.id_conquista)
+    WHERE usuario.id = ${user_id}
+);
 
 
 ----------NOT Exists----------
