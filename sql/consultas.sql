@@ -124,17 +124,19 @@ FROM classe;
 -----Conquista Controller-----
 
 --Listar todas as conquistas obtidas por um usuário
-SELECT *
+SELECT conquista.id as id, conquista.nome as nome, conquista.objetivo as objetivo
 FROM usuario
     JOIN usuario_conquista ON(usuario_conquista.id_usuario = usuario.id)
     JOIN conquista ON(conquista.id = usuario_conquista.id_conquista)
-WHERE usuario.id = ${id};
+WHERE usuario.login = '${login}';
 
 --Listar conquistas não obtidas por um usuário
---SUBCONSULTA
+--SUBCONSULTA - Está na listagem de SUBCONSULTAS, no final do arquivo
 
 --Inserir conquista possuída
 
+--Conquistas em Comum
+--NOTEXIST - Está na listagem de NOTEXISTS, no final do arquivo
 
 -----Grupo Controller-----
 
@@ -205,6 +207,8 @@ WHERE habito.id = ${id_habito};
 --Deletar um hábito
 DELETE FROM habito where id = ${id};
 
+--Contar repetições diárias de um hábito
+--GROUPBY - Está na listagem de GROUPBY, no final do arquivo 
 
 -----Item Controller-----
 
@@ -214,16 +218,18 @@ FROM item
 where id = ${id};
 
 --Listar todos os itens adquiridos
-SELECT *
+SELECT item.id as id, item.nome as nome, item.tipo_poder as tipo_poder, item.valor_poder as valor_poder, item.preco as preco, item.imagem as imagem
 FROM item
     JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
-WHERE usuario_possui_itens.id_usuario = ${id};
+    JOIN usuario ON(usuario_possui_itens.id_usuario=usuario.id)
+WHERE usuario.login = '${login}';
 
 --Listar todos os itens equipados
-SELECT *
+SELECT item.id as id, item.nome as nome, item.tipo_poder as tipo_poder, item.valor_poder as valor_poder, item.preco as preco, item.imagem as imagem
 FROM item
     JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
-WHERE usuario_possui_itens.id_usuario = ${id}
+    JOIN usuario ON(usuario_possui_itens.id_usuario=usuario.id)
+WHERE usuario.login = '${login}'
     AND usuario_possui_itens.equipado;
 
 --Listar todos os itens disponíveis no mercado
@@ -252,18 +258,10 @@ VALUES(${id_usuario}, ${id_item}, '0');
 
 --Enviar mensagens internamente no grupo
 INSERT INTO mensagem(texto, id_usuario, id_grupo) 
-VALUES (${texto}, ${id_usuario}, ${id_grupo});
+VALUES ('${texto}', ${id_usuario}, ${id_grupo});
 
 --Listar todas as mensagens de um grupo
-SELECT mensagem.id as id,
-    usuario.id as id_usuario,
-    texto,
-    data_hora,
-    nome,
-    login
-FROM mensagem
-    LEFT JOIN usuario ON(mensagem.id_usuario = usuario.id)
-WHERE id_grupo = ${id};
+--SUBCONSULTA - Está na listagem de SUBCONSULTAS, no final do arquivo
 
 
 -----Missao Controller-----
@@ -281,21 +279,47 @@ FROM missao;
 --Ver detalhes de uma missão
 SELECT *
 FROM missao
-WHERE id = ${id_missao} --Listar todas as missões concluídas pelo grupo
+WHERE id = ${id_missao} 
+
+--Listar todas as missões concluídas pelo grupo
 SELECT *
 FROM missao
     JOIN missoes_vencidas_grupo
 WHERE id_grupo = ${id_grupo};
 
 --Ver missão atual do grupo
-SELECT *
-FROM missao_atual
-WHERE id_grupo = ${id_grupo};
+SELECT missao.id as id,
+    missao.nome as nome,
+    missao.saude as saude,
+    missao.imagem as imagem,
+    missao.descricao as descricao,
+    missao.id_recompensa as id_recompensa
+FROM missao JOIN missao_atual ON(missao.id = missao_atual.id_missao) JOIN grupo ON(missao_atual.id_grupo = grupo.id) JOIN membro_grupo ON (membro_grupo.id_grupo = grupo.id) JOIN usuario ON (usuario.id= membro_grupo.id_usuario)
+WHERE login = '${login}'
 
 --Iniciar missão com o grupo
 INSERT INTO missao_atual(id_grupo, id_missao)
 VALUES (${id_grupo}, ${id_missao});
 
+--Editar dano na missão atual
+
+UPDATE missao_atual SET dano_recebido = ${dano} WHERE missao_atual.id_grupo = ${id_grupo} AND missao_atual.id_missao = ${id_missao}; 
+
+--Cadastrar missão vencida
+
+INSERT INTO missoes_vencidas_grupo (id_grupo, id_missao) VALUES (${id_grupo}, ${id_missao});
+
+--Excluir missão atual
+
+DELETE FROM missao_atual WHERE missao_atual.id_grupo = ${id_grupo};
+
+--Pegar recompensas
+
+SELECT valor, xp, id_item from missao_atual 
+    JOIN missao ON(missao.id = missao_atual.id_missao) 
+    JOIN recompensa ON(recompensa.id = missao.id_recompensa) 
+    LEFT JOIN item ON(item.id = recompensa.id_item) 
+    WHERE missao_atual.id_grupo = ${id_grupo};
 
 -----Rotina Controller-----
 
@@ -383,6 +407,8 @@ WHERE usuario.id = ${id};
 DELETE FROM usuario
 WHERE usuario.id = ${id};
 
+--Editar saude,xp e moedas de um usuário
+UPDATE usuario SET moedas = ${moedas}, saude = ${saude}, experiencia = ${xp} WHERE usuario.id = ${id_usuario}; 
 
 ----------GROUP BY----------
 
@@ -403,7 +429,8 @@ GROUP BY atividades_realizadas.id_usuario;
 SELECT atividade_habito.id, COUNT(*)
 FROM atividades_realizadas
     JOIN atividade_habito ON(atividades_realizadas.id_atividade = atividade_habito.id)
-WHERE DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE()) AND atividades_realizadas.id_usuario=${id_usuario}
+    JOIN usuario ON (usuario.id = atividades_realizadas.id_usuario)
+WHERE DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE()) AND usuario.login='${login}'
 GROUP BY atividade_habito.id
 HAVING COUNT(*) > 0;
 
@@ -416,9 +443,21 @@ WHERE id NOT IN (
     FROM usuario
         JOIN usuario_conquista ON(usuario_conquista.id_usuario = usuario.id)
         JOIN conquista ON(conquista.id = usuario_conquista.id_conquista)
-    WHERE usuario.id = ${user_id}
+    WHERE usuario.login = '${login}'
 );
 
+--ver mensagens de um grupo no qual o usuário se encontra
+SELECT mensagem.id as id,
+    usuario.id as id_usuario,
+    texto,
+    data_hora,
+    nome,
+    login
+FROM mensagem
+    LEFT JOIN usuario ON(mensagem.id_usuario = usuario.id)
+WHERE id_grupo IN (SELECT id_grupo as id
+FROM membro_grupo JOIN usuario ON(usuario.id = membro_grupo.id_usuario)
+WHERE usuario.login = ${login});
 
 ----------NOT Exists----------
 
