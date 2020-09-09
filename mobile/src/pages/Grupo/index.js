@@ -155,9 +155,6 @@ export default function Grupo(props) {
 
 	}, [idGrupo,temMissao]);
 
-
-
-
 	async function iniciarMissao() {
 		
 		try {
@@ -220,8 +217,6 @@ export default function Grupo(props) {
 			console.log(err);
 		}
 	}
-
-
 
 	if (idGrupo) {
 		return (
@@ -409,9 +404,6 @@ export default function Grupo(props) {
 									}} />
 								)
 							})}
-
-
-
 						</View>
 					</View>
 				</Modal>
