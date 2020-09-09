@@ -9,7 +9,7 @@ import Item from '../../components/Item';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import styles from './styles';
 
-import api from '../../utils/api'
+import api, { baseURL } from '../../utils/api'
 import { getId } from '../../utils/authentication';
 
 export default function Itens(props) {
@@ -135,7 +135,7 @@ export default function Itens(props) {
                             <ItemEquipado
                                 key={item.id}
                                 desequipar={() => openDesEquipPopUp(item.id)}
-                                imagem={"http://192.168.0.2:3333/" + item.imagem}
+                                imagem={baseURL + item.imagem}
                             />
                         ))
                     }{
@@ -158,7 +158,7 @@ export default function Itens(props) {
                                 nome={item.nome}
                                 poder={item.tipo_poder}
                                 valorPoder={item.valor_poder}
-                                imagem={"http://192.168.0.2:3333/" + item.imagem}
+                                imagem={baseURL + item.imagem}
                             />
                         ))
                     }

@@ -101,7 +101,7 @@ export default function Mercado(props) {
                 <Image source={mercadoImg} style={styles.mercadorImg} />
                 <View style={styles.principal}>
 
-                    <Text style={styles.texto}>Bem-vindo ao Mercado! Compre itens fantasticos e equipamentos poderosos. Vejas nosso estoque </Text>
+                    <Text style={styles.texto}>Bem-vindo ao Mercado! Compre itens fantasticos e equipamentos poderosos. Vejas nosso estoque! </Text>
                     <View style={styles.divisor} />
 
                     <View style={styles.itens}>

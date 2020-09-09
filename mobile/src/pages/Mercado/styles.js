@@ -17,12 +17,17 @@ export default StyleSheet.create({
         height: 110,
         resizeMode: 'cover',
     },
+    texto: {
+        color: '#686274',
+        marginTop: 10,
+        lineHeight: 22,
+    },
     divisor: {
         width: '110%',
         marginLeft: -20,
         height: 1,
         backgroundColor: "#c3c0c7",
-        marginVertical:15
+        marginVertical: 15
     },
     itens: {
         flex: 1,
@@ -69,17 +74,17 @@ export default StyleSheet.create({
         elevation: 2,
         marginTop: 15,
     },
-    botaoFecharModal:{
-        height:25,
+    botaoFecharModal: {
+        height: 25,
         width: 25,
         backgroundColor: '#4f2a93',
         borderRadius: 100,
         elevation: 2,
-        position:'absolute',
+        position: 'absolute',
         top: 15,
-        right:15,
-        alignItems:'center',
-        justifyContent:'center'
+        right: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     textStyle: {
         color: "white",
