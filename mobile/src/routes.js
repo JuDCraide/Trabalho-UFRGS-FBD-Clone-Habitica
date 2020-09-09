@@ -74,7 +74,7 @@ function StackAtividades() {
 
 	return (
 		<Stack.Navigator initialRouteName="Atividades">
-			<Stack.Screen name="Atividades" component={Atividades} options={navOptionHandler} />
+			<Stack.Screen name="Atividades" component={Atividades} options={navOptionHandler} initialParams={{atualiza: false}}/>
 			<Stack.Screen name="Criar Atividades" component={CriarAtividades} options={navOptionHandler} />
 			<Stack.Screen name="Editar Atividades" component={EditarAtividades} options={navOptionHandler} />
 

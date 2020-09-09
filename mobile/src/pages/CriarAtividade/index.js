@@ -20,7 +20,6 @@ import { getId } from '../../utils/authentication';
 
 export default function CriarAtividades(props) {
 
-
 	const [dificuldade, setDificuldade] = useState(4)
 
 	const [atividade, setAtividade] = useState('Habito');
@@ -36,12 +35,10 @@ export default function CriarAtividades(props) {
 	const [positivo, setPositivo] = useState(true);
 
 
-
-	let criacao = !props.route.params.editar;
-
 	function retornar() {
-		props.navigation.navigate("Atividades")
+		props.navigation.navigate("Atividades", {atualiza: true});
 	}
+
 	async function criar() {
 		let id = await getId();
 		switch (atividade) {
@@ -95,18 +92,10 @@ export default function CriarAtividades(props) {
 				}
 				break;
 		}
+		retornar();
 	}
-	function editar() {
 
-	}
-	function excluir() {
-
-	}
 	const [focus, setFocus] = useState(false);
-	//const [focus2, setFocus2] = useState(false);
-
-
-
 
 	const [data, setData] = useState('');
 
@@ -117,33 +106,15 @@ export default function CriarAtividades(props) {
 					<Icon name="arrow-back" color="#FFF" size={24} />
 				</TouchableOpacity>
 				<Text style={styles.titulo}>
-					{criacao ? 'Criar ' : 'Editar '}
-					{atividade
-					}</Text>
-				{criacao ?
-					<TouchableOpacity onPress={() => criar()}>
-						<Text style={styles.textoCriar}>CRIAR</Text>
-					</TouchableOpacity>
-					: <>
-						<TouchableOpacity onPress={excluir} onPress={() => setPopUpDeletar(true)}>
-							<Text style={styles.textoCriar}>DELETAR</Text>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={editar}>
-							<Text style={styles.textoCriar}>SALVAR</Text>
-						</TouchableOpacity>
-					</>
-				}
+					Criar {atividade}
+				</Text>
+
+				<TouchableOpacity onPress={criar}>
+					<Text style={styles.textoCriar}>CRIAR</Text>
+				</TouchableOpacity>
+
 			</View>
 			<View style={styles.cabecalho}>
-				{/*<TextInput
-                    style={focus2 ? styles.inputFocado : styles.input}
-                    onFocus={() => setFocus2(true)}
-                    onBlur={() => setFocus2(false)}
-                    placeholder='Atividade'
-                    value={atividade}
-                    onChangeText={setAtividade}
-                    placeholderTextColor="#4e4a57"
-                />*/}
 				<Picker
 					selectedValue={atividade}
 					//placeholder='Atividade'
@@ -171,7 +142,7 @@ export default function CriarAtividades(props) {
 					onEndEditing={() => setFocus(false)}
 					placeholder='Nome Atividade'
 					value={nomeAtividade}
-					onChangeText={text => setNomeAtividade(text)}
+					onChangeText={setNomeAtividade}
 					placeholderTextColor="#4e4a57"
 				/>
 			</View>
@@ -248,7 +219,7 @@ export default function CriarAtividades(props) {
 								</TouchableOpacity>
 								<TouchableOpacity style={styles.itensSelecao} onPress={() => setDia5(!dia5)}>
 									<View style={dia5 ? styles.circuloPreenchido : styles.circuloContornado}>
-										<Text style={dia6 ? styles.itemAtivo : styles.itemInativo}>S</Text>
+										<Text style={dia4 ? styles.itemAtivo : styles.itemInativo}>S</Text>
 									</View>
 								</TouchableOpacity>
 								<TouchableOpacity style={styles.itensSelecao} onPress={() => setDia6(!dia6)}>

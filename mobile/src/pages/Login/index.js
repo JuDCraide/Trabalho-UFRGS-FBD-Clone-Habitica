@@ -15,12 +15,12 @@ export default function Login({ navigation }) {
 
 	const [login, setLogin] = useState('')
 
-	useEffect(() => {
+	/*useEffect(() => {
 
 		if (getId() !== null) {
 			navigation.navigate('Home');
 		}
-	}, []);
+	}, []);*/
 
 
 	async function handleLogin() {

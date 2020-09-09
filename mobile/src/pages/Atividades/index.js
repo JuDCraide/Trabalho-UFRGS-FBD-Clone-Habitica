@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Header from '../../components/Header';
@@ -15,7 +15,7 @@ import styles from './styles';
 
 import api from '../../utils/api'
 import { getId } from '../../utils/authentication';
-import {calcularNivel,calcularXpProximoNivel} from '../../utils/utils'
+import { calcularNivel, calcularXpProximoNivel } from '../../utils/utils'
 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
@@ -31,9 +31,12 @@ export default function Atividades(props) {
     const [rotinas, setRotinas] = useState([]);
     const [tarefas, setTarefas] = useState([]);
 
-    const[atualiza,setAtualiza] = useState(false)
+    const [atualiza, setAtualiza] = useState(false)
 
-    function dataChanged(){
+    const atualizar = props.route.params.atualiza ?? false; 
+
+
+    function dataChanged() {
         setAtualiza(!atualiza);
     }
 
@@ -75,10 +78,10 @@ export default function Atividades(props) {
                 //console.log(response.data, res.data);
                 let habitosResponse = response.data;
                 habitosResponse.forEach(habito => {
-                    habito.repeticao=0;
+                    habito.repeticao = 0;
                     res.data.forEach(repeticao => {
-                        if(habito.id===repeticao.id){
-                            habito.repeticao=repeticao.repeticoes;
+                        if (habito.id === repeticao.id) {
+                            habito.repeticao = repeticao.repeticoes;
                         }
                     });
                 });
@@ -118,16 +121,15 @@ export default function Atividades(props) {
         loadHabitos()
         loadRotinas()
         loadTarefas()
-    }, [atualiza]);
+    }, [atualiza, atualizar]);
 
-function editar(id, tipo, item){
-    props.navigation.navigate("Editar Atividades", {
-        editar: true,
-        id: id,
-        tipo: tipo,
-        item: item
-    })
-}
+    function editar(id, tipo, item) {
+        props.navigation.navigate("Editar Atividades", {
+            id: id,
+            tipo: tipo,
+            item: item,
+        })
+    }
 
     const xpbar = (xp) / calcularXpProximoNivel(xp) * 100;
     return (
@@ -170,19 +172,19 @@ function editar(id, tipo, item){
                     </Text>
                 </View>
             </View>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 {habitos.map((habito) => {
-                    return (<ItemHabito item={habito} id={habito.atividade} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} atualiza={dataChanged} editar={editar}/>)
+                    return (<ItemHabito item={habito} id={habito.atividade} key={habito.id} nome={habito.nome} positivo={habito.eh_positivo} atualiza={dataChanged} editar={editar} />)
 
                 })}
                 {rotinas.map((rotina) => {
-                    return (<ItemRotina item={rotina} id={rotina.atividade} key={rotina.id} nome={rotina.nome} realizado={rotina.feita} atualiza={dataChanged} editar={editar}/>)
+                    return (<ItemRotina item={rotina} id={rotina.atividade} key={rotina.id} nome={rotina.nome} realizado={rotina.feita} atualiza={dataChanged} editar={editar} />)
                 })}
                 {tarefas.map((tarefa) => {
-                    return (<ItemTarefa item={tarefa} id={tarefa.atividade} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} completo={tarefa.feita} atualiza={dataChanged} editar={editar}/>)
+                    return (<ItemTarefa item={tarefa} id={tarefa.atividade} key={tarefa.id} nome={tarefa.nome} data={tarefa.data_entrega} completo={tarefa.feita} atualiza={dataChanged} editar={editar} />)
                 })}
-            </View>
-            <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades",{editar: false})}>
+            </ScrollView>
+            <TouchableOpacity style={styles.adicionarAtividade} onPress={() => props.navigation.navigate("Criar Atividades")}>
                 <Icon
                     name="close"
                     size={36}

@@ -39,6 +39,8 @@ module.exports = {
         })
     },
 
+    //INSERIR CONQUISTA
+
     async conquistasEmComum(req, res) {
         const { id } = req.params;
         let query = `

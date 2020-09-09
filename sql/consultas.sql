@@ -6,20 +6,10 @@
 
 
 ----------VIEWS----------
-
 --Atividade / Hábito / Recompensa
 DROP VIEW atividade_habito;
 CREATE VIEW atividade_habito(
-    id,
-    nome,
-    dificuldade,
-    id_usuario,
-    eh_positivo,
-    valor,
-    xp,
-    id_item,
-    feita,
-    atividade
+    id, nome, dificuldade, id_usuario, eh_positivo, valor, xp, id_item, feita, atividade
 ) AS (
     SELECT habito.id,
         atividade.nome,
@@ -218,14 +208,24 @@ FROM item
 where id = ${id};
 
 --Listar todos os itens adquiridos
-SELECT item.id as id, item.nome as nome, item.tipo_poder as tipo_poder, item.valor_poder as valor_poder, item.preco as preco, item.imagem as imagem
+SELECT item.id as id,
+ item.nome as nome,
+ item.tipo_poder as tipo_poder,
+ item.valor_poder as valor_poder,
+ item.preco as preco,
+ item.imagem as imagem
 FROM item
     JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
     JOIN usuario ON(usuario_possui_itens.id_usuario=usuario.id)
 WHERE usuario.login = '${login}';
 
 --Listar todos os itens equipados
-SELECT item.id as id, item.nome as nome, item.tipo_poder as tipo_poder, item.valor_poder as valor_poder, item.preco as preco, item.imagem as imagem
+SELECT item.id as id,
+ item.nome as nome,
+ item.tipo_poder as tipo_poder,
+ item.valor_poder as valor_poder,
+ item.preco as preco,
+ item.imagem as imagem
 FROM item
     JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
     JOIN usuario ON(usuario_possui_itens.id_usuario=usuario.id)
@@ -294,7 +294,10 @@ SELECT missao.id as id,
     missao.imagem as imagem,
     missao.descricao as descricao,
     missao.id_recompensa as id_recompensa
-FROM missao JOIN missao_atual ON(missao.id = missao_atual.id_missao) JOIN grupo ON(missao_atual.id_grupo = grupo.id) JOIN membro_grupo ON (membro_grupo.id_grupo = grupo.id) JOIN usuario ON (usuario.id= membro_grupo.id_usuario)
+FROM missao JOIN missao_atual ON(missao.id = missao_atual.id_missao) 
+    JOIN grupo ON(missao_atual.id_grupo = grupo.id)
+    JOIN membro_grupo ON (membro_grupo.id_grupo = grupo.id) 
+    JOIN usuario ON (usuario.id= membro_grupo.id_usuario)
 WHERE login = '${login}'
 
 --Iniciar missão com o grupo
@@ -411,7 +414,6 @@ WHERE usuario.id = ${id};
 UPDATE usuario SET moedas = ${moedas}, saude = ${saude}, experiencia = ${xp} WHERE usuario.id = ${id_usuario}; 
 
 ----------GROUP BY----------
-
 --Dano Pendente
 SELECT SUM(dificuldade) as dano_pendente
 FROM atividades_realizadas
@@ -426,7 +428,7 @@ WHERE (
 GROUP BY atividades_realizadas.id_usuario;
 
 --Contagem hábitos
-SELECT atividade_habito.id, COUNT(*)
+SELECT atividade_habito.id, COUNT(*) as repeticoes
 FROM atividades_realizadas
     JOIN atividade_habito ON(atividades_realizadas.id_atividade = atividade_habito.id)
     JOIN usuario ON (usuario.id = atividades_realizadas.id_usuario)
@@ -455,9 +457,11 @@ SELECT mensagem.id as id,
     login
 FROM mensagem
     LEFT JOIN usuario ON(mensagem.id_usuario = usuario.id)
-WHERE id_grupo IN (SELECT id_grupo as id
-FROM membro_grupo JOIN usuario ON(usuario.id = membro_grupo.id_usuario)
-WHERE usuario.login = ${login});
+WHERE id_grupo IN (
+    SELECT id_grupo as id
+    FROM membro_grupo JOIN usuario ON(usuario.id = membro_grupo.id_usuario)
+    WHERE usuario.login = ${login}
+);
 
 ----------NOT Exists----------
 

@@ -51,11 +51,8 @@ export default function EditarAtividades(props) {
 	const [positivo, setPositivo] = useState(item.eh_positivo ?? true);
 	const [data, setData] = useState(item.data_entrega);
 
-
-	let criacao = !props.route.params.editar;
-
 	function retornar() {
-		props.navigation.navigate("Atividades")
+		props.navigation.navigate("Atividades", {atualiza: true})
 	}
 	async function editar() {
 		switch (atividade) {
@@ -110,8 +107,9 @@ export default function EditarAtividades(props) {
 				}
 				break;
 		}
+		retornar();
 	}
-	
+
 	async function excluir() {
 		switch (atividade) {
 			case "Habito":
@@ -144,15 +142,10 @@ export default function EditarAtividades(props) {
 				}
 				break;
 		}
+		retornar();
 	}
 
 	const [focus, setFocus] = useState(false);
-	//const [focus2, setFocus2] = useState(false);
-
-
-
-
-
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -161,35 +154,21 @@ export default function EditarAtividades(props) {
 					<Icon name="arrow-back" color="#FFF" size={24} />
 				</TouchableOpacity>
 				<Text style={styles.titulo}>
-					{criacao ? 'Criar ' : 'Editar '}
-					{atividade
-					}</Text>
-				{criacao ?
-					<TouchableOpacity onPress={() => criar()}>
-						<Text style={styles.textoCriar}>CRIAR</Text>
-					</TouchableOpacity>
-					: <>
-						<TouchableOpacity onPress={excluir} onPress={() => setPopUpDeletar(true)}>
-							<Text style={styles.textoCriar}>DELETAR</Text>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={editar}>
-							<Text style={styles.textoCriar}>SALVAR</Text>
-						</TouchableOpacity>
-					</>
-				}
+					Editar {atividade}
+				</Text>
+
+				<TouchableOpacity onPress={excluir} onPress={() => setPopUpDeletar(true)}>
+					<Text style={styles.textoCriar}>DELETAR</Text>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={editar}>
+					<Text style={styles.textoCriar}>SALVAR</Text>
+				</TouchableOpacity>
+
 			</View>
 			<View style={styles.cabecalho}>
-				{/*<TextInput
-                    style={focus2 ? styles.inputFocado : styles.input}
-                    onFocus={() => setFocus2(true)}
-                    onBlur={() => setFocus2(false)}
-                    placeholder='Atividade'
-                    value={atividade}
-                    onChangeText={setAtividade}
-                    placeholderTextColor="#4e4a57"
-                />*/}
 				<Picker
 					disabled
+					enabled={false}
 					selectedValue={atividade}
 					//placeholder='Atividade'
 					//placeholderTextColor="#4e4a57"
@@ -203,7 +182,7 @@ export default function EditarAtividades(props) {
 						fontSize: 16,
 						width: '100%'
 					}}
-					//onValueChange={(itemValue, itemIndex) => setAtividade(itemValue)}
+				//onValueChange={(itemValue, itemIndex) => setAtividade(itemValue)}
 				>
 					<Picker.Item label="Hábito" value="Habito" />
 					<Picker.Item label="Rotina" value="Rotina" />
@@ -294,7 +273,7 @@ export default function EditarAtividades(props) {
 								</TouchableOpacity>
 								<TouchableOpacity style={styles.itensSelecao} onPress={() => setDia5(!dia5)}>
 									<View style={dia5 ? styles.circuloPreenchido : styles.circuloContornado}>
-										<Text style={dia6 ? styles.itemAtivo : styles.itemInativo}>S</Text>
+										<Text style={dia5 ? styles.itemAtivo : styles.itemInativo}>S</Text>
 									</View>
 								</TouchableOpacity>
 								<TouchableOpacity style={styles.itensSelecao} onPress={() => setDia6(!dia6)}>
