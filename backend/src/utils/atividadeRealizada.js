@@ -22,23 +22,28 @@ function atacarOMonstro(dificuldade, ataqueObjetos, ataqueClasse, nivel) {
     return ataqueBase * nivel / 10 * (100 + ataque) / 100;
 }
 
-function ataqueAoMonstroAindaNaoRealizado(somaDificuldades, ataqueObjetos, ataqueClasse, nivel) {
-    let ataque = (ataqueClasse + ataqueObjetos) / 2;
-    let ataqueBase = somaDificuldades * 2;
-    return ataqueBase * (nivel / 1000 + 100 + ataque) / 100;
-}
 
-//aumenta xp quando realiza atividade
-function getXP(xp_recompensa, inteligenciaObjetos, inteligenciaClasse) {
-    let inteligencia = inteligenciaClasse + inteligenciaObjetos;
-    return xp_recompensa * (100 + inteligencia) / 100;
-}
 
-function getNivel(xp) {
-    return Math.floor(xp / 100) + 1;
-}
+
 
 module.exports = {
+
+    ataqueAoMonstroAindaNaoRealizado(somaDificuldades, ataqueObjetos, ataqueClasse, nivel) {
+        let ataque = (ataqueClasse + ataqueObjetos) / 2;
+        let ataqueBase = somaDificuldades * 2;
+        return ataqueBase * (nivel / 1000 + 100 + ataque) / 100;
+    },
+
+    //aumenta xp quando realiza atividade
+    getXP(xp_recompensa, inteligenciaObjetos, inteligenciaClasse) {
+        let inteligencia = inteligenciaClasse + inteligenciaObjetos;
+        return xp_recompensa * (100 + inteligencia) / 100;
+    },
+
+    getNivel(xp) {
+        return Math.floor(xp / 100) + 1;
+    },
+
     async danoPendente(usuario) {
 
         let somaDificuldades = 0;
