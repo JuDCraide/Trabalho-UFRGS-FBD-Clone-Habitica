@@ -85,7 +85,7 @@ export default function Atividades(props) {
                         }
                     });
                 });
-                //console.log(habitosResponse);
+                console.log(habitosResponse);
                 setHabitos(habitosResponse);
 
             } catch (err) {

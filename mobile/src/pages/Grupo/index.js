@@ -35,7 +35,7 @@ export default function Grupo(props) {
 	const [ehLider, setEhLider] = useState(true);
 	const [temMissao, setTemMissao] = useState(false);
 	const [username, setUsername] = useState('@Julinha');
-	const [pendingDamage, setPendingDamage] = useState(100);
+	const [pendingDamage, setPendingDamage] = useState();
 	const [membros, setMembros] = useState([]);
 
 	const [missoes, setMissoes] = useState([])
@@ -61,6 +61,7 @@ export default function Grupo(props) {
 
 			}
 		}
+
 		async function loadIdGrupo() {
 			let id = await getId();
 			try {
@@ -72,6 +73,7 @@ export default function Grupo(props) {
 					loadMembros(dados.id_grupo);
 					loadMissoes(dados.id_grupo);
 					loadMissaoAtual(dados.id_grupo);
+					setPendingDamage(dados.pending_damage);
 				}
 
 			} catch (err) {
@@ -80,6 +82,7 @@ export default function Grupo(props) {
 
 			}
 		}
+
 		async function loadMembros(id) {
 			try {
 				const response = await api.get(`/grupo/${id}/membros`);
@@ -88,14 +91,14 @@ export default function Grupo(props) {
 				console.log(response.data, res.data);
 
 				membros.forEach(membro => {
-                    membro.conquistaIgual=false;
-                    res.data.forEach(id => {
-                        if(membro.id===id){
-                            membro.conquistaIgual=true;
-                        }
-                    });
+					membro.conquistaIgual = false;
+					res.data.forEach(id => {
+						if (membro.id === id) {
+							membro.conquistaIgual = true;
+						}
+					});
 				});
-				
+
 				setMembros(membros);
 			} catch (err) {
 
@@ -103,6 +106,7 @@ export default function Grupo(props) {
 
 			}
 		}
+
 		async function loadDadosGrupo(id) {
 			try {
 				const response = await api.get(`/grupo/${id}`);
@@ -117,6 +121,7 @@ export default function Grupo(props) {
 
 			}
 		}
+
 		async function loadMissoes(id = idGrupo) {
 			try {
 				const response = await api.get(`/grupo/${id}/missoes`);
@@ -146,23 +151,22 @@ export default function Grupo(props) {
 			}
 		}
 
-		async function missaoAtual() {
-
-		}
+		// async function missaoAtual() {
+		// }
 
 		loadDados()
 		loadIdGrupo()
 
-	}, [idGrupo,temMissao]);
+	}, [idGrupo, temMissao]);
 
 	async function iniciarMissao() {
-		
+
 		try {
 			const response = await api.post(`/grupo/${idGrupo}/missao`,
 				{
 					"id_missao": missaoDetalhes.id
 				});
-				setTemMissao(true)
+			setTemMissao(true)
 
 		} catch (err) {
 
@@ -245,7 +249,13 @@ export default function Grupo(props) {
 									/>
 								</TouchableOpacity>
 								<View style={styles.imgMissao}>
-
+									<Image
+										style={{width:'90%', height:'90%'}}
+										source={missaoAtual.imagem && {
+											uri: missaoAtual.imagem
+										}}
+										resizeMode='contain'
+									/>
 								</View>
 
 								<View style={styles.progressoMissao}>
@@ -260,7 +270,7 @@ export default function Grupo(props) {
 										<View style={styles.progressoMissãoCentroMeio}>
 											<Text style={styles.nomeMissao} >Monstro</Text>
 											<View style={styles.porcentagem}>
-												<View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${missaoAtual.dano_recebido/ missaoAtual.saude *100}%` }}></View>
+												<View style={{ ...styles.porcentagem, backgroundColor: "#ff6165", width: `${100 - missaoAtual.dano_recebido / missaoAtual.saude * 100}%` }}></View>
 											</View>
 											<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 												<Text style={{ color: "#ff6165", fontSize: 13 }}>

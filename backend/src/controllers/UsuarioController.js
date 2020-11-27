@@ -1,6 +1,7 @@
 const dbconnection = require('../connection')
 
 var connection = dbconnection.dbConnection();
+const {danoPendente} = require('../utils/atividadeRealizada')
 
 module.exports = {
 
@@ -36,7 +37,10 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             //console.log(result)
-            return res.status(200).json(JSON.parse(JSON.stringify(result))[0])
+            let dados = JSON.parse(JSON.stringify(result))[0]
+            dados.pendingDamage=danoPendente(dados);
+            //console.log(dados);
+            return res.status(200).json(dados)
         })
     },
 

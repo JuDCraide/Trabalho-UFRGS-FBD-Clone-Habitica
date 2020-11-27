@@ -1,7 +1,6 @@
-const HabitoController = require("../controllers/HabitoController");
-const ClasseController = require("../controllers/ClasseController");
-const ItemController = require("../controllers/ItemController");
-const UsuarioController = require("../controllers/UsuarioController");
+const dbconnection = require('../connection')
+
+var connection = dbconnection.dbConnection();
 
 //dano quando feita um habito ruim
 function getDano(dificuldade, defesaObjetos, defesaClasse) {
@@ -17,7 +16,7 @@ function getDanoFeitoPeloMonstro(somaDificuldades, quantidadeAtividades, defesaO
     return danoBase * (100 - defesa) / 100;
 }
 
-function atacarAoMonstro(dificuldade, ataqueObjetos, ataqueClasse, nivel) {
+function atacarOMonstro(dificuldade, ataqueObjetos, ataqueClasse, nivel) {
     let ataque = (ataqueClasse + ataqueObjetos) / 2;
     let ataqueBase = dificuldade * 2;
     return ataqueBase * nivel / 10 * (100 + ataque) / 100;
@@ -26,7 +25,7 @@ function atacarAoMonstro(dificuldade, ataqueObjetos, ataqueClasse, nivel) {
 function ataqueAoMonstroAindaNaoRealizado(somaDificuldades, ataqueObjetos, ataqueClasse, nivel) {
     let ataque = (ataqueClasse + ataqueObjetos) / 2;
     let ataqueBase = somaDificuldades * 2;
-    return ataqueBase * nivel / 10 * (100 + ataque) / 100;
+    return ataqueBase * (nivel / 1000 + 100 + ataque) / 100;
 }
 
 //aumenta xp quando realiza atividade
@@ -36,18 +35,72 @@ function getXP(xp_recompensa, inteligenciaObjetos, inteligenciaClasse) {
 }
 
 function getNivel(xp) {
-    return Math.floor(xp / 100);
+    return Math.floor(xp / 100) + 1;
 }
 
 module.exports = {
+    danoPendente(usuario) {
 
-    atividadeRealizadaHabito(id, id_usuario) {
+        let somaDificuldades = 0;
+        let query = `
+            SELECT SUM(dificuldade) as dano_pendente
+            FROM atividades_realizadas
+                JOIN atividade ON (atividade.id = atividades_realizadas.id_atividade)
+                LEFT JOIN habito ON (habito.id_atividade = atividade.id)
+            WHERE (
+                    habito.eh_positivo != false
+                    or habito.eh_positivo is NULL
+                )
+                and DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE())
+                and id_usuario = ${usuario.id}
+            GROUP BY atividades_realizadas.id_usuario;
+            `;
+        connection.query(query, function (err, result, fields) {
+            if (err) return
+            somaDificuldades = JSON.parse(JSON.stringify(result))[0];
+        })
+
+        let classe = {};
+        query = `SELECT * FROM usuario JOIN classe ON(classe.id = usuario.id_classe) WHERE usuario.id = ${usuario.id};`;
+        connection.query(query, function (err, result, fields) {
+            if (err) return
+            classe = JSON.parse(JSON.stringify(result))[0]
+            console.log("clasee ", classe)
+        })
+
+        let objetos = [];
+        query = `
+                SELECT * 
+                FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
+                WHERE usuario_possui_itens.id_usuario = ${usuario.id} AND usuario_possui_itens.equipado;
+            `;
+        connection.query(query, function (err, result, fields) {
+            if (err) return
+            objetos = JSON.parse(JSON.stringify(result));
+        })
+
+        let ataqueObjetos = 0;
+        objetos.forEach(objeto => {
+            ataqueObjetos += objeto.ataque;
+        });
+
+        console.log("somaDificuldades ", somaDificuldades);
+        console.log("ataqueObjetos ", ataqueObjetos);
+        console.log("classe  ", classe);
+        console.log("usuario", usuario);
+        console.log("classe.ataque  ", classe.ataque);
+        console.log("getNivel(usuario.xp) ", getNivel(usuario.experiencia));
+
+        return ataqueAoMonstroAindaNaoRealizado(somaDificuldades, ataqueObjetos, classe.ataque, getNivel(usuario.experiencia));
+    },
+
+    atividadeRealizadaHabito(id_atividade, id_usuario) {
 
         let habito = {};
         let query = `SELECT * FROM atividade JOIN habito ON(habito.id_atividade = atividade.id) WHERE  habito.id = ${id_atividade};`;
         connection.query(query, function (err, result, fields) {
             if (err) return
-            habito = result[0];
+            habito = JSON.parse(JSON.stringify(result))[0];
         })
 
         let usuario = {};
@@ -55,7 +108,7 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return
             //console.log(result)
-            usuario = result[0]
+            usuario = JSON.parse(JSON.stringify(result))[0];
         })
 
         let classe = {};
@@ -63,18 +116,18 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return
             //console.log(result)
-            classe = result[0]
+            classe = JSON.parse(JSON.stringify(result))[0];
         })
 
-        let objetos = {};
+        let objetos = [];
         query = `
                 SELECT * 
                 FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
                 WHERE usuario_possui_itens.id_usuario = ${id_usuario} AND usuario_possui_itens.equipado;
             `;
         connection.query(query, function (err, result, fields) {
-            if (err) return res.status(500).json(err)
-            return res.status(200).json(JSON.parse(JSON.stringify(result)))
+            if (err) return
+            objetos = JSON.parse(JSON.stringify(result));
         })
 
         if (!habito.eh_positivo) {
@@ -91,24 +144,24 @@ module.exports = {
             objetos.forEach(objeto => {
                 inteligenciaObjetos += objeto.inteligencia;
             });
-            let xp = getDano(habito.inteligencia, inteligenciaObjetos, classe.inteligencia);
+            let xp = getXP(habito.inteligencia, inteligenciaObjetos, classe.inteligencia);
             usuario.experiencia = xp;
         }
 
         query = `UPDATE usuario SET moedas = ${usuario.moedas}, saude = ${usuario.saude}, experiencia = ${usuario.experiencia} WHERE usuario.id = ${id_usuario}; `
         connection.query(query, function (err, result, fields) {
             console.log(err)
-            if (err) return res.status(500).json(err)
-            return res.status(200).send('Editado com sucesso')
+            if (err) return
+            return //res.status(200).send('Editado com sucesso')
         })
     },
 
-    atividadeRealizadaRotina(id, id_usuario) {
+    atividadeRealizadaRotina(id_atividade, id_usuario) {
         let rotina = {};
         let query = `SELECT * FROM atividade JOIN rotina ON(rotina.id_atividade = atividade.id) WHERE  rotina.id = ${id_atividade};`;
         connection.query(query, function (err, result, fields) {
             if (err) return
-            rotina = result[0];
+            rotina = JSON.parse(JSON.stringify(result))[0];;
         })
 
         let usuario = {};
@@ -116,7 +169,7 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return
             //console.log(result)
-            usuario = result[0]
+            usuario = JSON.parse(JSON.stringify(result))[0];
         })
 
         let classe = {};
@@ -124,42 +177,42 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return
             //console.log(result)
-            classe = result[0]
+            classe = JSON.parse(JSON.stringify(result))[0];
         })
 
-        let objetos = {};
+        let objetos = [];
         query = `
                 SELECT * 
                 FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
                 WHERE usuario_possui_itens.id_usuario = ${id_usuario} AND usuario_possui_itens.equipado;
             `;
         connection.query(query, function (err, result, fields) {
-            if (err) return res.status(500).json(err)
-            return res.status(200).json(JSON.parse(JSON.stringify(result)))
+            if (err) return
+            objetos = JSON.parse(JSON.stringify(result));
         })
 
         let inteligenciaObjetos = 0;
         objetos.forEach(objeto => {
             inteligenciaObjetos += objeto.inteligencia;
         });
-        let xp = getDano(rotina.inteligencia, inteligenciaObjetos, classe.inteligencia);
+        let xp = getXP(rotina.inteligencia, inteligenciaObjetos, classe.inteligencia);
         usuario.experiencia = xp;
         usuario.dinheiro = rotina.dinheiro;
 
         query = `UPDATE usuario SET moedas = ${usuario.moedas}, saude = ${usuario.saude}, experiencia = ${usuario.experiencia} WHERE usuario.id = ${id_usuario}; `
         connection.query(query, function (err, result, fields) {
             console.log(err)
-            if (err) return res.status(500).json(err)
-            return res.status(200).send('Editado com sucesso')
+            if (err) return
+            return
         })
     },
 
-    atividadeRealizadaTarefa(id, id_usuario) {
+    atividadeRealizadaTarefa(id_atividade, id_usuario) {
         let tarefa = {};
         let query = `SELECT * FROM atividade JOIN tarefa ON(tarefa.id_atividade = atividade.id) WHERE  tarefa.id = ${id_atividade};`;
         connection.query(query, function (err, result, fields) {
             if (err) return
-            tarefa = result[0];
+            tarefa = JSON.parse(JSON.stringify(result))[0];;
         })
 
         let usuario = {};
@@ -167,7 +220,7 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return
             //console.log(result)
-            usuario = result[0]
+            usuario = JSON.parse(JSON.stringify(result))[0];
         })
 
         let classe = {};
@@ -175,18 +228,18 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return
             //console.log(result)
-            classe = result[0]
+            classe = JSON.parse(JSON.stringify(result))[0];
         })
 
-        let objetos = {};
+        let objetos = [];
         query = `
                 SELECT * 
                 FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
                 WHERE usuario_possui_itens.id_usuario = ${id_usuario} AND usuario_possui_itens.equipado;
             `;
         connection.query(query, function (err, result, fields) {
-            if (err) return res.status(500).json(err)
-            return res.status(200).json(JSON.parse(JSON.stringify(result)))
+            if (err) return
+            objetos = JSON.parse(JSON.stringify(result));
         })
 
         if (new Date(tarefa.data_entrega) < Date.now()) {
@@ -204,14 +257,14 @@ module.exports = {
         objetos.forEach(objeto => {
             inteligenciaObjetos += objeto.inteligencia;
         });
-        let xp = getDano(tarefa.inteligencia, inteligenciaObjetos, classe.inteligencia);
+        let xp = getXP(tarefa.inteligencia, inteligenciaObjetos, classe.inteligencia);
         usuario.experiencia = xp;
         usuario.moedas = tarefa.dinheiro;
 
         query = `UPDATE usuario SET moedas = ${usuario.moedas}, saude = ${usuario.saude}, experiencia = ${usuario.experiencia} WHERE usuario.id = ${id_usuario}; `
         connection.query(query, function (err, result, fields) {
             console.log(err)
-            if (err) return res.status(500).json(err)
+            if (err) return
             return res.status(200).send('Editado com sucesso')
         })
     },

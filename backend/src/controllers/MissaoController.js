@@ -40,7 +40,6 @@ module.exports = {
         })
     },
 
-
     //INSERT INTO missao_atual(id_grupo, id_missao) VALUES (${id_grupo}, ${id_missao});
     async dano(req, res) {
         //dar dano
