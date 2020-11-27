@@ -10,7 +10,7 @@ module.exports = {
         //console.log(req.body)
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
-            if(result.length === 0){
+            if (result.length === 0) {
                 return res.status(201).json("Usuário não encontrado")
             }
             return res.status(200).json(result[0])
@@ -22,7 +22,7 @@ module.exports = {
 
         let query = `INSERT INTO usuario(nome,login, id_classe) VALUES ("${nome}","${login}",${id_classe});`
         connection.query(query, function (err, result, fields) {
-            
+
             if (err) return res.status(500).json(err)
             let id_atividade = result.insertId;
             return res.status(200).json({ id: id_atividade })
@@ -47,6 +47,17 @@ module.exports = {
         connection.query(query, function (err, result, fields) {
             if (err) return res.status(500).json(err)
             return res.status(200).send('Excluído com sucesso')
+        })
+    },
+
+    async update(req, res) {
+        const { moedas, saude, xp, id_usuario } = req.body;
+
+        let query = `UPDATE usuario SET moedas = ${moedas}, saude = ${saude}, experiencia = ${xp} WHERE usuario.id = ${id_usuario}; `
+        connection.query(query, function (err, result, fields) {
+            console.log(err)
+            if (err) return res.status(500).json(err)
+            return res.status(200).send('Editado com sucesso')
         })
     },
 

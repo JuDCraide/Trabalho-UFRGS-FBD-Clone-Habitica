@@ -15,7 +15,9 @@ export default function ItemRotina({id, nome, realizado = false, ativoHoje = tru
             const response = await api.post("/atividade",
                 {
                     "id_atividade": id,
-                    "id_usuario": id_user
+                    "id_usuario": id_user,
+                    "tipo":"rotina",
+                    "id":item.id,
                 });
                 atualiza()
         } catch (err) {

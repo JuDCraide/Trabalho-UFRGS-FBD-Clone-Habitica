@@ -7,7 +7,7 @@ import styles from './styles';
 import { getId } from '../../utils/authentication';
 import api from '../../utils/api'
 
-export default function ItemHabito({ id, nome, positivo, atualiza, editar,item }) {
+export default function ItemHabito({ id, nome, positivo, atualiza, editar, item}) {
 
     async function realizarAcao() {
         let id_user = await getId()
@@ -15,7 +15,9 @@ export default function ItemHabito({ id, nome, positivo, atualiza, editar,item }
             const response = await api.post("/atividade",
                 {
                     "id_atividade": id,
-                    "id_usuario": id_user
+                    "id_usuario": id_user,
+                    "tipo":"habito",
+                    "id":item.id
                 });
             atualiza()
         } catch (err) {
