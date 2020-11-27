@@ -1,7 +1,7 @@
 const dbconnection = require('../connection')
 
 var connection = dbconnection.dbConnection();
-const {danoPendente} = require('../utils/atividadeRealizada')
+const { danoPendente } = require('../utils/atividadeRealizada')
 
 module.exports = {
 
@@ -34,12 +34,13 @@ module.exports = {
         const { id } = req.params;
         //console.log(id)
         let query = `SELECT * FROM usuario where id=${id};`;
-        connection.query(query, function (err, result, fields) {
+        connection.query(query, async function (err, result, fields) {
             if (err) return res.status(500).json(err)
             //console.log(result)
-            let dados = JSON.parse(JSON.stringify(result))[0]
-            dados.pendingDamage=danoPendente(dados);
-            //console.log(dados);
+            let dados = result[0]
+            console.log(dados);
+            dados.pendingDamage = await danoPendente(dados);
+            console.log(dados, "aaa")
             return res.status(200).json(dados)
         })
     },

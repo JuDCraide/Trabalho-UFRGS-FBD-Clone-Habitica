@@ -39,7 +39,7 @@ function getNivel(xp) {
 }
 
 module.exports = {
-    danoPendente(usuario) {
+    async danoPendente(usuario) {
 
         let somaDificuldades = 0;
         let query = `
@@ -52,46 +52,59 @@ module.exports = {
                     or habito.eh_positivo is NULL
                 )
                 and DAY(atividades_realizadas.data_hora) = DAY(CURRENT_DATE())
-                and id_usuario = ${usuario.id}
+                and atividade.id_usuario = ${usuario.id}
             GROUP BY atividades_realizadas.id_usuario;
             `;
-        connection.query(query, function (err, result, fields) {
-            if (err) return
-            somaDificuldades = JSON.parse(JSON.stringify(result))[0];
-        })
 
         let classe = {};
-        query = `SELECT * FROM usuario JOIN classe ON(classe.id = usuario.id_classe) WHERE usuario.id = ${usuario.id};`;
-        connection.query(query, function (err, result, fields) {
-            if (err) return
-            classe = JSON.parse(JSON.stringify(result))[0]
-            console.log("clasee ", classe)
-        })
-
         let objetos = [];
-        query = `
+
+        connection.query(query, function (err, result, fields) {
+            //console.log(err,result)
+            if (err) return
+            somaDificuldades = result[0].dano_pendente;
+
+            let query2 = `SELECT * FROM usuario JOIN classe ON(classe.id = usuario.id_classe) WHERE usuario.id = ${usuario.id};`;
+            connection.query(query2, function (err, result, fields) {
+                if (err) return
+                classe = JSON.parse(JSON.stringify(result))[0]
+                //console.log("clasee ", classe)
+
+                let query3 = `
                 SELECT * 
                 FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
-                WHERE usuario_possui_itens.id_usuario = ${usuario.id} AND usuario_possui_itens.equipado;
-            `;
-        connection.query(query, function (err, result, fields) {
-            if (err) return
-            objetos = JSON.parse(JSON.stringify(result));
+                WHERE usuario_possui_itens.id_usuario = ${usuario.id} AND usuario_possui_itens.equipado;`;
+                connection.query(query3, function (err, result, fields) {
+                    if (err) return
+                    objetos = JSON.parse(JSON.stringify(result));
+
+                    let ataqueObjetos = 0;
+                    objetos.forEach(objeto => {
+                        ataqueObjetos += objeto.ataque;
+                    });
+
+                    console.log("somaDificuldades ", somaDificuldades);
+                    console.log("ataqueObjetos ", ataqueObjetos);
+                    //console.log("classe  ", classe);
+                    //console.log("usuario", usuario);
+                    console.log("classe.ataque  ", classe.forca);
+                    console.log("getNivel(usuario.xp) ", getNivel(usuario.experiencia));
+
+                    var a = ataqueAoMonstroAindaNaoRealizado(somaDificuldades, ataqueObjetos, classe.forca, getNivel(usuario.experiencia));
+                    console.log(a)
+                    return a;
+                })
+
+            })
         })
 
-        let ataqueObjetos = 0;
-        objetos.forEach(objeto => {
-            ataqueObjetos += objeto.ataque;
-        });
 
-        console.log("somaDificuldades ", somaDificuldades);
-        console.log("ataqueObjetos ", ataqueObjetos);
-        console.log("classe  ", classe);
-        console.log("usuario", usuario);
-        console.log("classe.ataque  ", classe.ataque);
-        console.log("getNivel(usuario.xp) ", getNivel(usuario.experiencia));
 
-        return ataqueAoMonstroAindaNaoRealizado(somaDificuldades, ataqueObjetos, classe.ataque, getNivel(usuario.experiencia));
+
+
+
+
+
     },
 
     atividadeRealizadaHabito(id_atividade, id_usuario) {
