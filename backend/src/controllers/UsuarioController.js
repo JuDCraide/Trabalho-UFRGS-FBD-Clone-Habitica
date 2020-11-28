@@ -1,7 +1,7 @@
 const dbconnection = require('../connection')
 
 var connection = dbconnection.dbConnection();
-const { ataqueAoMonstroAindaNaoRealizado,getNivel,getDano, getXp } = require('../utils/atividadeRealizada')
+const { ataqueAoMonstroAindaNaoRealizado, getNivel, getDano, getXp } = require('../utils/atividadeRealizada')
 
 module.exports = {
 
@@ -70,9 +70,10 @@ module.exports = {
                     //console.log("clasee ", classe)
 
                     let query3 = `
-                SELECT * 
-                FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
-                WHERE usuario_possui_itens.id_usuario = ${usuario.id} AND usuario_possui_itens.equipado;`;
+                        SELECT * 
+                        FROM item JOIN usuario_possui_itens ON (item.id = usuario_possui_itens.id_item)
+                        WHERE usuario_possui_itens.id_usuario = ${usuario.id} AND usuario_possui_itens.equipado;
+                    `;
                     connection.query(query3, function (err, result, fields) {
                         if (err) return
                         objetos = JSON.parse(JSON.stringify(result));
@@ -100,7 +101,7 @@ module.exports = {
 
 
 
-           
+
         })
     },
 
